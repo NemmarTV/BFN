@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Bisaya Fire Nation Blog</title>
+
+<meta name="theme-color" content="#ff4500" />
+<link rel="icon" href="images/bfn.png" />
+
+<link rel="stylesheet" href="css/blog.css" />
+</head>
+
+<body>
+
+<!-- ✅ FIRE BACKGROUND -->
+<!-- <div id="fire-bg"></div> -->
+
+<header>
+  <div class="header-inner">
+
+    <div class="logo" onclick="window.location.href='index.html'">
+      <img src="images/bfn.png" alt="BFN Logo" />
+    </div>
+
+    <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="blog.html">Blog</a>
+        <a href="event.html">Events</a>
+    </nav>
+
+    <button id="themeToggle" title="Toggle Theme" aria-label="Toggle Theme">☀️</button>
+
+  </div>
+</header>
+
+<section class="card-wrapper">
+  <div class="image-card"><img src="images/idate/1.jpg" alt=""></div>
+  <div class="image-card"><img src="images/idate/2.jpg" alt=""></div>
+  <div class="image-card"><img src="images/idate/3.jpg" alt=""></div>
+  <div class="image-card"><img src="images/idate/4.jpg" alt=""></div>
+  <div class="image-card"><img src="images/idate/5.jpg" alt=""></div>
+  <div class="image-card"><img src="images/idate/6.jpg" alt=""></div>
+  <div class="image-card"><img src="images/idate/7.jpg" alt=""></div>
+  <div class="image-card"><img src="images/idate/8.jpg" alt=""></div>
+</section>
+
+<div class="image-modal" id="imageModal">
+  <span class="close-modal" id="closeModal">✖</span>
+  <img id="modalImage" src="">
+</div>
+
+<div class="container">
+    <main>
+        <article class="post">
+        <h2>Welcome to BFN</h2>
+        <small>
+          Posted by
+          <span class="poster admin"
+            onclick="openProfile(
+              'Nemmar',
+              'Admin',
+              'Founder & Lead Administrator of Bisaya Fire Nation.'
+            )">
+            🔥 Nemmar
+          </span>
+        </small>
+
+        <p>We play both iDate Revibe and iDate Revival.</p>
+      </article>
+    </main>
+</div>
+
+<script>
+/* ===============================
+   FIRE PARTICLES (Blog)
+================================ */
+const fireBg = document.getElementById("fire-bg");
+if (fireBg) {
+  setInterval(() => {
+    const flame = document.createElement("div");
+    flame.className = "flame";
+    flame.style.left = Math.random() * 100 + "vw";
+    flame.style.animationDuration = (2 + Math.random() * 2) + "s";
+    fireBg.appendChild(flame);
+    setTimeout(() => flame.remove(), 3500);
+  }, 200);
+}
+
+/* ===============================
+   THEME TOGGLE (SYNCED)
+================================ */
+const toggle = document.getElementById("themeToggle");
+const root = document.documentElement;
+
+const savedTheme = localStorage.getItem("theme");
+const startTheme = savedTheme ? savedTheme : "light";
+
+root.setAttribute("data-theme", startTheme);
+toggle.textContent = startTheme === "light" ? "☀️" : "🌙";
+
+toggle.addEventListener("click", () => {
+  const newTheme = root.getAttribute("data-theme") === "light" ? "dark" : "light";
+  root.setAttribute("data-theme", newTheme);
+  localStorage.setItem("theme", newTheme);
+  toggle.textContent = newTheme === "light" ? "☀️" : "🌙";
+});
+
+/* ===============================
+   IMAGE CLICK ZOOM
+================================ */
+const modal = document.getElementById("imageModal");
+const modalImg = document.getElementById("modalImage");
+const closeBtn = document.getElementById("closeModal");
+
+document.querySelectorAll(".image-card img").forEach(img => {
+  img.addEventListener("click", () => {
+    modal.style.display = "flex";
+    modalImg.src = img.src;
+  });
+});
+
+function closeModal(){
+  modal.style.display = "none";
+  modalImg.src = "";
+}
+
+closeBtn.onclick = closeModal;
+
+modal.onclick = (e) => {
+  if(e.target === modal){
+    closeModal();
+  }
+};
+</script>
+
+</body>
+</html>
