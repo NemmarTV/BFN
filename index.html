@@ -6,212 +6,8 @@
 <title>Bisaya Fire Nation Blog</title>
 <meta name="theme-color" content="#ff4500">
 
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{
-  background:#000;
-  color:#fff;
-  font-family:Arial, sans-serif;
-  overflow-x:hidden;
-  position:relative;
-}
-
-/* INTRO OVERLAY */
-#intro{
-  position:fixed;
-  inset:0;
-  background:#000;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:9999;
-  flex-direction:column;
-  opacity:1;
-  transition: opacity 1s ease-in-out;
-}
-#intro.hidden{
-  opacity:0;
-}
-#intro h1{
-  color:#ff4500;
-  font-size:2.5rem;
-  letter-spacing:3px;
-  text-align:center;
-  text-shadow:0 0 25px #ff0000;
-  white-space:pre; /* preserves spaces for typewriter effect */
-}
-
-/* FIRE PARTICLE BACKGROUND */
-#fire-bg{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:0;
-}
-.flame{
-  position:absolute;
-  bottom:-10px;
-  width:6px;
-  height:6px;
-  background:orange;
-  border-radius:50%;
-  animation:rise linear forwards;
-}
-@keyframes rise{
-  to{
-    transform:translateY(-110vh) scale(0);
-    opacity:0;
-  }
-}
-
-/* HEADER */
-header{
-  position:sticky;
-  top:0;
-  background:#000;
-  border-bottom:2px solid #ff4500;
-  box-shadow:0 0 15px #ff4500;
-  padding:12px 20px;
-  z-index:10;
-}
-.header-inner{
-  display:grid;
-  grid-template-columns:auto 1fr auto;
-  align-items:center;
-  gap:12px;
-}
-.logo{
-  display:flex;
-  align-items:center;
-  cursor:pointer;
-}
-.logo img{
-  height:42px;
-  filter:drop-shadow(0 0 15px #ff4500);
-  margin-right:10px;
-}
-.header-title{
-  color:#ff4500;
-  font-weight:bold;
-  font-size:1.2rem;
-  letter-spacing:2px;
-  white-space:nowrap;
-}
-
-/* NAVIGATION */
-.nav{
-  display:flex;
-  gap:16px;
-  justify-content:center;
-}
-.nav a{
-  color:#ffd700;
-  text-decoration:none;
-  padding:6px 12px;
-  border-radius:6px;
-}
-.nav a:hover{
-  background:#ff4500;
-  color:#000;
-}
-
-/* LAYOUT */
-.container{
-  max-width:1200px;
-  margin:auto;
-  padding:30px;
-  display:grid;
-  grid-template-columns:3fr 1fr;
-  gap:20px;
-  position:relative;
-  z-index:1;
-}
-
-/* POSTS */
-.post{
-  background:#0a0a0a;
-  border:2px solid #ff4500;
-  box-shadow:0 0 15px #ff4500;
-  padding:20px;
-  margin-bottom:20px;
-}
-.post h2{color:#ffd700}
-
-/* POSTER */
-.poster{
-  font-weight:bold;
-  cursor:pointer;
-  margin-left:6px;
-  text-shadow:0 0 10px currentColor;
-}
-.poster.admin{color:#ff4500}
-.poster.dev{color:#00ffff}
-.poster.mod{color:#ffd700}
-
-/* SIDEBAR */
-.sidebar{
-  background:#0a0a0a;
-  border:2px solid #ff4500;
-  padding:20px;
-}
-.sidebar a{
-  display:block;
-  color:#ff4500;
-  text-decoration:none;
-  margin-bottom:8px;
-  transition:0.2s;
-}
-.sidebar a:hover{
-  text-shadow:0 0 10px #ff4500;
-  color:#ffd700;
-}
-
-/* PROFILE MODAL */
-.modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.85);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:100;
-}
-.modal-box{
-  background:#0a0a0a;
-  border:2px solid #ff4500;
-  box-shadow:0 0 20px #ff4500;
-  padding:25px;
-  min-width:280px;
-  text-align:center;
-}
-.modal-box h3{
-  margin-bottom:10px;
-}
-.modal-box p{
-  opacity:.9;
-}
-.modal-box button{
-  margin-top:15px;
-  padding:6px 14px;
-  background:#ff4500;
-  border:none;
-  cursor:pointer;
-  font-weight:bold;
-}
-
-/* MOBILE */
-@media(max-width:768px){
-  .container{
-    grid-template-columns:1fr;
-  }
-  .nav{
-    gap:10px;
-  }
-  .header-title{
-    font-size:1rem;
-  }
-}
-</style>
+<!-- EXTERNAL CSS -->
+<link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
@@ -221,50 +17,50 @@ header{
   <h1 id="introText"></h1>
 </div>
 
-<!-- FIRE PARTICLE BACKGROUND -->
+<!-- FIRE BACKGROUND -->
 <div id="fire-bg"></div>
 
 <header>
   <div class="header-inner">
     <div class="logo" onclick="scrollTo(0,0)">
-      <img src="logo.gif" alt="BFN Logo">
-      <div class="header-title">Bisaya Fire Nation</div>
+      <img src="images/bfn.png" alt="BFN Logo">
+      <!-- <div class="header-title">Bisaya Fire Nation</div> -->
     </div>
+
     <nav class="nav">
       <a href="#">Discover</a>
       <a href="#">Blog</a>
       <a href="#">Events</a>
     </nav>
-    <div></div>
   </div>
 </header>
 
 <div class="container">
 
 <main>
-
   <article class="post">
     <h2>Welcome to BFN</h2>
     <small>
       Posted by
-      <span class="poster admin" onclick="openProfile('Nemmar','Admin','Founder & Lead Administrator of Bisaya Fire Nation.')">
+      <span class="poster admin"
+        onclick="openProfile('Nemmar','Admin','Founder & Lead Administrator of Bisaya Fire Nation.')">
         🔥 Nemmar
       </span>
     </small>
-    <p>Official blog of Bisaya Fire Nation.</p>
+    <p><br>Bisaya Fire Nation [F] is a fierce and united iDate clan built on loyalty, discipline, and strength. We rise together, fight with honor, and dominate with fire 🔥 — playing in both iDate Revibe and iDate Revival.</p>
   </article>
 
   <article class="post">
     <h2>Development Update</h2>
     <small>
       Posted by
-      <span class="poster dev" onclick="openProfile('Aesun','Developer','Core system developer and feature architect.')">
+      <span class="poster dev"
+        onclick="openProfile('Aesun','Developer','Core system developer and feature architect.')">
         🛠️ Aesun
       </span>
     </small>
-    <p>New systems coming soon.</p>
+    <p><br>New systems coming soon.</p>
   </article>
-
 </main>
 
 <aside class="sidebar">
@@ -288,49 +84,44 @@ header{
 </div>
 
 <script>
-// FIRE PARTICLES
+/* FIRE PARTICLES */
 const fireBg = document.getElementById("fire-bg");
-const isPC = window.innerWidth > 768;
 setInterval(()=>{
   const f = document.createElement("div");
   f.className = "flame";
-  f.style.left = Math.random() * 100 + "vw";
-  f.style.animationDuration = (isPC ? 2 : 3) + Math.random() * 2 + "s";
+  f.style.left = Math.random()*100 + "vw";
+  f.style.animationDuration = 2 + Math.random()*2 + "s";
   fireBg.appendChild(f);
   setTimeout(()=>f.remove(), 5000);
-}, isPC ? 80 : 140);
+}, 100);
 
-// PROFILE MODAL
-function openProfile(name, role, desc){
-  document.getElementById("profileName").textContent = name;
-  document.getElementById("profileRole").textContent = "Role: " + role;
-  document.getElementById("profileDesc").textContent = desc;
-  document.getElementById("profileModal").style.display = "flex";
+/* PROFILE MODAL */
+function openProfile(n,r,d){
+  profileName.textContent = n;
+  profileRole.textContent = "Role: " + r;
+  profileDesc.textContent = d;
+  profileModal.style.display = "flex";
 }
 function closeProfile(){
-  document.getElementById("profileModal").style.display = "none";
+  profileModal.style.display = "none";
 }
 
-// TYPEWRITER INTRO
+/* TYPEWRITER INTRO */
 const introText = document.getElementById("introText");
-const message = "Welcome to Bisaya Fire Nation";
-let index = 0;
+const msg = "Welcome to Bisaya Fire Nation";
+let i = 0;
 
-function typeWriter(){
-  if(index < message.length){
-    introText.textContent += message.charAt(index);
-    index++;
-    setTimeout(typeWriter, 100); // typing speed
-  } else {
-    // wait 2 seconds then fade out
+(function type(){
+  if(i < msg.length){
+    introText.textContent += msg[i++];
+    setTimeout(type, 90);
+  }else{
     setTimeout(()=>{
-      const intro = document.getElementById("intro");
       intro.classList.add("hidden");
       setTimeout(()=>intro.style.display="none", 1000);
     }, 2000);
   }
-}
-typeWriter();
+})();
 </script>
 
 </body>
