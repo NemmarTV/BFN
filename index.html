@@ -15,35 +15,97 @@
   <link rel="apple-touch-icon" href="images/bfn.png" />
 
   <link rel="stylesheet" href="css/style.css" />
-    <style>
-        .sidebar-header{
-          display:flex;
-          justify-content:space-between;
-          align-items:center;
-          cursor:pointer;
-          user-select:none;
-        }
+  <style>
+    /* ===============================
+       SIDEBAR TOGGLE
+    ============================== */
+    .sidebar-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      cursor:pointer;
+      user-select:none;
+      gap:10px;
+    }
+    .sidebar-links{
+      overflow:hidden;
+      max-height:500px;
+      transition:max-height .3s ease;
+    }
+    .sidebar-links.closed{ max-height:0; }
+    #sidebarArrow{ transition:transform .3s ease; }
+    #sidebarArrow.rotated{ transform: rotate(-90deg); }
 
-        .sidebar-links{
-          overflow:hidden;
-          max-height:500px;
-          transition: max-height 0.3s ease;
-        }
+    /* ===============================
+       FB-STYLE POST + READ MORE
+    ============================== */
+    .post{
+      position:relative;
+    }
+    /* compact title */
+    .post h2{
+      margin-bottom:8px;
+    }
 
-        /* CLOSED STATE */
-        .sidebar-links.closed{
-          max-height:0;
-        }
+    /* This wrapper is what we collapse/expand */
+    .post-body{
+      position:relative;
+      overflow:hidden;
+      transition:max-height .28s ease;
+      max-height: 170px; /* collapsed height */
+    }
 
-        #sidebarArrow{
-          transition: transform 0.3s ease;
-        }
+    /* fade effect at bottom when collapsed */
+    .post.collapsed .post-body::after{
+      content:"";
+      position:absolute;
+      left:0; right:0; bottom:0;
+      height:68px;
+      pointer-events:none;
+      background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,.65));
+    }
 
-        /* Arrow rotation */
-        #sidebarArrow.rotated{
-          transform: rotate(-90deg);
-        }
-    </style>
+    /* read more button */
+    .readmore-wrap{
+      margin-top:10px;
+      display:flex;
+      justify-content:flex-start;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .readmore-btn{
+      border:none;
+      cursor:pointer;
+      padding:10px 14px;
+      border-radius:12px;
+      font-weight:900;
+      letter-spacing:.04em;
+      background: rgba(255,255,255,.08);
+      color: inherit;
+      transition: transform .15s ease, filter .15s ease;
+    }
+    .readmore-btn:hover{ transform: translateY(-1px); filter: brightness(1.05); }
+    .readmore-btn:active{ transform: translateY(0); }
+
+    /* Make FB-style paragraphs tighter */
+    .fb p{
+      margin: 8px 0;
+      line-height: 1.35;
+    }
+    .fb .bullets{
+      margin:10px 0 0;
+      padding-left:0;
+      list-style:none;
+    }
+    .fb .bullets li{
+      margin:6px 0;
+    }
+    .fb .bullets li::before{
+      content:"• ";
+      opacity:.75;
+    }
+  </style>
 </head>
 
 <body>
@@ -69,8 +131,48 @@
 
     <main>
 
-      <!-- ================= POST 9 ================= -->
-      <article class="post">
+      <!-- ================= POST 10 (FB STYLE + READ MORE) ================= -->
+      <article class="post fb collapsed" data-collapsed-height="170">
+        <h2>⬇️ New Download Center Added!</h2>
+
+        <small class="post-meta">
+          📅 January 25, 2026 · Posted by
+          <span class="poster admin"
+            onclick="openProfile(
+              'Nemmar',
+              'Admin',
+              'Founder & Lead Administrator of Bisaya Fire Nation.'
+            )">
+            🔥 Nemmar
+          </span>
+        </small>
+
+        <div class="post-body">
+          <p>
+            New <b>Download Center</b> page is now live! 🔥
+          </p>
+
+          <p><b>Quick highlights:</b></p>
+          <ul class="bullets">
+            <li>✅ 2x2 download cards (PC & Mobile)</li>
+            <li>🎮 Game icons per download</li>
+            <li>🌊 Red Ocean theme (#1D4350 / #A43931)</li>
+            <li>🔒 Locked items show tooltip + popup (Coming Soon)</li>
+          </ul>
+
+          <p>
+            Check it now on the <b>Downloads</b> page ⬇️
+          </p>
+        </div>
+
+        <div class="readmore-wrap">
+          <button class="readmore-btn" type="button">Read more</button>
+        </div>
+      </article>
+
+
+      <!-- ================= POST 9 (FB STYLE + READ MORE) ================= -->
+      <article class="post fb collapsed" data-collapsed-height="170">
         <h2>🎶 New Background Music Tracks Added!</h2>
 
         <small class="post-meta">
@@ -85,36 +187,36 @@
           </span>
         </small>
 
-        <p>
-          Great news everyone! We’ve just added a <b>big batch of new background music</b> to the BFN website music player! 🔥🎧
-        </p>
+        <div class="post-body">
+          <p>
+            More music while browsing the BFN site! 🔥🎧
+          </p>
 
-        <p>
-          The music playlist has been expanded with <b>16 new tracks</b>, starting from:
-        </p>
+          <p>
+            We added new BGM tracks:
+            🎵 <b>bgm_0005.ogg</b> up to <b>bgm_0020.ogg</b>
+          </p>
 
-        <p>
-          🎵 <b>bgm_0005.ogg</b> up to <b>bgm_0020.ogg</b>
-        </p>
+          <p><b>Works with:</b></p>
+          <ul class="bullets">
+            <li>🔀 Shuffle / Next / Previous</li>
+            <li>💾 Remembers last song + volume</li>
+            <li>📱 Minimized mode (PC & Mobile)</li>
+          </ul>
 
-        <p>
-          This means you now have <b>more variety of songs</b> while browsing the site, reading posts, or checking events and staff pages.
-        </p>
+          <p>
+            Enjoy the vibe habang nag browse! 🔥
+          </p>
+        </div>
 
-        <p><b>✨ What this update includes:</b></p>
-
-        <p>🎶 25 new background music tracks added to the playlist</p>
-        <p>🔀 Works with Shuffle, Next, and Previous buttons</p>
-        <p>💾 Remembers your last played song and volume</p>
-        <p>📱 Still works in minimized mode on both PC and Mobile</p>
-
-        <p>
-          Enjoy listening while browsing the Bisaya Fire Nation website! More songs and features will be added in future updates. 🔥🎮
-        </p>
+        <div class="readmore-wrap">
+          <button class="readmore-btn" type="button">Read more</button>
+        </div>
       </article>
 
-      <!-- ================= POST 8 ================= -->
-      <article class="post">
+
+      <!-- ================= POST 8 (FB STYLE + READ MORE) ================= -->
+      <article class="post fb collapsed" data-collapsed-height="170">
         <h2>🚀 Server Booster Team Updated!</h2>
 
         <small class="post-meta">
@@ -129,38 +231,42 @@
           </span>
         </small>
 
-        <p>
-          We’ve officially added and updated our <b>Server Booster Team</b> to help strengthen the community and support the server! 🔥
-        </p>
+        <div class="post-body">
+          <p>
+            Updated na ang <b>Server Booster Team</b> — thank you for helping the community grow! 💜🔥
+          </p>
 
-        <p>
-          Boosters play a big role in keeping the server active, improving community engagement, and helping BFN grow stronger every day.
-        </p>
+          <p><b>What’s new:</b></p>
+          <ul class="bullets">
+            <li>🚀 Added Server Booster category on Staff page</li>
+            <li>🧩 Duplicate staff merged into one profile (multi-role)</li>
+            <li>💜 Booster glow effect added (cards + modal)</li>
+            <li>🔎 New filter: 🚀 Server Booster</li>
+          </ul>
 
-        <p><b>✨ What’s New:</b></p>
+          <p><b>Current Boosters:</b></p>
+          <ul class="bullets">
+            <li>[CMGR] JamerLF | Jam</li>
+            <li>Angie</li>
+            <li>Dream[F]</li>
+            <li>Kiet[F]</li>
+            <li>OneAboveAll[F] (Shadow CM)</li>
+            <li>Sebii[F]</li>
+          </ul>
 
-        <p>🚀 Added a dedicated <b>Server Booster</b> category in the Staff page</p>
-        <p>🧩 Duplicate staff entries are now <b>merged into one profile</b> with multiple roles</p>
-        <p>💜 Special <b>Booster Glow Effect</b> added (visible on Staff cards + modal)</p>
-        <p>🔎 New filter button: <b>🚀 Server Booster</b> to quickly view boosters</p>
+          <p>
+            Salamat sa support! More updates soon. 🔥🎮
+          </p>
+        </div>
 
-        <p><b>🚀 Current Server Boosters:</b></p>
-
-        <p>• [CMGR] JamerLF | Jam</p>
-        <p>• Angie</p>
-        <p>• Dream[F]</p>
-        <p>• Kiet[F]</p>
-        <p>• OneAboveAll[F] (Shadow CM)</p>
-        <p>• Sebii[F]</p>
-
-        <p>
-          Thank you for supporting Bisaya Fire Nation! More improvements and new systems are coming soon. 🔥🎮
-        </p>
+        <div class="readmore-wrap">
+          <button class="readmore-btn" type="button">Read more</button>
+        </div>
       </article>
 
 
-      <!-- ================= POST 7 ================= -->
-      <article class="post">
+      <!-- ================= POST 7 (FB STYLE + READ MORE) ================= -->
+      <article class="post fb collapsed" data-collapsed-height="170">
         <h2>🔥 Event Page Update Notice 🔥</h2>
 
         <small class="post-meta">
@@ -175,35 +281,33 @@
           </span>
         </small>
 
-        <p>
-          We’ve just updated the <b>Bisaya Fire Nation Tournament 2026 Event Page</b>! 🎉
-        </p>
+        <div class="post-body">
+          <p>
+            Updated na ang <b>BFN Tournament 2026 Event Page</b>! 🎉
+          </p>
 
-        <p>
-          This update improves the event page experience and makes it easier for everyone to view tournament details and announcements smoothly on both PC and mobile.
-        </p>
+          <p><b>What’s new:</b></p>
+          <ul class="bullets">
+            <li>📸 Clickable event images (tap to zoom)</li>
+            <li>🖼️ Improved event layout/design</li>
+            <li>🌗 Fixed dark/light mode behavior</li>
+            <li>📱 Better mobile compatibility</li>
+            <li>🛠️ Fixed minor bugs + structure</li>
+          </ul>
 
-        <p><b>✅ What’s new in <span style="font-family:monospace;">Event</span>:</b></p>
+          <p>
+            Visit <b>Events</b> page to see the update. 🔥🤍
+          </p>
+        </div>
 
-        <p>📸 Added <b>clickable event images</b> (tap to zoom / view full size)</p>
-        <p>🖼️ Improved event layout and overall design</p>
-        <p>🌗 Fixed dark/light mode behavior</p>
-        <p>📱 Better mobile compatibility</p>
-        <p>🛠️ Fixed page structure and minor bugs</p>
-        <p>✨ Cleaner and smoother browsing experience</p>
-
-        <p>
-          Make sure to visit the <b>Events</b> page to check out the latest updates!
-        </p>
-
-        <p>
-          Thank you and see you in the tournament! 🔥🤍<br>
-          — <b>Bisaya Fire Nation</b>
-        </p>
+        <div class="readmore-wrap">
+          <button class="readmore-btn" type="button">Read more</button>
+        </div>
       </article>
 
-      <!-- ================= POST 6 ================= -->
-      <article class="post">
+
+      <!-- ================= POST 6 (FB STYLE + READ MORE) ================= -->
+      <article class="post fb collapsed" data-collapsed-height="170">
         <h2>🎵 New Website Music Player System Added!</h2>
 
         <small class="post-meta">
@@ -218,36 +322,35 @@
           </span>
         </small>
 
-        <p>
-          We’re happy to announce that the <b>BFN Website now has a built-in Music Player System</b>! 🔊🔥
-        </p>
+        <div class="post-body">
+          <p>
+            May <b>built-in Music Player</b> na ang BFN Website! 🔊🔥
+          </p>
 
-        <p>
-          This new system allows everyone to enjoy background music while browsing the site, without interrupting navigation between pages.
-        </p>
+          <p><b>Features:</b></p>
+          <ul class="bullets">
+            <li>🎵 Playlist system</li>
+            <li>▶️/⏸️ Play-Pause</li>
+            <li>⏭️ Next / ⏮️ Previous</li>
+            <li>🔀 Shuffle</li>
+            <li>🔊 Volume slider</li>
+            <li>💾 Remembers last song + volume</li>
+            <li>➖ Minimize / Expand (PC & Mobile)</li>
+          </ul>
 
-        <p><b>✨ New Music Features:</b></p>
+          <p>
+            Enjoy listening habang nag browse! 🔥🎮
+          </p>
+        </div>
 
-        <p>🎵 Multiple background music tracks (playlist system)</p>
-        <p>▶️ Play / ⏸️ Pause button</p>
-        <p>⏭️ Next / ⏮️ Previous track buttons</p>
-        <p>🔀 Shuffle mode</p>
-        <p>🔊 Volume control slider</p>
-        <p>📌 Shows current song name</p>
-        <p>💾 Remembers last played song, volume, and mode</p>
-        <p>➖ Minimize / Expand music player (PC & Mobile)</p>
-
-        <p>
-          You can minimize the player to a small bar so it won’t block the screen, especially on mobile phones. The music will continue playing while you browse the site.
-        </p>
-
-        <p>
-          More features and systems will be added in future updates. Enjoy the new BFN experience! 🔥🎮
-        </p>
+        <div class="readmore-wrap">
+          <button class="readmore-btn" type="button">Read more</button>
+        </div>
       </article>
 
-      <!-- ================= POST 5 ================= -->
-      <article class="post">
+
+      <!-- ================= POST 5 (FB STYLE + READ MORE) ================= -->
+      <article class="post fb collapsed" data-collapsed-height="170">
         <h2>👑 Introducing the BFN Staff System</h2>
 
         <small class="post-meta">
@@ -262,28 +365,32 @@
           </span>
         </small>
 
-        <p>
-          We’re excited to introduce the brand new <b>BFN Staff System</b> on the website! 🔥
-        </p>
+        <div class="post-body">
+          <p>
+            Officially live na ang <b>BFN Staff System</b> sa website! 🔥
+          </p>
 
-        <p>This system allows members to:</p>
+          <p><b>You can now:</b></p>
+          <ul class="bullets">
+            <li>👤 View staff profiles</li>
+            <li>👑 See ranks with icons/colors</li>
+            <li>🔥 Identify CM / Council / Event team</li>
+            <li>🎯 Filter staff by role</li>
+          </ul>
 
-        <p>👤 View staff profiles</p>
-        <p>👑 See ranks with colors and icons</p>
-        <p>🔥 Easily identify Clan Masters, Council, and Event Managers</p>
-        <p>🎯 Filter staff by role</p>
+          <p>
+            Mas organized + mas dali na mag navigate. 🔥
+          </p>
+        </div>
 
-        <p>
-          The Staff System makes the website more organized, more professional, and easier to navigate for everyone.
-        </p>
-
-        <p>
-          More improvements and features will be added in future updates. Stay tuned! 🔥
-        </p>
+        <div class="readmore-wrap">
+          <button class="readmore-btn" type="button">Read more</button>
+        </div>
       </article>
 
-      <!-- ================= POST 4 ================= -->
-      <article class="post">
+
+      <!-- ================= POST 4 (FB STYLE + READ MORE) ================= -->
+      <article class="post fb collapsed" data-collapsed-height="170">
         <h2>🎉 BFN Website Version 2.0 Released!</h2>
 
         <small class="post-meta">
@@ -298,31 +405,33 @@
           </span>
         </small>
 
-        <p>
-          We’re proud to announce the official release of <b>BFN Website Version 2.0</b>! 🔥
-        </p>
+        <div class="post-body">
+          <p>
+            Released na ang <b>BFN Website v2.0</b>! 🔥
+          </p>
 
-        <p>
-          This update brings a <b>full system upgrade</b>, <b>new features</b>, and a <b>modernized interface</b> for all Bisaya Fire Nation members.
-        </p>
+          <p><b>Highlights:</b></p>
+          <ul class="bullets">
+            <li>👑 New Staff System + profiles</li>
+            <li>🎯 Filters + rank badges</li>
+            <li>🖼️ Cards + modals</li>
+            <li>🌙 Better Light/Dark mode</li>
+            <li>📱 Improved mobile support</li>
+          </ul>
 
-        <p><b>✨ Highlights:</b></p>
+          <p>
+            More upgrades coming soon. Thank you, BFN! ❤️🔥
+          </p>
+        </div>
 
-        <p>👑 New Staff System with ranks and profiles</p>
-        <p>🔥 Rank colors and badges</p>
-        <p>🎯 Staff filter system</p>
-        <p>🖼️ Profile cards and modals</p>
-        <p>🌙 Improved Light / Dark mode</p>
-        <p>📱 Better mobile support</p>
-
-        <p>
-          This is only the beginning. More systems, features, and upgrades are coming soon.
-          Thank you for being part of Bisaya Fire Nation! ❤️🔥
-        </p>
+        <div class="readmore-wrap">
+          <button class="readmore-btn" type="button">Read more</button>
+        </div>
       </article>
 
-      <!-- ================= POST 3 ================= -->
-      <article class="post">
+
+      <!-- ================= POST 3 (FB STYLE + READ MORE) ================= -->
+      <article class="post fb collapsed" data-collapsed-height="170">
         <h2>🧾 BFN Website Changelog</h2>
 
         <small class="post-meta">
@@ -337,24 +446,32 @@
           </span>
         </small>
 
-        <p>✅ Added new <b>BFN Staff System</b> with profiles</p>
-        <p>✅ Added <b>rank colors and icons</b> (CM 👑, Council 🔥, Event 🎯)</p>
-        <p>✅ Added <b>staff filter buttons</b> (All / CM / Council / Event)</p>
-        <p>✅ Added <b>profile modal with avatars</b></p>
-        <p>✅ Improved Light / Dark mode system</p>
-        <p>✅ Improved mobile and Android compatibility</p>
-        <p>✅ UI and layout polishing</p>
-        <p>✅ Performance optimizations</p>
-        <p>🛠️ Bug fixes and system cleanup</p>
+        <div class="post-body">
+          <p><b>Latest changes:</b></p>
+          <ul class="bullets">
+            <li>✅ Staff System + profiles</li>
+            <li>✅ Rank colors/icons (CM 👑, Council 🔥, Event 🎯)</li>
+            <li>✅ Staff filter buttons</li>
+            <li>✅ Profile modal + avatars</li>
+            <li>✅ Improved Light/Dark mode</li>
+            <li>✅ Better Android compatibility</li>
+            <li>🛠️ Bug fixes + cleanup</li>
+          </ul>
 
-        <p>
-          More updates and systems are already in development. Thank you for supporting Bisaya Fire Nation! 🔥
-        </p>
+          <p>
+            More updates in development. 🔥
+          </p>
+        </div>
+
+        <div class="readmore-wrap">
+          <button class="readmore-btn" type="button">Read more</button>
+        </div>
       </article>
 
-      <!-- ================= POST 2 ================= -->
-      <article class="post">
-        <h2>Development Update</h2>
+
+      <!-- ================= POST 2 (FB STYLE + READ MORE) ================= -->
+      <article class="post fb collapsed" data-collapsed-height="170">
+        <h2>🛠️ Development Update</h2>
 
         <small class="post-meta">
           📅 January 20, 2026 · Posted by
@@ -368,12 +485,21 @@
           </span>
         </small>
 
-        <p>New systems coming soon.</p>
+        <div class="post-body">
+          <p>
+            New systems coming soon. Stay tuned! 🔥
+          </p>
+        </div>
+
+        <div class="readmore-wrap">
+          <button class="readmore-btn" type="button">Read more</button>
+        </div>
       </article>
 
-      <!-- ================= POST 1 ================= -->
-      <article class="post">
-        <h2>Welcome to BFN</h2>
+
+      <!-- ================= POST 1 (FB STYLE + READ MORE) ================= -->
+      <article class="post fb collapsed" data-collapsed-height="170">
+        <h2>🔥 Welcome to BFN</h2>
 
         <small class="post-meta">
           📅 January 19, 2026 · Posted by
@@ -387,11 +513,22 @@
           </span>
         </small>
 
-        <p>
-          Bisaya Fire Nation [F] is a fierce and united iDate clan built on loyalty,
-          discipline, and strength. We rise together, fight with honor, and dominate
-          with fire 🔥 — playing in both iDate Revibe and iDate Revival.
-        </p>
+        <div class="post-body">
+          <p>
+            Bisaya Fire Nation [F] is a united iDate clan built on loyalty, discipline, and strength. 🔥
+          </p>
+          <ul class="bullets">
+            <li>We rise together and fight with honor</li>
+            <li>We play both <b>iDate ReVibe</b> and <b>iDate Revival</b></li>
+          </ul>
+          <p>
+            Welcome to the fire! 🔥🤍
+          </p>
+        </div>
+
+        <div class="readmore-wrap">
+          <button class="readmore-btn" type="button">Read more</button>
+        </div>
       </article>
 
     </main>
@@ -496,15 +633,64 @@
       toggle.textContent = newTheme === "light" ? "☀️" : "🌙";
     });
 
+    /* ===============================
+       SIDEBAR TOGGLE
+    ============================== */
+    function toggleSidebarLinks(){
+      const links = document.getElementById("sidebarLinks");
+      const arrow = document.getElementById("sidebarArrow");
+      links.classList.toggle("closed");
+      arrow.classList.toggle("rotated");
+    }
+
+    /* ===============================
+       READ MORE (EXPAND / COLLAPSE)
+       - All posts start collapsed
+       - Button toggles max-height
+    ============================== */
+    function setupReadMore(){
+      const posts = document.querySelectorAll(".post.fb");
+      posts.forEach(post => {
+        const btn = post.querySelector(".readmore-btn");
+        const body = post.querySelector(".post-body");
+        if(!btn || !body) return;
+
+        const collapsedHeight = parseInt(post.getAttribute("data-collapsed-height") || "170", 10);
+
+        // start collapsed
+        post.classList.add("collapsed");
+        body.style.maxHeight = collapsedHeight + "px";
+        btn.textContent = "Read more";
+
+        btn.addEventListener("click", () => {
+          const expanded = post.classList.contains("expanded");
+
+          if(expanded){
+            post.classList.remove("expanded");
+            post.classList.add("collapsed");
+            body.style.maxHeight = collapsedHeight + "px";
+            btn.textContent = "Read more";
+            post.scrollIntoView({ behavior:"smooth", block:"start" });
+          }else{
+            post.classList.add("expanded");
+            post.classList.remove("collapsed");
+            body.style.maxHeight = body.scrollHeight + "px";
+            btn.textContent = "Show less";
+          }
+        });
+
+        // Recalculate expanded height on resize
+        window.addEventListener("resize", () => {
+          if(post.classList.contains("expanded")){
+            body.style.maxHeight = body.scrollHeight + "px";
+          }
+        });
+      });
+    }
+    setupReadMore();
+
     /* =========================
-       🎵 BFN MUSIC SYSTEM (FULL + MINIMIZE)
-       - Volume slider
-       - Shuffle button
-       - Next/Prev
-       - Song name
-       - Remember last track + volume + shuffle + play state across pages
-       - Autoplay on first user interaction
-       - Minimize/Expand (PC + phone)
+       🎵 BFN MUSIC SYSTEM (YOUR ORIGINAL)
     ========================= */
     const bgm = document.getElementById("bgm");
 
@@ -534,7 +720,7 @@
       { src: "sounds/bgm_0007.ogg", name: "bgm_0007.ogg" },
       { src: "sounds/bgm_0008.ogg", name: "bgm_0008.ogg" },
       { src: "sounds/bgm_0009.ogg", name: "bgm_0009.ogg" },
-      { src: "sounds/bgm_0010.ogg", name: "bgm_00010.ogg" },
+      { src: "sounds/bgm_0010.ogg", name: "bgm_0010.ogg" },
       { src: "sounds/bgm_0011.ogg", name: "bgm_0011.ogg" },
       { src: "sounds/bgm_0012.ogg", name: "bgm_0012.ogg" },
       { src: "sounds/bgm_0013.ogg", name: "bgm_0013.ogg" },
@@ -548,21 +734,13 @@
     ];
 
     const LS = {
-      enabled: "bfn_music_enabled",   // on/off
-      index: "bfn_music_index",       // 0..n-1
-      volume: "bfn_music_volume",     // 0..1
-      shuffle: "bfn_music_shuffle",   // 0/1
-      playing: "bfn_music_play’ng",   // 0/1
-      minimized: "bfn_music_minimized"// 0/1
+      enabled: "bfn_music_enabled",
+      index: "bfn_music_index",
+      volume: "bfn_music_volume",
+      shuffle: "bfn_music_shuffle",
+      playing: "bfn_music_playing",
+      minimized: "bfn_music_minimized"
     };
-
-    // FIX: bad quote key from older versions
-    if (localStorage.getItem(LS.playing) === null && localStorage.getItem("bfn_music_playing") !== null){
-      localStorage.setItem(LS.playing, localStorage.getItem("bfn_music_playing"));
-      localStorage.removeItem("bfn_music_playing");
-    }
-    // FIX: ensure playing key is normal
-    LS.playing = "bfn_music_playing";
 
     let musicEnabled = localStorage.getItem(LS.enabled) ?? "on";
     let currentIndex = parseInt(localStorage.getItem(LS.index) ?? "0", 10);
@@ -572,7 +750,6 @@
     let wantPlaying = (localStorage.getItem(LS.playing) ?? "0") === "1";
     let startedOnce = false;
 
-    // Volume restore
     let savedVol = parseFloat(localStorage.getItem(LS.volume) ?? "0.5");
     if (Number.isNaN(savedVol) || savedVol < 0 || savedVol > 1) savedVol = 0.5;
     bgm.volume = savedVol;
@@ -581,7 +758,6 @@
     function updateMiniBar(){
       miniStatus.textContent = (bgm.paused ? "⏸️ " : "▶️ ") + playlist[currentIndex].name;
     }
-
     function setSongUI(){
       songName.textContent = "🎵 " + playlist[currentIndex].name;
       trackPill.textContent = `Track: ${currentIndex + 1}/${playlist.length}`;
@@ -589,7 +765,6 @@
       shuffleBtn.style.opacity = shuffleOn ? "1" : ".65";
       updateMiniBar();
     }
-
     function setStatusUI(){
       const isPaused = bgm.paused;
       songStatus.textContent = (musicEnabled === "off") ? "Off" : (isPaused ? "Paused" : "Playing");
@@ -597,7 +772,6 @@
       playBtn.title = isPaused ? "Play" : "Pause";
       updateMiniBar();
     }
-
     function loadTrack(index){
       currentIndex = index;
       localStorage.setItem(LS.index, String(currentIndex));
@@ -606,39 +780,32 @@
       setSongUI();
       setStatusUI();
     }
-
     function pickRandomIndex(exceptIndex){
       if (playlist.length <= 1) return 0;
       let idx = Math.floor(Math.random() * playlist.length);
       if (idx === exceptIndex) idx = (idx + 1) % playlist.length;
       return idx;
     }
-
     async function safePlay(){
       if (musicEnabled === "off") return;
       try{
         await bgm.play();
         startedOnce = true;
         localStorage.setItem(LS.playing, "1");
-      }catch(e){
-        // blocked until user gesture
-      }
+      }catch(e){}
       setStatusUI();
     }
-
     function pauseMusic(){
       bgm.pause();
       localStorage.setItem(LS.playing, "0");
       setStatusUI();
     }
-
     function nextTrack(){
       const nextIndex = shuffleOn ? pickRandomIndex(currentIndex)
                                  : (currentIndex + 1) % playlist.length;
       loadTrack(nextIndex);
       safePlay();
     }
-
     function prevTrack(){
       const prevIndex = shuffleOn ? pickRandomIndex(currentIndex)
                                  : (currentIndex - 1 + playlist.length) % playlist.length;
@@ -646,7 +813,6 @@
       safePlay();
     }
 
-    /* Minimize */
     function setMinimized(min){
       if (min){
         musicWidget.classList.add("minimized");
@@ -657,33 +823,20 @@
       }
     }
 
-    minBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      setMinimized(true);
-    });
+    minBtn.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); setMinimized(true); });
+    expandBtn.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); setMinimized(false); });
 
-    expandBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      setMinimized(false);
-    });
-
-    // Track ended -> next
     bgm.addEventListener("ended", nextTrack);
 
-    // Buttons
     playBtn.addEventListener("click", async (e) => {
       e.preventDefault();
       e.stopPropagation();
-
       if (musicEnabled === "off"){
         musicEnabled = "on";
         localStorage.setItem(LS.enabled, "on");
         await safePlay();
         return;
       }
-
       if (bgm.paused) await safePlay();
       else pauseMusic();
     });
@@ -706,26 +859,21 @@
       updateMiniBar();
     });
 
-    // Autoplay on first interaction (browser rule)
     function shouldTriggerBGM(target){
       return target.closest("a, button, .btn, .poster, .logo, .nav, .sidebar, .music-widget");
     }
 
     async function firstUserStart(e){
       if (!shouldTriggerBGM(e.target)) return;
-
       if (!startedOnce && wantPlaying && musicEnabled !== "off"){
         await safePlay();
       }
-
       document.removeEventListener("pointerdown", firstUserStart);
       document.removeEventListener("click", firstUserStart);
     }
-
     document.addEventListener("pointerdown", firstUserStart, { passive:true });
     document.addEventListener("click", firstUserStart);
 
-    // Save on unload
     window.addEventListener("beforeunload", () => {
       localStorage.setItem(LS.enabled, musicEnabled);
       localStorage.setItem(LS.index, String(currentIndex));
@@ -735,7 +883,6 @@
       localStorage.setItem(LS.minimized, musicWidget.classList.contains("minimized") ? "1" : "0");
     });
 
-    // Init
     loadTrack(currentIndex);
 
     const wasMin = (localStorage.getItem(LS.minimized) ?? "0") === "1";
@@ -748,17 +895,8 @@
       setStatusUI();
     }
 
-    /* Service Worker */
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("./sw.js").catch(() => {});
-    }
-
-    function toggleSidebarLinks(){
-      const links = document.getElementById("sidebarLinks");
-      const arrow = document.getElementById("sidebarArrow");
-
-      links.classList.toggle("closed");
-      arrow.classList.toggle("rotated");
     }
   </script>
 
