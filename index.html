@@ -15,7 +15,35 @@
   <link rel="apple-touch-icon" href="images/bfn.png" />
 
   <link rel="stylesheet" href="css/style.css" />
+    <style>
+        .sidebar-header{
+          display:flex;
+          justify-content:space-between;
+          align-items:center;
+          cursor:pointer;
+          user-select:none;
+        }
 
+        .sidebar-links{
+          overflow:hidden;
+          max-height:500px;
+          transition: max-height 0.3s ease;
+        }
+
+        /* CLOSED STATE */
+        .sidebar-links.closed{
+          max-height:0;
+        }
+
+        #sidebarArrow{
+          transition: transform 0.3s ease;
+        }
+
+        /* Arrow rotation */
+        #sidebarArrow.rotated{
+          transform: rotate(-90deg);
+        }
+    </style>
 </head>
 
 <body>
@@ -30,6 +58,7 @@
         <a href="index.html">Home</a>
         <a href="blog.html">Blog</a>
         <a href="event.html">Events</a>
+        <a href="download.html">Downloads</a>
       </nav>
 
       <button id="themeToggle" title="Toggle Theme" aria-label="Toggle Theme">☀️</button>
@@ -368,15 +397,19 @@
     </main>
 
     <aside class="sidebar">
-      <h3>Links</h3>
-      <a href="index.html">🏠 Home</a>
-      <a href="#">🔥 Announcements</a>
-      <a href="event.html">📢 Events</a>
-      <a href="https://discord.gg/snbNdkrcEr" target="_blank" rel="noopener">💬 Join Discord</a>
-      <a href="staff.html">
-        <img src="https://img.icons8.com/?size=100&id=MYH8OSXhd7MZ&format=png&color=000000" alt="Staff" class="nav-icon">
-        Staff
-      </a>
+      <div class="sidebar-header" onclick="toggleSidebarLinks()">
+        <h3>📂 Links</h3>
+        <span id="sidebarArrow">▼</span>
+      </div>
+
+      <div class="sidebar-links" id="sidebarLinks">
+        <a href="#">📢 Announcements</a>
+        <a href="https://discord.gg/snbNdkrcEr" target="_blank" rel="noopener">💬 Join Discord</a>
+        <a href="staff.html">
+          <img src="https://img.icons8.com/?size=100&id=MYH8OSXhd7MZ&format=png&color=000000" alt="Staff" class="nav-icon">
+          Staff
+        </a>
+      </div>
     </aside>
 
   </div>
@@ -718,6 +751,14 @@
     /* Service Worker */
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("./sw.js").catch(() => {});
+    }
+
+    function toggleSidebarLinks(){
+      const links = document.getElementById("sidebarLinks");
+      const arrow = document.getElementById("sidebarArrow");
+
+      links.classList.toggle("closed");
+      arrow.classList.toggle("rotated");
     }
   </script>
 

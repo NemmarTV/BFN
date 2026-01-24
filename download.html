@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Bisaya Fire Nation</title>
+
+  <meta name="theme-color" content="#ff4500" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="images/bfn.png" />
+  <link rel="apple-touch-icon" href="images/bfn.png" />
+  <link rel="stylesheet" href="css/style.css" />
+
+  <style>
+    /* ===============================
+       RED OCEAN PALETTE
+       #1D4350 (deep teal)
+       #A43931 (deep red)
+    ============================== */
+    :root{
+      --ro-1:#1D4350;
+      --ro-2:#A43931;
+
+      --ro-card: rgba(15, 26, 30, .78);
+      --ro-border: rgba(29, 67, 80, .55);
+      --ro-border-hover: rgba(164, 57, 49, .95);
+
+      --ro-glow: rgba(164, 57, 49, .28);
+      --ro-glow-soft: rgba(29, 67, 80, .18);
+
+      --ro-chip: rgba(0,0,0,.26);
+      --ro-chip-border: rgba(255,255,255,.10);
+
+      --ro-platform-bg: rgba(0,0,0,.35);
+      --ro-platform-border: rgba(29, 67, 80, .45);
+
+      --ro-tooltip-bg: rgba(10,10,12,.86);
+    }
+
+    /* ===============================
+       CENTERING LAYOUT
+    ============================== */
+    .container{
+      width:100%;
+      max-width:1200px;
+      margin:0 auto;
+      padding:0 16px;
+    }
+    .container main{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+    }
+
+    /* ===============================
+       PAGE TITLE
+    ============================== */
+    .page-title{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:12px;
+      margin: 22px 16px 6px;
+      text-align:center;
+      font-weight:900;
+      letter-spacing:.10em;
+      text-transform:uppercase;
+      line-height:1.1;
+      font-size:clamp(1.6rem, 3.5vw, 2.6rem);
+      color:transparent;
+      background:linear-gradient(90deg, #fff, rgba(255,255,255,.65));
+      -webkit-background-clip:text;
+      background-clip:text;
+    }
+    .page-title svg{
+      width:clamp(28px, 4vw, 44px);
+      height:clamp(28px, 4vw, 44px);
+      color:var(--ro-2);
+      filter:drop-shadow(0 0 12px rgba(164,57,49,.25));
+    }
+
+    /* ===============================
+       DOWNLOAD GRID (2x2)
+    ============================== */
+    .download-grid{
+      width:100%;
+      max-width:1000px;
+      margin:26px auto 40px;
+      display:grid;
+      grid-template-columns:repeat(2, 1fr);
+      gap:18px;
+    }
+    @media (max-width: 600px){
+      .download-grid{ gap:12px; }
+    }
+
+    /* ===============================
+       DOWNLOAD CARD (RED OCEAN)
+    ============================== */
+    .download-card{
+      position:relative;
+      background:
+        linear-gradient(135deg, rgba(29,67,80,.20), rgba(164,57,49,.12)),
+        var(--ro-card);
+      backdrop-filter:blur(10px);
+      -webkit-backdrop-filter:blur(10px);
+      border:1px solid var(--ro-border);
+      border-radius:16px;
+      padding:16px;
+      text-align:left;
+      overflow:hidden;
+      transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+      box-shadow:0 10px 24px rgba(0,0,0,.30);
+      transform:translateY(0);
+    }
+
+    /* top glow overlay */
+    .download-card::before{
+      content:"";
+      position:absolute;
+      inset:-1px;
+      background:
+        radial-gradient(900px 220px at 20% 0%, rgba(29,67,80,.22), transparent 60%),
+        radial-gradient(900px 220px at 80% 0%, rgba(164,57,49,.22), transparent 60%);
+      opacity:.95;
+      pointer-events:none;
+    }
+
+    .download-card:hover{
+      transform:translateY(-4px) scale(1.01);
+      border-color:var(--ro-border-hover);
+      box-shadow:0 18px 44px var(--ro-glow);
+    }
+
+    /* ===============================
+       FIX OVERLAP ON MOBILE
+    ============================== */
+    .card-top{
+      position:relative;
+      z-index:1;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:10px;
+      flex-wrap:nowrap;
+    }
+
+    .game-badge{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width:0;
+      flex:1;
+    }
+    .game-meta{ min-width:0; }
+
+    .game-name{
+      font-weight:900;
+      letter-spacing:.04em;
+      font-size:1.02rem;
+      margin:0;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .game-source{
+      margin:2px 0 0;
+      opacity:.78;
+      font-size:.78rem;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .game-icon{
+      width:44px;
+      height:44px;
+      border-radius:12px;
+      object-fit:cover;
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow:0 10px 18px rgba(0,0,0,.35);
+      background:rgba(0,0,0,.30);
+      flex:0 0 auto;
+      transition:transform .25s ease;
+    }
+    .download-card:hover .game-icon{ transform:scale(1.04); }
+
+    /* Platform icon bubble (Red Ocean) */
+    .platform-icon{
+      flex:0 0 auto;
+      width:44px;
+      height:44px;
+      border-radius:14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:22px;
+      background:var(--ro-platform-bg);
+      border:1px solid var(--ro-platform-border);
+      box-shadow:0 12px 18px rgba(0,0,0,.22);
+      transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+    }
+    .download-card:hover .platform-icon{
+      transform:rotate(-2deg) scale(1.06);
+      border-color:rgba(164,57,49,.9);
+      box-shadow:0 14px 22px rgba(164,57,49,.18);
+    }
+
+    @media (max-width: 480px){
+      .card-top{ align-items:flex-start; }
+
+      .platform-icon{
+        width:36px;
+        height:36px;
+        font-size:18px;
+        border-radius:10px;
+      }
+      .game-icon{
+        width:36px;
+        height:36px;
+        border-radius:10px;
+      }
+      .game-name{ font-size:.95rem; }
+      .game-source{ font-size:.7rem; }
+    }
+
+    /* ===============================
+       CARD BODY
+    ============================== */
+    .download-sub{
+      position:relative;
+      z-index:1;
+      margin:0 0 12px;
+      opacity:.86;
+      font-size:.85rem;
+      line-height:1.25;
+      min-height:2.3em;
+    }
+    .tag-row{
+      position:relative;
+      z-index:1;
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-bottom:12px;
+    }
+    .tag{
+      font-size:.72rem;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid var(--ro-chip-border);
+      background:var(--ro-chip);
+      opacity:.92;
+    }
+
+    /* ===============================
+       BUTTON (Red Ocean)
+    ============================== */
+    .download-btn{
+      position:relative;
+      z-index:1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      width:100%;
+      padding:10px 12px;
+      border-radius:12px;
+      text-decoration:none;
+      color:#fff;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      font-size:.75rem;
+
+      /* Red Ocean gradient */
+      background:linear-gradient(90deg, var(--ro-1), var(--ro-2));
+      box-shadow:0 12px 22px rgba(164,57,49,.20);
+      transition:transform .2s ease, filter .2s ease;
+    }
+    .download-btn:hover{
+      transform:scale(1.02);
+      filter:brightness(1.06);
+    }
+    .download-btn:active{ transform:scale(.99); }
+
+    /* ===============================
+       DISABLED BUTTON: 🔒 + TOOLTIP + CLICK FX (Red Ocean)
+    ============================== */
+    .download-btn.disabled{
+      cursor:not-allowed;
+      opacity:.75;
+      filter:saturate(.7);
+      background:linear-gradient(90deg, rgba(29,67,80,.55), rgba(164,57,49,.55));
+      box-shadow:none;
+      user-select:none;
+    }
+    .download-btn.disabled::after{
+      content:"Not available yet";
+      position:absolute;
+      left:50%;
+      top:-12px;
+      transform:translate(-50%, -100%);
+      background:var(--ro-tooltip-bg);
+      border:1px solid rgba(255,255,255,.12);
+      color:#fff;
+      padding:8px 10px;
+      border-radius:10px;
+      font-size:.78rem;
+      letter-spacing:.02em;
+      white-space:nowrap;
+      opacity:0;
+      pointer-events:none;
+      transition:.18s ease;
+      box-shadow:0 10px 25px rgba(0,0,0,.35);
+      z-index:10;
+    }
+    .download-btn.disabled::before{
+      content:"";
+      position:absolute;
+      left:50%;
+      top:-12px;
+      transform:translate(-50%, -4px);
+      width:10px;
+      height:10px;
+      background:var(--ro-tooltip-bg);
+      border-left:1px solid rgba(255,255,255,.12);
+      border-top:1px solid rgba(255,255,255,.12);
+      rotate:45deg;
+      opacity:0;
+      pointer-events:none;
+      transition:.18s ease;
+      z-index:9;
+    }
+    .download-btn.disabled:hover::after,
+    .download-btn.disabled:hover::before,
+    .download-btn.disabled:focus-visible::after,
+    .download-btn.disabled:focus-visible::before{
+      opacity:1;
+    }
+
+    .download-btn.disabled.clicked{
+      animation: shake .35s ease, glow .55s ease;
+    }
+    @keyframes shake{
+      0%{ transform: translateX(0) }
+      20%{ transform: translateX(-4px) }
+      40%{ transform: translateX(4px) }
+      60%{ transform: translateX(-3px) }
+      80%{ transform: translateX(3px) }
+      100%{ transform: translateX(0) }
+    }
+    @keyframes glow{
+      0%{ box-shadow: 0 0 0 rgba(164,57,49,0) }
+      35%{ box-shadow: 0 0 26px rgba(164,57,49,.35) }
+      100%{ box-shadow: 0 0 0 rgba(164,57,49,0) }
+    }
+
+    /* ===============================
+       POPUP (COMING SOON) - Red Ocean
+    ============================== */
+    .popup-overlay{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.55);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      z-index:9999;
+      padding:18px;
+    }
+    .popup-overlay.show{ display:flex; }
+    .popup-card{
+      width:min(420px, 100%);
+      border-radius:18px;
+      padding:18px 16px;
+      background:
+        linear-gradient(135deg, rgba(29,67,80,.18), rgba(164,57,49,.14)),
+        rgba(18,18,22,.92);
+      border:1px solid rgba(164,57,49,.35);
+      box-shadow:0 20px 60px rgba(0,0,0,.55);
+      backdrop-filter:blur(10px);
+      -webkit-backdrop-filter:blur(10px);
+      text-align:center;
+      animation: popIn .18s ease;
+    }
+    .popup-card h3{
+      margin:4px 0 6px;
+      font-size:1.25rem;
+      letter-spacing:.04em;
+    }
+    .popup-card p{
+      margin:0 0 12px;
+      opacity:.85;
+      font-size:.95rem;
+    }
+    .popup-btn{
+      width:100%;
+      padding:12px 14px;
+      border-radius:14px;
+      border:none;
+      cursor:pointer;
+      color:#fff;
+      font-weight:900;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      background:linear-gradient(90deg, var(--ro-1), var(--ro-2));
+      box-shadow:0 12px 25px rgba(164,57,49,.22);
+    }
+    @keyframes popIn{
+      from{ transform: translateY(8px); opacity:0; }
+      to{ transform: translateY(0); opacity:1; }
+    }
+
+    .download-card:focus-within{
+      outline:2px solid rgba(164,57,49,.55);
+      outline-offset:3px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ================= HEADER ================= -->
+  <header>
+    <div class="header-inner">
+      <div class="logo" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+        <img src="images/bfn.png" alt="BFN Logo" />
+      </div>
+
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="blog.html">Blog</a>
+        <a href="event.html">Events</a>
+        <a href="download.html">Downloads</a>
+      </nav>
+
+      <button id="themeToggle" title="Toggle Theme" aria-label="Toggle Theme">☀️</button>
+    </div>
+  </header>
+
+  <!-- ================= TITLE ================= -->
+  <h1 class="page-title">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 15V3"></path>
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+      <path d="m7 10 5 5 5-5"></path>
+    </svg>
+    Download Center
+  </h1>
+
+  <div class="container">
+    <main>
+
+      <div class="download-grid">
+
+        <!-- ================= CARD 1 ================= -->
+        <section class="download-card">
+          <div class="card-top">
+            <div class="game-badge">
+              <img class="game-icon" src="images/idate-revival.ico" alt="iDate Revival Icon">
+              <div class="game-meta">
+                <p class="game-name">iDate Revival</p>
+                <p class="game-source">Source: iDate Revival</p>
+              </div>
+            </div>
+            <div class="platform-icon" title="Windows">🖥️</div>
+          </div>
+
+          <p class="download-sub">Windows 7 / 8 / 10 / 11 (32-bit & 64-bit)</p>
+
+          <div class="tag-row">
+            <span class="tag">v1.0.0</span>
+            <span class="tag">757.6 MB</span>
+            <span class="tag">Dec 14, 2025</span>
+          </div>
+
+          <a class="download-btn" target="_blank"
+             href="https://download2391.mediafire.com/issu9uszuhzgTwCYgnKw7bnQSe9vU8V3etNDJTCMWEdAZxAqaDoRXTJwXIf-yUyoygzDcgrV-yNj5_GeUY11yEfAlBQqtyrYACokkmUkLuxqYGEEjrHveXt5rakeLGHdD6Ol4FsLI0qIYQINjkzZD9CzIwadtmoUpSn6cLjyDrjKog/x3vyro02cper8gg/iDateRevival_Setup.exe">
+            ⬇️ Download
+          </a>
+        </section>
+
+        <!-- ================= CARD 2 ================= -->
+        <section class="download-card">
+          <div class="card-top">
+            <div class="game-badge">
+              <img class="game-icon" src="images/idate-revibe.png" alt="iDate ReVibe Icon">
+              <div class="game-meta">
+                <p class="game-name">iDate ReVibe</p>
+                <p class="game-source">Source: MythGames</p>
+              </div>
+            </div>
+            <div class="platform-icon" title="Windows">🖥️</div>
+          </div>
+
+          <p class="download-sub">Official full package download (Windows client)</p>
+
+          <div class="tag-row">
+            <span class="tag">Official</span>
+            <span class="tag">Full Client</span>
+            <span class="tag">MythGames</span>
+          </div>
+
+          <a class="download-btn" target="_blank"
+             href="https://dl.mythgames.net/idrv/full">
+            ⬇️ Download
+          </a>
+        </section>
+
+        <!-- ================= CARD 3 (DISABLED) ================= -->
+        <section class="download-card">
+          <div class="card-top">
+            <div class="game-badge">
+              <img class="game-icon" src="images/bfn.png" alt="BFN Icon">
+              <div class="game-meta">
+                <p class="game-name">Mobile APK</p>
+                <p class="game-source">Source: Coming Soon</p>
+              </div>
+            </div>
+            <div class="platform-icon" title="Android">🤖</div>
+          </div>
+
+          <p class="download-sub">Android version (coming soon)</p>
+
+          <div class="tag-row">
+            <span class="tag">Android</span>
+            <span class="tag">APK</span>
+            <span class="tag">Soon</span>
+          </div>
+
+          <a class="download-btn disabled"
+             href="javascript:void(0)"
+             role="button"
+             aria-disabled="true"
+             title="Not available yet">
+            🔒 Coming Soon
+          </a>
+        </section>
+
+        <!-- ================= CARD 4 (DISABLED) ================= -->
+        <section class="download-card">
+          <div class="card-top">
+            <div class="game-badge">
+              <img class="game-icon" src="images/bfn.png" alt="BFN Icon">
+              <div class="game-meta">
+                <p class="game-name">BFN Pack</p>
+                <p class="game-source">Source: Coming Soon</p>
+              </div>
+            </div>
+            <div class="platform-icon" title="Files">📦</div>
+          </div>
+
+          <p class="download-sub">Optional resources / installers (coming soon)</p>
+
+          <div class="tag-row">
+            <span class="tag">Add-ons</span>
+            <span class="tag">Tools</span>
+            <span class="tag">Soon</span>
+          </div>
+
+          <a class="download-btn disabled"
+             href="javascript:void(0)"
+             role="button"
+             aria-disabled="true"
+             title="Not available yet">
+            🔒 Coming Soon
+          </a>
+        </section>
+
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ✅ COMING SOON POPUP -->
+  <div class="popup-overlay" id="soonPopup" aria-hidden="true">
+    <div class="popup-card" role="dialog" aria-modal="true" aria-labelledby="soonTitle">
+      <h3 id="soonTitle">🔒 Coming Soon</h3>
+      <p>Not available yet.</p>
+      <button class="popup-btn" id="closePopup">OK</button>
+    </div>
+  </div>
+
+  <!-- ================= SCRIPTS ================= -->
+  <script>
+    // THEME
+    const toggle = document.getElementById("themeToggle");
+    const root = document.documentElement;
+
+    const savedTheme = localStorage.getItem("theme");
+    const startTheme = savedTheme ? savedTheme : "light";
+
+    root.setAttribute("data-theme", startTheme);
+    toggle.textContent = startTheme === "light" ? "☀️" : "🌙";
+
+    toggle.addEventListener("click", () => {
+      const current = root.getAttribute("data-theme");
+      const newTheme = current === "light" ? "dark" : "light";
+      root.setAttribute("data-theme", newTheme);
+      localStorage.setItem("theme", newTheme);
+      toggle.textContent = newTheme === "light" ? "☀️" : "🌙";
+    });
+
+    // SERVICE WORKER
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("./sw.js").catch(() => {});
+    }
+
+    // POPUP + DISABLED BUTTON CLICK (SHAKE + GLOW)
+    const popup = document.getElementById("soonPopup");
+    const closePopup = document.getElementById("closePopup");
+
+    function openSoonPopup(){
+      popup.classList.add("show");
+      popup.setAttribute("aria-hidden", "false");
+    }
+    function closeSoonPopup(){
+      popup.classList.remove("show");
+      popup.setAttribute("aria-hidden", "true");
+    }
+
+    document.addEventListener("click", (e) => {
+      const btn = e.target.closest(".download-btn.disabled");
+      if(!btn) return;
+
+      e.preventDefault();
+
+      btn.classList.remove("clicked");
+      void btn.offsetWidth;
+      btn.classList.add("clicked");
+
+      openSoonPopup();
+    });
+
+    closePopup.addEventListener("click", closeSoonPopup);
+
+    popup.addEventListener("click", (e) => {
+      if(e.target === popup) closeSoonPopup();
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if(e.key === "Escape") closeSoonPopup();
+    });
+  </script>
+
+</body>
+</html>
