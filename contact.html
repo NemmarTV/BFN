@@ -3,31 +3,38 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>LiloanUnited — Contact</title>
-  <meta name="description" content="Contact LiloanUnited for tryouts, partnerships, and questions." />
-  <link rel="icon" href="images/lu.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css" />
   <script defer src="js/main.js"></script>
+  <title>PrimeTactics — Contact</title>
+  <meta name="description" content="Contact PrimeTactics for tryouts, partnerships, and questions." />
+  <link rel="icon" href="images/pt-logo.png" />
 </head>
-
 <body>
+  <!-- REBRAND ANNOUNCEMENT BANNER -->
+  <div class="rebrand-banner" id="rebrandBanner">
+    <span class="banner-icon">⭐</span>
+    <span class="banner-text">📢 <strong>LiloanUnited</strong> has officially rebranded to <strong>PrimeTactics</strong>! Same team. New identity. Elevated game.</span>
+    <span class="banner-badge">🔥 REBRAND</span>
+    <button class="banner-close" onclick="document.getElementById('rebrandBanner').classList.add('hidden')" aria-label="Close">✕</button>
+  </div>
+
   <header class="site-header">
     <nav class="nav" aria-label="Primary">
-      <a class="brand" href="index.html" aria-label="LiloanUnited Home">
-        <span class="logo">
-          <img src="images/lu.png" alt="LiloanUnited Logo" />
-        </span>
+      <a class="brand" href="index.html" aria-label="PrimeTactics Home">
+        <span class="logo"><img src="images/pt-logo.png" alt="PrimeTactics Logo" /></span>
         <span class="brand-text">
-          <span class="brand-name">LiloanUnited</span>
+          <span class="brand-name">PrimeTactics</span>
           <span class="brand-tag">Esports • Community • Competitive</span>
         </span>
       </a>
-
       <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
-
       <div class="nav-right">
+        <span class="version-badge">v20.5.1</span>
         <div class="nav-links" data-navlinks>
           <a href="index.html" data-nav="home">Home</a>
           <a href="about.html" data-nav="about">About</a>
@@ -36,49 +43,43 @@
           <a href="download.html" data-nav="downloads">Downloads</a>
           <a href="contact.html" data-nav="contact">Contact</a>
         </div>
-
         <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle theme">
           <span class="theme-icon" aria-hidden="true">☾</span>
           <span class="theme-text">Theme</span>
         </button>
       </div>
     </nav>
-
     <div class="marquee" role="status" aria-live="polite">
       <div class="marquee-track">
-        <span>🔥 Welcome to LiloanUnited! Stay tuned for updates, events, and announcements. 🔥</span>
+        <span>🔥 PrimeTactics — Formerly LiloanUnited. Rebranded. Evolved. Elite. • Tryouts Open 2026 • Discord &amp; Facebook 🔥</span>
+        <span>🔥 PrimeTactics — Formerly LiloanUnited. Rebranded. Evolved. Elite. • Tryouts Open 2026 • Discord &amp; Facebook 🔥</span>
+        <span>🔥 PrimeTactics — Formerly LiloanUnited. Rebranded. Evolved. Elite. • Tryouts Open 2026 • Discord &amp; Facebook 🔥</span>
       </div>
     </div>
   </header>
-
   <main class="container">
     <section class="page-head">
       <div>
         <h1>Contact</h1>
-        <p class="lead">Apply for tryouts, ask questions, or propose partnerships.</p>
+        <p class="lead">Apply for tryouts, ask questions, or propose partnerships with PrimeTactics.</p>
       </div>
     </section>
-
     <section class="section">
       <div class="grid contact-grid">
         <div class="card glow">
           <h2>Send a Message</h2>
-          <p class="muted">Fill out the form and it will send directly to your Discord channel.</p>
-
-          
+          <p class="muted">Fill out the form and it will send directly to our Discord channel.</p>
           <form class="form" id="contactForm">
             <div class="form-row">
               <label>
                 <span>Name</span>
                 <input type="text" name="name" placeholder="Your name" required />
               </label>
-
               <label>
                 <span>Email</span>
                 <input type="email" name="email" placeholder="you@example.com" required />
               </label>
             </div>
-
             <div class="form-row">
               <label>
                 <span>Topic</span>
@@ -90,52 +91,44 @@
                   <option>Support</option>
                 </select>
               </label>
-
               <label>
                 <span>IGN (Priority)</span>
                 <input type="text" name="ign" placeholder="In-game name" />
               </label>
             </div>
-
             <label>
               <span>Message</span>
               <textarea name="message" rows="6" placeholder="Type your message..." required></textarea>
             </label>
-
             <div class="form-actions">
-              <button class="btn btn-primary" type="submit" id="sendBtn">Send</button>
+              <button class="btn btn-primary" type="submit" id="sendBtn">Send Message</button>
               <a class="btn btn-ghost" href="about.html">Meet the Team</a>
             </div>
-
             <p class="muted" id="formStatus" style="margin-top:10px;"></p>
           </form>
         </div>
-
         <aside class="card hover-rise">
           <h2>Quick Info</h2>
-          <p class="muted">Replace placeholders with your real links and contacts.</p>
-
+          <p class="muted">Reach PrimeTactics through any of our official channels.</p>
           <div class="info-list">
             <div class="info-item">
               <div class="info-label">Discord</div>
-              <div class="info-value"><a href="https://discord.com/invite/YtfsaAHV">LiloanUnited Clan</a></div>
+              <div class="info-value"><a href="https://discord.com/invite/YtfsaAHV">PrimeTactics Clan</a></div>
             </div>
             <div class="info-item">
               <div class="info-label">Facebook</div>
-              <div class="info-value"><a href="https://facebook.com/LiloanUnitedOFFICIAL">LiloanUnited CFPH</a></div>
+              <div class="info-value"><a href="https://facebook.com/LiloanUnitedOFFICIAL">PrimeTactics CFPH</a></div>
             </div>
             <div class="info-item">
               <div class="info-label">YouTube</div>
-              <div class="info-value"><a href="https://www.youtube.com/@NemmarOfficial">@LiloanCFPH™</a></div>
+              <div class="info-value"><a href="https://www.youtube.com/@NemmarOfficial">@PrimeTacticsCFPH</a></div>
             </div>
             <div class="info-item">
               <div class="info-label">Email</div>
               <div class="info-value"><a href="#">nemmarcampos7@email.com</a></div>
             </div>
           </div>
-
           <div class="divider"></div>
-
           <h3>Tryout Template</h3>
           <ul class="clean-list">
             <li><span class="chip">IGN</span> + Role</li>
@@ -143,82 +136,53 @@
             <li><span class="chip">Schedule</span> availability</li>
             <li><span class="chip">Experience</span> (teams/tourneys)</li>
           </ul>
-
           <div class="divider"></div>
-
           <a class="btn btn-primary btn-sm" href="download.html">Download Tryout Form</a>
         </aside>
       </div>
     </section>
   </main>
-
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-left">
         <div class="footer-brand">
-          <img src="images/lu.png" alt="LiloanUnited Logo" class="footer-logo" />
+          <img src="images/pt-logo.png" alt="PrimeTactics Logo" class="footer-logo" />
           <div>
-            <div class="footer-title">LiloanUnited</div>
-            <div class="footer-sub">Modern esports community hub</div>
+            <div class="footer-title">PrimeTactics</div>
+            <div class="footer-sub">Elite esports community hub • v20.5.1</div>
           </div>
         </div>
-        <div class="footer-copy">© 2026 LiloanUnited. All rights reserved.</div>
+        <div class="footer-copy">© 2026 PrimeTactics (Formerly LiloanUnited CFPH). All rights reserved.</div>
       </div>
-
       <div class="footer-right">
         <div class="footer-links">
-          <a href="#" aria-label="Facebook (placeholder)">Facebook</a>
-          <a href="#" aria-label="YouTube (placeholder)">YouTube</a>
-          <a href="#" aria-label="Discord (placeholder)">Discord</a>
+          <a href="https://facebook.com/LiloanUnitedOFFICIAL">Facebook</a>
+          <a href="https://www.youtube.com/@NemmarOfficial">YouTube</a>
+          <a href="https://discord.com/invite/YtfsaAHV">Discord</a>
         </div>
         <div class="footer-mini">
-          <span class="dot"></span> Built with HTML • CSS • JS
+          <span class="dot"></span> PrimeTactics v20.5.1 • HTML • CSS • JS
         </div>
       </div>
     </div>
   </footer>
-
-  <!-- ✅ UPDATED DISCORD WEBHOOK SCRIPT (NO-CORS for GitHub Pages) -->
   <script>
-    // ✅ Paste your Discord Webhook URL here
     const DISCORD_WEBHOOK_URL = "https://discordapp.com/api/webhooks/1473273620787630234/RuEApTCwlnNKS6fvmha1LpWoX-rAQgDWD-jZ5XKhCnf2SxOXcemHQIy5SuUJeeIiBvWW";
-
     const form = document.getElementById("contactForm");
     const statusEl = document.getElementById("formStatus");
     const sendBtn = document.getElementById("sendBtn");
-
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
-
-      // Check if webhook is set
-      if (!DISCORD_WEBHOOK_URL || DISCORD_WEBHOOK_URL.includes("PASTE_YOUR_WEBHOOK_URL_HERE")) {
-        statusEl.textContent = "❌ Webhook not set. Paste your Discord webhook URL in the code.";
-        return;
-      }
-
       const data = Object.fromEntries(new FormData(form).entries());
-
-      const content =
-      `📩 **New Contact Form**
-      **Name:** ${data.name}
-      **Email:** ${data.email}
-      **Topic:** ${data.topic}
-      **IGN:** ${data.ign || "-"}
-      **Message:**
-      ${data.message}`;
-
+      const content = `📩 **New Contact — PrimeTactics**\n**Name:** ${data.name}\n**Email:** ${data.email}\n**Topic:** ${data.topic}\n**IGN:** ${data.ign || "-"}\n**Message:**\n${data.message}`;
       try {
         sendBtn.disabled = true;
         statusEl.textContent = "Sending...";
-
-        // ✅ no-cors fixes CORS issue on GitHub Pages
         await fetch(DISCORD_WEBHOOK_URL, {
-          method: "POST",
-          mode: "no-cors",
+          method: "POST", mode: "no-cors",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ content })
         });
-
         statusEl.textContent = "✅ Sent! Check Discord.";
         form.reset();
       } catch (err) {

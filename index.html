@@ -3,32 +3,38 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>LiloanUnited — Home</title>
-  <meta name="description" content="LiloanUnited esports hub — updates, events, announcements, and downloads." />
-  <link rel="icon" href="images/lu.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css" />
   <script defer src="js/main.js"></script>
+  <title>PrimeTactics — Home</title>
+  <meta name="description" content="PrimeTactics — formerly LiloanUnited. Elite esports hub." />
+  <link rel="icon" href="images/pt-logo.png" />
 </head>
-
 <body>
-  <!-- Header / Navbar (Same on ALL pages) -->
+  <!-- REBRAND ANNOUNCEMENT BANNER -->
+  <div class="rebrand-banner" id="rebrandBanner">
+    <span class="banner-icon">⭐</span>
+    <span class="banner-text">📢 <strong>LiloanUnited</strong> has officially rebranded to <strong>PrimeTactics</strong>! Same team. New identity. Elevated game.</span>
+    <span class="banner-badge">🔥 REBRAND</span>
+    <button class="banner-close" onclick="document.getElementById('rebrandBanner').classList.add('hidden')" aria-label="Close">✕</button>
+  </div>
+
   <header class="site-header">
     <nav class="nav" aria-label="Primary">
-      <a class="brand" href="index.html" aria-label="LiloanUnited Home">
-        <span class="logo">
-          <img src="images/lu.png" alt="LiloanUnited Logo" />
-        </span>
+      <a class="brand" href="index.html" aria-label="PrimeTactics Home">
+        <span class="logo"><img src="images/pt-logo.png" alt="PrimeTactics Logo" /></span>
         <span class="brand-text">
-          <span class="brand-name">LiloanUnited</span>
+          <span class="brand-name">PrimeTactics</span>
           <span class="brand-tag">Esports • Community • Competitive</span>
         </span>
       </a>
-
       <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
-
       <div class="nav-right">
+        <span class="version-badge">v20.5.1</span>
         <div class="nav-links" data-navlinks>
           <a href="index.html" data-nav="home">Home</a>
           <a href="about.html" data-nav="about">About</a>
@@ -37,157 +43,140 @@
           <a href="download.html" data-nav="downloads">Downloads</a>
           <a href="contact.html" data-nav="contact">Contact</a>
         </div>
-
         <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle theme">
           <span class="theme-icon" aria-hidden="true">☾</span>
           <span class="theme-text">Theme</span>
         </button>
       </div>
     </nav>
-
-    <!-- Marquee (Same on ALL pages) -->
     <div class="marquee" role="status" aria-live="polite">
       <div class="marquee-track">
-        <span>🔥 Welcome to LiloanUnited! Stay tuned for updates, events, and announcements. 🔥</span>
+        <span>🔥 PrimeTactics — Formerly LiloanUnited. Rebranded. Evolved. Elite. • Tryouts Open 2026 • Discord &amp; Facebook 🔥</span>
+        <span>🔥 PrimeTactics — Formerly LiloanUnited. Rebranded. Evolved. Elite. • Tryouts Open 2026 • Discord &amp; Facebook 🔥</span>
+        <span>🔥 PrimeTactics — Formerly LiloanUnited. Rebranded. Evolved. Elite. • Tryouts Open 2026 • Discord &amp; Facebook 🔥</span>
       </div>
     </div>
   </header>
-
-  <!-- Main -->
   <main class="container">
-    <!-- Hero -->
     <section class="hero">
       <div class="hero-bg-glow" aria-hidden="true"></div>
-
       <div class="hero-content">
-        <div class="badge">2026 Season • Competitive Ready</div>
-        <h1>
-          Unite. Compete. <span class="text-accent">Dominate.</span>
-        </h1>
+        <div class="badge">2026 Season • Elite Ready</div>
+        <h1>Unite. Compete. <span class="text-accent">Dominate.</span></h1>
         <p class="lead">
-          Welcome to <strong>LiloanUnited</strong> — your modern esports hub for match updates,
-          announcements, events, and downloads. Built for speed, style, and community.
+          Welcome to <strong>PrimeTactics</strong> — formerly LiloanUnited, now rebranded and stronger than ever.
+          Your elite esports hub for match updates, announcements, events, and downloads.
         </p>
-
         <div class="hero-actions">
           <a class="btn btn-primary" href="event.html">View Events</a>
+          <a class="btn btn-blue" href="blog.html">Rebrand Announcement</a>
           <a class="btn btn-ghost" href="about.html">Meet the Team</a>
         </div>
-
         <div class="hero-stats">
-          <div class="stat-card">
-            <div class="stat-num">24/7</div>
-            <div class="stat-label">Community Active</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-num">6+</div>
-            <div class="stat-label">Weekly Scrims</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-num">100%</div>
-            <div class="stat-label">Vanilla Stack</div>
-          </div>
+          <div class="stat-card"><div class="stat-num">24/7</div><div class="stat-label">Community Active</div></div>
+          <div class="stat-card"><div class="stat-num">6+</div><div class="stat-label">Weekly Scrims</div></div>
+          <div class="stat-card"><div class="stat-num">ELITE</div><div class="stat-label">Level Play</div></div>
         </div>
       </div>
-
       <div class="hero-card">
-        <div class="card glow">
+        <div class="card glow rebrand-post">
           <div class="card-header">
-            <h3>Featured Announcement</h3>
-            <span class="chip chip-live">LIVE</span>
+            <h3>🔥 Major Announcement</h3>
+            <span class="chip chip-new">NEW</span>
           </div>
-          <p>
-            Tryouts are open! Join LiloanUnited’s official roster pool and prove your skills.
-            Limited slots only — apply now.
-          </p>
+          <p><strong>LiloanUnited</strong> is now officially <strong>PrimeTactics</strong>! Same roster, same drive — sharper identity, bigger ambitions for 2026.</p>
           <div class="card-actions">
-            <a class="btn btn-primary btn-sm" href="contact.html">Apply / Contact</a>
-            <a class="btn btn-ghost btn-sm" href="blog.html">Read Updates</a>
+            <a class="btn btn-primary btn-sm" href="blog.html">Read Full Post</a>
+            <a class="btn btn-ghost btn-sm" href="contact.html">Join Us</a>
           </div>
         </div>
-
+        <div class="card glow">
+          <div class="card-header">
+            <h3>Tryouts</h3>
+            <span class="chip chip-live">LIVE</span>
+          </div>
+          <p>Tryouts are open! Join PrimeTactics' official roster pool and prove your skills. Limited slots only.</p>
+          <div class="card-actions">
+            <a class="btn btn-primary btn-sm" href="contact.html">Apply Now</a>
+            <a class="btn btn-ghost btn-sm" href="event.html">Events</a>
+          </div>
+        </div>
         <div class="mini-grid">
           <div class="card mini">
-            <div class="mini-top">
-              <span class="chip">Next Event</span>
-              <span class="mini-date">March 2026</span>
-            </div>
-            <div class="mini-title">LU Night Scrims</div>
+            <div class="mini-top"><span class="chip">Next Event</span><span class="mini-date">2026</span></div>
+            <div class="mini-title">PT Night Scrims</div>
             <div class="mini-sub">8:00 PM • Discord</div>
           </div>
-
+          <div class="card mini">
+            <div class="mini-top"><span class="chip">Status</span><span class="chip chip-live">ACTIVE</span></div>
+            <div class="mini-title">Roster Open</div>
+            <div class="mini-sub">Tryouts ongoing</div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Featured Cards -->
     <section class="section">
       <div class="section-head">
         <h2>Featured</h2>
-        <p>Quick access to the hottest updates across LiloanUnited.</p>
+        <p>Quick access to the hottest updates from PrimeTactics.</p>
       </div>
-
       <div class="grid cards-3">
         <article class="card hover-rise">
-          <div class="card-icon" aria-hidden="true">⚡</div>
+          <div class="card-icon">⚡</div>
           <h3>Latest Updates</h3>
-          <p>Stay updated with announcements, roster changes, and match highlights.</p>
+          <p>Stay updated with announcements, roster changes, and match highlights from PrimeTactics.</p>
           <a class="link" href="blog.html">Go to Blog →</a>
         </article>
-
         <article class="card hover-rise">
-          <div class="card-icon" aria-hidden="true">🏆</div>
+          <div class="card-icon">🏆</div>
           <h3>Upcoming Events</h3>
-          <p>Scrims, tournaments, community nights, and training sessions.</p>
+          <p>Scrims, tournaments, community nights, and training sessions for the team.</p>
           <a class="link" href="event.html">View Events →</a>
         </article>
-
         <article class="card hover-rise">
-          <div class="card-icon" aria-hidden="true">⬇️</div>
+          <div class="card-icon">⬇️</div>
           <h3>Download Center</h3>
-          <p>Get official packs, rules, schedules, and community resources.</p>
+          <p>Get official packs, rules, schedules, and community resources for free.</p>
           <a class="link" href="download.html">Open Downloads →</a>
         </article>
       </div>
     </section>
 
-    <!-- CTA -->
     <section class="cta">
       <div class="cta-inner">
         <div>
-          <h2>Ready to join the community?</h2>
-          <p>Connect with LU — reach out, ask questions, or start your tryout journey today.</p>
+          <h2>Ready to join <span class="text-accent">PrimeTactics</span>?</h2>
+          <p>Connect with us — reach out, ask questions, or start your tryout journey today.</p>
         </div>
         <div class="cta-actions">
           <a class="btn btn-primary" href="contact.html">Contact Us</a>
+          <a class="btn btn-blue" href="https://discord.com/invite/YtfsaAHV">Join Discord</a>
           <a class="btn btn-ghost" href="about.html">Learn More</a>
         </div>
       </div>
     </section>
   </main>
-
-  <!-- Footer (Same on ALL pages) -->
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-left">
         <div class="footer-brand">
-          <img src="images/lu.png" alt="LiloanUnited Logo" class="footer-logo" />
+          <img src="images/pt-logo.png" alt="PrimeTactics Logo" class="footer-logo" />
           <div>
-            <div class="footer-title">LiloanUnited</div>
-            <div class="footer-sub">Modern esports community hub</div>
+            <div class="footer-title">PrimeTactics</div>
+            <div class="footer-sub">Elite esports community hub • v20.5.1</div>
           </div>
         </div>
-        <div class="footer-copy">© 2026 LiloanUnited. All rights reserved.</div>
+        <div class="footer-copy">© 2026 PrimeTactics (Formerly LiloanUnited CFPH). All rights reserved.</div>
       </div>
-
       <div class="footer-right">
         <div class="footer-links">
-          <a href="#" aria-label="Facebook (placeholder)">Facebook</a>
-          <a href="#" aria-label="YouTube (placeholder)">YouTube</a>
-          <a href="#" aria-label="Discord (placeholder)">Discord</a>
+          <a href="https://facebook.com/LiloanUnitedOFFICIAL">Facebook</a>
+          <a href="https://www.youtube.com/@NemmarOfficial">YouTube</a>
+          <a href="https://discord.com/invite/YtfsaAHV">Discord</a>
         </div>
         <div class="footer-mini">
-          <span class="dot"></span> Built with HTML • CSS • JS
+          <span class="dot"></span> PrimeTactics v20.5.1 • HTML • CSS • JS
         </div>
       </div>
     </div>

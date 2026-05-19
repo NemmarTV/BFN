@@ -1,50 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>LiloanUnited — Downloads</title>
-  <meta name="description" content="LiloanUnited downloads — packs, rules, schedules, and resources.">
-
-  <link rel="icon" href="images/lu.png">
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
   <script defer src="js/main.js"></script>
-
+  <title>PrimeTactics — Downloads</title>
+  <meta name="description" content="PrimeTactics downloads — packs, rules, schedules, and resources.">
+  <link rel="icon" href="images/pt-logo.png">
   <style>
-    .fullscreen-img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
+    .fullscreen-img { width: 100%; height: auto; display: block; }
   </style>
 </head>
-
 <body>
+  <!-- REBRAND ANNOUNCEMENT BANNER -->
+  <div class="rebrand-banner" id="rebrandBanner">
+    <span class="banner-icon">⭐</span>
+    <span class="banner-text">📢 <strong>LiloanUnited</strong> has officially rebranded to <strong>PrimeTactics</strong>! Same team. New identity. Elevated game.</span>
+    <span class="banner-badge">🔥 REBRAND</span>
+    <button class="banner-close" onclick="document.getElementById('rebrandBanner').classList.add('hidden')" aria-label="Close">✕</button>
+  </div>
 
-  <!-- HEADER -->
   <header class="site-header">
     <nav class="nav" aria-label="Primary">
-
-      <a class="brand" href="index.html" aria-label="LiloanUnited Home">
-        <span class="logo">
-          <img src="images/lu.png" alt="LiloanUnited Logo">
-        </span>
-
+      <a class="brand" href="index.html" aria-label="PrimeTactics Home">
+        <span class="logo"><img src="images/pt-logo.png" alt="PrimeTactics Logo" /></span>
         <span class="brand-text">
-          <span class="brand-name">LiloanUnited</span>
+          <span class="brand-name">PrimeTactics</span>
           <span class="brand-tag">Esports • Community • Competitive</span>
         </span>
       </a>
-
       <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false">
-        <span></span>
-        <span></span>
-        <span></span>
+        <span></span><span></span><span></span>
       </button>
-
       <div class="nav-right">
-
+        <span class="version-badge">v20.5.1</span>
         <div class="nav-links" data-navlinks>
           <a href="index.html" data-nav="home">Home</a>
           <a href="about.html" data-nav="about">About</a>
@@ -53,244 +46,136 @@
           <a href="download.html" data-nav="downloads">Downloads</a>
           <a href="contact.html" data-nav="contact">Contact</a>
         </div>
-
         <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle theme">
-          <span class="theme-icon">☾</span>
+          <span class="theme-icon" aria-hidden="true">☾</span>
           <span class="theme-text">Theme</span>
         </button>
-
       </div>
     </nav>
-
     <div class="marquee" role="status" aria-live="polite">
       <div class="marquee-track">
-        <span>🔥 Welcome to LiloanUnited! Stay tuned for updates, events, and announcements. 🔥</span>
+        <span>🔥 PrimeTactics — Formerly LiloanUnited. Rebranded. Evolved. Elite. • Tryouts Open 2026 • Discord &amp; Facebook 🔥</span>
+        <span>🔥 PrimeTactics — Formerly LiloanUnited. Rebranded. Evolved. Elite. • Tryouts Open 2026 • Discord &amp; Facebook 🔥</span>
+        <span>🔥 PrimeTactics — Formerly LiloanUnited. Rebranded. Evolved. Elite. • Tryouts Open 2026 • Discord &amp; Facebook 🔥</span>
       </div>
     </div>
-
   </header>
-
-
-  <!-- MAIN -->
   <main class="container">
-
-    <!-- PAGE HEADER -->
     <section class="page-head">
       <div>
         <h1>Downloads</h1>
-        <p class="lead">Official packs, rules, schedules, and community resources.</p>
+        <p class="lead">Official packs, rules, schedules, and community resources from PrimeTactics.</p>
       </div>
     </section>
-
-
-    <!-- DOWNLOAD CARDS -->
     <section class="section">
       <div class="grid cards-3">
-
-        <!-- FX SOUND -->
         <article class="card dl hover-rise">
-
           <div class="dl-top">
-            <span class="chip">New</span>
+            <span class="chip chip-new">New</span>
             <span class="chip chip-live">Open</span>
           </div>
-
-          <h3>FX Sounds Premuim</h3>
-
+          <h3>FX Sounds Premium</h3>
           <img class="game-icon" src="images/Fx.png" alt="FX Sound Icon">
-
-          <p class="muted">
-            Enhance your CrossFire Philippines gameplay with FX Sounds Premium, delivering clearer footsteps, sharper gunshots, and balanced audio for better enemy detection and improved in-game awareness. Designed to give players a competitive edge with immersive and optimized sound performance.
-          </p>
-
+          <p class="muted">Enhance your CrossFire Philippines gameplay with FX Sounds Premium — clearer footsteps, sharper gunshots, and optimized audio for competitive edge.</p>
           <div class="dl-actions">
             <span class="chip">FILES</span>
             <span class="chip">~69.8 MB</span>
-
-            <a class="btn btn-primary btn-sm"
-              href="https://download851.mediafire.com/d18mwkbcl8rgxG6_gVRnxLp9AxbEY1x3I9cLRT6i4cL07FR137CxEOj9e4I9BoDkVWNhFRMVy3GPrOriw6En3U76H_jbU7_dncxuyPvxEra2K7BlxYj0nJXYyFoql41efDvxtxtoMsrU-p8RtHpsc597AS3xEW_0euB2z4KuSY8zyCw/92e23dmhglrbk7f/fxsound_setup.exe"
-              download>
-              Download
-            </a>
+            <a class="btn btn-primary btn-sm" href="https://download851.mediafire.com/d18mwkbcl8rgxG6_gVRnxLp9AxbEY1x3I9cLRT6i4cL07FR137CxEOj9e4I9BoDkVWNhFRMVy3GPrOriw6En3U76H_jbU7_dncxuyPvxEra2K7BlxYj0nJXYyFoql41efDvxtxtoMsrU-p8RtHpsc597AS3xEW_0euB2z4KuSY8zyCw/92e23dmhglrbk7f/fxsound_setup.exe" download>Download</a>
           </div>
-
         </article>
-
-        <!-- CF LU 2026 -->
         <article class="card dl hover-rise">
-
           <div class="dl-top">
-            <span class="chip">New</span>
+            <span class="chip chip-new">New</span>
             <span class="chip chip-live">Open</span>
           </div>
-
-          <h3>CF LU 2026</h3>
-
-          <img class="game-icon" src="images/cf.jpg" alt="iDate Revibe Icon">
-
-          <p class="muted">
-            Experience CF LU 2026, a customized CrossFire Philippines client designed for smoother performance, optimized gameplay, and enhanced stability. Built for players who want a faster, cleaner, and more competitive CrossFire experience in 2026.
-          </p>
-
+          <h3>CF PT 2026</h3>
+          <img class="game-icon" src="images/cf.jpg" alt="CF Icon">
+          <p class="muted">Experience CF PT 2026 — a customized CrossFire Philippines client for smoother performance, optimized gameplay, and enhanced stability.</p>
           <div class="dl-actions">
             <span class="chip">FILES</span>
             <span class="chip">~5.14 MB</span>
-
             <a class="btn btn-primary btn-sm" href="files/package/package.html">ENTER</a>
           </div>
-
         </article>
-
-
-        <!-- IDATE REVIBE -->
         <article class="card dl hover-rise">
-
           <div class="dl-top">
             <span class="chip">Games</span>
             <span class="chip chip-live">Open</span>
           </div>
-
           <h3>iDate Revibe Mythgames</h3>
-
           <img class="game-icon" src="images/idate-revibe.png" alt="iDate Revibe Icon">
-
-          <p class="muted">
-            Fill out your info, availability, and preferred role.
-          </p>
-
+          <p class="muted">Fill out your info, availability, and preferred role. Official iDate Revibe Mythgames client download.</p>
           <div class="dl-actions">
             <span class="chip">FILES</span>
             <span class="chip">~819 MB</span>
-
-            <a class="btn btn-primary btn-sm"
-              href="https://download1351.mediafire.com/g3dg4ax8xavgyiWyAQgoC3-12EO4MAbJeMZ4ejSy8c9BV-RaIQMJIouBwmHA9KP_-O6r08PdxxrkHdVAiVOWTqCPc95hzXyAVy0Lhno2qFd3grBtap_dlZf5XjHDAGRbEwwr2WhSv-E1ay9p9UQuYU81fpdZvtB9Ia_jzLEU-nQ/ikf5epq9pa5msb4/iDateReVibe_Install_12272025.exe"
-              download>
-              Download
-            </a>
+            <a class="btn btn-primary btn-sm" href="https://download1351.mediafire.com/g3dg4ax8xavgyiWyAQgoC3-12EO4MAbJeMZ4ejSy8c9BV-RaIQMJIouBwmHA9KP_-O6r08PdxxrkHdVAiVOWTqCPc95hzXyAVy0Lhno2qFd3grBtap_dlZf5XjHDAGRbEwwr2WhSv-E1ay9p9UQuYU81fpdZvtB9Ia_jzLEU-nQ/ikf5epq9pa5msb4/iDateReVibe_Install_12272025.exe" download>Download</a>
           </div>
-
         </article>
-
-
-        <!-- FULL SCREEN FILE -->
         <article class="card dl hover-rise">
-
           <div class="dl-top">
             <span class="chip">Files</span>
             <span class="chip chip-live">Release</span>
           </div>
-
           <h3>iDate Full Screen Files</h3>
-
           <img class="game-icon fullscreen-img" src="images/Zoom.png" alt="Full Screen Icon">
-
-          <p class="muted">
-            Full Screen, Fair play, conduct, match format.
-          </p>
-
+          <p class="muted">Full Screen files for iDate — fair play, conduct, match format configurations.</p>
           <div class="dl-actions">
             <span class="chip">~155 bytes</span>
             <a class="btn btn-primary btn-sm" href="files/post/post.html">ENTER</a>
           </div>
-
         </article>
-
-
-        <!-- IDATE REVIVAL -->
         <article class="card dl hover-rise">
-
           <div class="dl-top">
             <span class="chip">Games</span>
             <span class="chip chip-live">Open</span>
           </div>
-
           <h3>iDate Revival</h3>
-
           <img class="game-icon" src="images/idate-revival.ico" alt="iDate Revival Icon">
-
-          <p class="muted">
-            Fill out your info, availability, and preferred role.
-          </p>
-
+          <p class="muted">Fill out your info, availability, and preferred role. Official iDate Revival client.</p>
           <div class="dl-actions">
             <span class="chip">FILES</span>
-            <span class="chip">~757.6MB</span>
-
-            <a class="btn btn-primary btn-sm"
-              href="https://download2391.mediafire.com/issu9uszuhzgTwCYgnKw7bnQSe9vU8V3etNDJTCMWEdAZxAqaDoRXTJwXIf-yUyoygzDcgrV-yNj5_GeUY11yEfAlBQqtyrYACokkmUkLuxqYGEEjrHveXt5rakeLGHdD6Ol4FsLI0qIYQINjkzZD9CzIwadtmoUpSn6cLjyDrjKog/x3vyro02cper8gg/iDateRevival_Setup.exe"
-              download>
-              Download
-            </a>
+            <span class="chip">~757.6 MB</span>
+            <a class="btn btn-primary btn-sm" href="https://download2391.mediafire.com/issu9uszuhzgTwCYgnKw7bnQSe9vU8V3etNDJTCMWEdAZxAqaDoRXTJwXIf-yUyoygzDcgrV-yNj5_GeUY11yEfAlBQqtyrYACokkmUkLuxqYGEEjrHveXt5rakeLGHdD6Ol4FsLI0qIYQINjkzZD9CzIwadtmoUpSn6cLjyDrjKog/x3vyro02cper8gg/iDateRevival_Setup.exe" download>Download</a>
           </div>
-
         </article>
-
       </div>
     </section>
-
-
-    <!-- CTA -->
     <section class="cta">
-
       <div class="cta-inner">
-
         <div>
           <h2>Need a custom resource?</h2>
-          <p>Ask for posters, schedules, or training docs — we can prepare LU materials.</p>
+          <p>Ask for posters, schedules, or training docs — we can prepare PrimeTactics materials.</p>
         </div>
-
         <div class="cta-actions">
           <a class="btn btn-primary" href="contact.html">Request</a>
           <a class="btn btn-ghost" href="blog.html">See Updates</a>
         </div>
-
       </div>
-
     </section>
-
   </main>
-
-
-  <!-- FOOTER -->
   <footer class="site-footer">
-
     <div class="container footer-inner">
-
       <div class="footer-left">
-
         <div class="footer-brand">
-          <img src="images/lu.png" alt="LiloanUnited Logo" class="footer-logo">
-
+          <img src="images/pt-logo.png" alt="PrimeTactics Logo" class="footer-logo" />
           <div>
-            <div class="footer-title">LiloanUnited</div>
-            <div class="footer-sub">Modern esports community hub</div>
+            <div class="footer-title">PrimeTactics</div>
+            <div class="footer-sub">Elite esports community hub • v20.5.1</div>
           </div>
         </div>
-
-        <div class="footer-copy">
-          © 2026 LiloanUnited. All rights reserved
-          <a href="files/package/package.html">.</a>
-        </div>
-
+        <div class="footer-copy">© 2026 PrimeTactics (Formerly LiloanUnited CFPH). All rights reserved.</div>
       </div>
-
       <div class="footer-right">
-
         <div class="footer-links">
-          <a href="">Facebook</a>
-          <a href="">YouTube</a>
-          <a href="">Discord</a>
+          <a href="https://facebook.com/LiloanUnitedOFFICIAL">Facebook</a>
+          <a href="https://www.youtube.com/@NemmarOfficial">YouTube</a>
+          <a href="https://discord.com/invite/YtfsaAHV">Discord</a>
         </div>
-
         <div class="footer-mini">
-          <span class="dot"></span> Built with HTML • CSS • JS
+          <span class="dot"></span> PrimeTactics v20.5.1 • HTML • CSS • JS
         </div>
-
       </div>
-
     </div>
-
   </footer>
-
 </body>
 </html>

@@ -1,10 +1,15 @@
-// Download Modal + Password System
-// Password: cfphlu2026
-// File path: from data-file on .card-inner
+/* ================================================
+   PrimeTactics — Package Download Modal v20.5.1
+   Password-protected download system
+   - Progress simulation
+   - Password validation
+   - File download trigger
+================================================ */
 
 (() => {
   const PASSWORD = "cfphlu2026";
 
+  // DOM elements
   const btnDownload = document.getElementById("btnDownload");
   const modalBackdrop = document.getElementById("modalBackdrop");
   const btnClose = document.getElementById("btnClose");
@@ -24,6 +29,7 @@
   let progress = 0;
   let timer = null;
 
+  // ===== MODAL CONTROL =====
   function openModal() {
     modalBackdrop.style.display = "flex";
     modalBackdrop.setAttribute("aria-hidden", "false");
@@ -55,6 +61,7 @@
     }
   }
 
+  // ===== PROGRESS SIMULATION =====
   function simulateProgress() {
     stopProgress();
     timer = setInterval(() => {
@@ -64,28 +71,35 @@
       pctText.textContent = String(progress);
       barFill.style.width = progress + "%";
 
-      if (progress < 30) statusText.textContent = "Preparing…";
-      else if (progress < 70) statusText.textContent = "Loading files…";
-      else if (progress < 100) statusText.textContent = "Finalizing…";
+      if (progress < 30) statusText.textContent = "Verifying authorization…";
+      else if (progress < 60) statusText.textContent = "Loading package files…";
+      else if (progress < 90) statusText.textContent = "Finalizing download…";
+      else if (progress < 100) statusText.textContent = "Almost ready…";
 
       if (progress >= 100) {
         stopProgress();
-        statusText.textContent = "Ready to download";
+        statusText.textContent = "✓ Ready to proceed";
         btnProceed.disabled = false;
       }
     }, 20);
   }
 
+  // ===== PASSWORD FLOW =====
   function proceedToPassword() {
     passwordWrap.style.display = "block";
     pwInput.focus();
   }
 
   function startDownload(filePath) {
-    // Create a hidden <a> to trigger browser download
+    if (!filePath) {
+      statusText.textContent = "❌ Error: File path missing.";
+      return;
+    }
+
+    // Create hidden <a> to trigger download
     const a = document.createElement("a");
     a.href = filePath;
-    a.download = ""; // lets browser decide filename
+    a.download = ""; // Let browser decide filename
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -94,27 +108,31 @@
   }
 
   function getFilePath() {
-    // from data-file="files/package/CF-PH.rar"
     const file = cardInner?.dataset?.file || "";
     return file.trim();
   }
 
-  // Events
+  // ===== EVENT LISTENERS =====
+
+  // Download button
   btnDownload?.addEventListener("click", () => {
     resetUI();
     openModal();
     simulateProgress();
   });
 
+  // Close modal
   btnClose?.addEventListener("click", closeModal);
 
-  // close on backdrop click (optional)
+  // Close on backdrop click
   modalBackdrop?.addEventListener("click", (e) => {
     if (e.target === modalBackdrop) closeModal();
   });
 
+  // Proceed to password
   btnProceed?.addEventListener("click", proceedToPassword);
 
+  // Confirm password
   btnConfirm?.addEventListener("click", () => {
     const entered = pwInput.value.trim();
 
@@ -126,41 +144,31 @@
     }
 
     pwError.style.display = "none";
-
     const filePath = getFilePath();
-    if (!filePath) {
-      statusText.textContent = "Error: File path missing.";
-      return;
-    }
-
     startDownload(filePath);
   });
 
-  // Press Enter to confirm password
+  // Enter key in password field
   pwInput?.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") btnConfirm.click();
+    if (e.key === "Enter") {
+      e.preventDefault();
+      btnConfirm.click();
+    }
   });
+
+  // ===== SHOW/HIDE PASSWORD =====
+  const togglePassword = document.getElementById("togglePassword");
+  togglePassword?.addEventListener("click", function () {
+    if (pwInput.type === "password") {
+      pwInput.type = "text";
+      this.textContent = "🙈";
+    } else {
+      pwInput.type = "password";
+      this.textContent = "👁";
+    }
+  });
+
+  // ===== UNLOCK MAIN CONTENT AFTER SERVER LOCK =====
+  // (handled in f12.js, but this sets up modal after unlock)
+
 })();
-
-
-
-// Show password
-// Show password
-// Show password
-// Show password
-// Show password
-// Show password
-// Show password
-
-    const pwInput = document.getElementById("pwInput");
-    const togglePassword = document.getElementById("togglePassword");
-
-    togglePassword.addEventListener("click", function () {
-      if (pwInput.type === "password") {
-        pwInput.type = "text";
-        this.textContent = "🙈"; // change icon when visible
-      } else {
-        pwInput.type = "password";
-        this.textContent = "👁";
-      }
-    });
