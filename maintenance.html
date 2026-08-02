@@ -1,384 +1,495 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Maintenance — LiloanUnited</title>
-
-  <!-- Must load maintenance.js here too -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maintenance — Prime Blog</title>
+  <meta name="description" content="Prime Blog is under maintenance. New features coming soon." />
+  <link rel="icon" href="images/pt-logo.png" />
   <script defer src="js/maintenance.js"></script>
-
   <style>
-    :root{
-      --bg:#0b0b0f;
-      --card:#11121a;
-      --border:rgba(255,255,255,.10);
-      --muted:rgba(255,255,255,.75);
-      --red:#ff2a2a;
-      --red2:#ff4b4b;
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&family=Inter:wght@400;500;600;700&family=Rajdhani:wght@600;700&display=swap');
+    :root {
+      --bg: #0B1020;
+      --bg2: #111827;
+      --card: rgba(255,255,255,0.05);
+      --border: rgba(255,255,255,0.1);
+      --text: #F8FAFC;
+      --muted: #94A3B8;
+      --crimson: #FF2D55;
+      --cyan: #00E5FF;
+      --blue: #5B8CFF;
+      --gold: #F0B429;
+      --font-head: 'Orbitron', system-ui, sans-serif;
+      --font: 'Inter', system-ui, sans-serif;
+      --font-btn: 'Rajdhani', system-ui, sans-serif;
     }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      font-family: var(--font);
+      color: var(--text);
       background:
-        radial-gradient(900px 450px at 50% -20%, rgba(255,42,42,.25), transparent 60%),
-        radial-gradient(900px 450px at 90% 10%, rgba(255,42,42,.12), transparent 55%),
-        var(--bg);
-      color:#fff;
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:22px;
-      overflow:hidden;
+        radial-gradient(ellipse 80% 50% at 20% -10%, rgba(255,45,85,0.2), transparent 50%),
+        radial-gradient(ellipse 70% 40% at 85% 10%, rgba(91,140,255,0.14), transparent 50%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+      line-height: 1.6;
+    }
+    .wrap {
+      width: min(720px, 100%);
+      display: grid;
+      gap: 16px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 40px rgba(255,45,85,0.12);
+      position: relative;
+      overflow: hidden;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,45,85,0.06), transparent 50%, rgba(0,229,255,0.05));
+      pointer-events: none;
+    }
+    .top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+      position: relative;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,45,85,0.35);
+      background: rgba(255,45,85,0.12);
+      font-family: var(--font-head);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--crimson);
+      box-shadow: 0 0 12px var(--crimson);
+      animation: pulse 1.4s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.9); }
+    }
+    .brand-mini {
+      font-family: var(--font-head);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      background: linear-gradient(90deg, var(--crimson), #fff 50%, var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    h1 {
+      font-family: var(--font-head);
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+      position: relative;
+    }
+    .lead {
+      color: var(--muted);
+      font-size: 0.95rem;
+      max-width: 52ch;
+      position: relative;
+    }
+    .soon-box {
+      margin-top: 18px;
+      padding: 16px 18px;
+      border-radius: 14px;
+      border: 1px solid rgba(240,180,41,0.3);
+      background: rgba(240,180,41,0.08);
+      position: relative;
+    }
+    .soon-box strong {
+      display: block;
+      font-family: var(--font-head);
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .soon-box p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.65;
+    }
+    .soon-list {
+      margin: 10px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.7;
+    }
+    .soon-list li strong { color: var(--text); font-family: inherit; font-size: inherit; letter-spacing: 0; text-transform: none; display: inline; }
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+      position: relative;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-family: var(--font-btn);
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #FF2D55, #E11D48);
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(255,45,85,0.35);
+    }
+    .btn-primary:hover { transform: translateY(-2px); }
+    .btn-ghost {
+      background: rgba(255,255,255,0.05);
+      border-color: var(--border);
+      color: var(--text);
+    }
+    .btn-ghost:hover { border-color: rgba(255,45,85,0.35); }
+    .btn:disabled, .btn[disabled] {
+      opacity: 0.45;
+      cursor: not-allowed;
+      transform: none !important;
     }
 
-    /* subtle moving scan lines */
-    body::before{
-      content:"";
-      position:fixed;
-      inset:0;
-      background: repeating-linear-gradient(
-        to bottom,
-        rgba(255,255,255,.04) 0px,
-        rgba(255,255,255,.04) 1px,
-        transparent 3px,
-        transparent 10px
-      );
-      opacity:.12;
-      pointer-events:none;
-      animation: drift 8s linear infinite;
+    /* Countdown */
+    .countdown { display: none; margin-top: 18px; position: relative; }
+    .countdown-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      margin-bottom: 10px;
+      font-family: var(--font-head);
     }
-    @keyframes drift{
-      0%{ transform: translateY(0); }
-      100%{ transform: translateY(20px); }
+    .countdown-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
     }
-
-    .wrap{
-      width:min(760px, 100%);
-      display:grid;
-      gap:14px;
+    .unit {
+      min-width: 64px;
+      padding: 12px 10px;
+      text-align: center;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(0,0,0,0.3);
     }
-
-    .card{
-      background:linear-gradient(180deg, rgba(255,255,255,.04), transparent 70%), var(--card);
-      border:1px solid var(--border);
-      border-radius:18px;
-      padding:20px;
-      box-shadow:
-        0 0 0 1px rgba(255,42,42,.06),
-        0 18px 60px rgba(0,0,0,.55),
-        0 0 40px rgba(255,42,42,.18);
+    .unit-num {
+      font-family: var(--font-head);
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--cyan);
     }
-
-    .top{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      flex-wrap:wrap;
+    .unit-lab {
+      font-size: 10px;
+      text-transform: uppercase;
+      color: var(--muted);
+      letter-spacing: 0.8px;
+      margin-top: 2px;
     }
 
-    .badge{
-      display:inline-flex;
-      gap:10px;
-      align-items:center;
-      padding:8px 10px;
-      border-radius:999px;
-      border:1px solid rgba(255,42,42,.35);
-      background: rgba(255,42,42,.10);
-      font-weight:800;
-      letter-spacing:.3px;
+    /* Admin */
+    .card h2 {
+      font-family: var(--font-head);
+      font-size: 1rem;
+      margin-bottom: 8px;
+      position: relative;
     }
-    .dot{
-      width:10px;height:10px;border-radius:50%;
-      background:var(--red);
-      box-shadow:0 0 14px rgba(255,42,42,.8);
-      animation:pulse 1.2s ease-in-out infinite;
+    .field {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 12px 0;
+      position: relative;
     }
-    @keyframes pulse{
-      0%,100%{transform:scale(1); opacity:1}
-      50%{transform:scale(1.35); opacity:.65}
+    input[type="password"], input[type="text"] {
+      flex: 1;
+      min-width: 180px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(0,0,0,0.3);
+      color: var(--text);
+      font: inherit;
+      outline: none;
     }
-
-    h1{
-      margin:12px 0 6px;
-      font-size:28px;
-      line-height:1.15;
+    input:focus {
+      border-color: rgba(255,45,85,0.45);
+      box-shadow: 0 0 0 3px rgba(255,45,85,0.15);
     }
-    p{
-      margin:0;
-      color:var(--muted);
-      line-height:1.55;
+    .status {
+      font-size: 13px;
+      color: var(--muted);
+      min-height: 1.3em;
+      position: relative;
     }
-
-    .grid{
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap:14px;
+    .status.ok { color: #22C55E; }
+    .status.err { color: var(--crimson); }
+    .hint {
+      margin-top: 10px;
+      font-size: 12px;
+      color: var(--muted);
+      position: relative;
     }
-    @media (max-width: 840px){
-      .grid{ grid-template-columns:1fr; }
-    }
-
-    .actions{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top:14px;
-    }
-    .btn{
-      appearance:none;
-      border:0;
-      cursor:pointer;
-      padding:12px 14px;
-      border-radius:12px;
-      font-weight:900;
-      color:#fff;
-      text-decoration:none;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      transition: transform .12s ease, opacity .12s ease;
-      user-select:none;
-    }
-    .btn:active{ transform: translateY(1px); }
-    .primary{
-      background:linear-gradient(180deg, var(--red2), var(--red));
-      box-shadow: 0 10px 26px rgba(255,42,42,.25);
-    }
-    .ghost{
-      background:transparent;
-      border:1px solid rgba(255,255,255,.18);
-      color:#fff;
-    }
-    .btn:hover{ opacity:.92; }
-
-    .panel-title{
-      font-weight:900;
-      margin-bottom:8px;
-      letter-spacing:.2px;
+    .hint code {
+      background: rgba(255,255,255,0.06);
+      padding: 2px 6px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      font-size: 11px;
     }
 
-    .countdown{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top:10px;
+    /* Quick links */
+    .ql-note {
+      margin-bottom: 14px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px dashed rgba(91,140,255,0.35);
+      background: rgba(91,140,255,0.08);
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.55;
+      position: relative;
     }
-    .tile{
-      flex:1;
-      min-width:110px;
-      border:1px solid rgba(255,255,255,.12);
-      border-radius:14px;
-      background: rgba(0,0,0,.22);
-      padding:12px;
-      text-align:center;
+    .ql-note strong { color: var(--cyan); }
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      position: relative;
     }
-    .num{
-      font-size:26px;
-      font-weight:950;
+    .links a {
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      transition: 0.2s ease;
     }
-    .label{
-      margin-top:4px;
-      font-size:12px;
-      color:var(--muted);
-      letter-spacing:.3px;
-      text-transform:uppercase;
+    .links a:hover {
+      color: var(--text);
+      border-color: rgba(255,45,85,0.3);
+      background: rgba(255,45,85,0.08);
     }
-
-    input{
-      width:100%;
-      padding:12px 14px;
-      border-radius:12px;
-      border:1px solid rgba(255,255,255,.18);
-      background:#0f1017;
-      color:#fff;
-      outline:none;
-      margin-top:10px;
-      font-size:14px;
+    .footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      padding: 8px;
     }
-    .note{
-      margin-top:10px;
-      font-size:13px;
-      color:var(--muted);
-    }
-    .status{ margin-top:10px; font-size:13px; }
-    .ok{ color:#7dffb0; }
-    .err{ color:#ff8a8a; }
-
-    .footer-note{
-      text-align:center;
-      color:rgba(255,255,255,.55);
-      font-size:12px;
-    }
+    .footer span { color: var(--text); font-weight: 600; }
   </style>
 </head>
 <body>
-
   <div class="wrap">
 
+    <!-- Main status -->
     <div class="card">
       <div class="top">
-        <div class="badge"><span class="dot"></span> MAINTENANCE MODE</div>
-        <div class="footer-note">LiloanUnited • System Updates</div>
+        <div class="badge"><span class="dot"></span> Maintenance Mode</div>
+        <div class="brand-mini">PRIME BLOG</div>
       </div>
-
       <h1>We’ll be right back.</h1>
-      <p>
-        The site is currently being updated. Some pages are temporarily unavailable.
-        You can still access allowed pages (like About), or contact us on Discord.
+      <p class="lead">
+        The site is currently being updated. Some pages are temporarily unavailable
+        while we roll out the next platform improvements.
       </p>
 
+      <div class="soon-box">
+        <strong>✨ New features coming soon</strong>
+        <p>
+          We’re building the next wave of Prime Blog tools. Here’s what’s on the way:
+        </p>
+        <ul class="soon-list">
+          <li><strong>PROH1T Suite</strong> — Discord tools, rules, admins &amp; owner controls</li>
+          <li><strong>Reels</strong> — short-form highlights &amp; community clips</li>
+          <li><strong>Contact system</strong> — upgraded support flow</li>
+          <li><strong>UI polish</strong> — mobile nav, downloads, and performance</li>
+        </ul>
+      </div>
+
       <div class="actions">
-        <!-- change your invite -->
-        <a class="btn primary" href="https://discord.gg/YOURINVITE" target="_blank" rel="noopener">Open Discord</a>
-        <a class="btn ghost" href="about.html">Meet the Team</a>
+        <a class="btn btn-primary" href="contact.html">Message Owner (DM)</a>
+        <a class="btn btn-ghost" href="about.html">About / Owner</a>
       </div>
 
-      <div id="countdownWrap" style="display:none; margin-top:16px;">
-        <div class="panel-title">Estimated time remaining</div>
-        <div class="countdown">
-          <div class="tile"><div class="num" id="d">--</div><div class="label">Days</div></div>
-          <div class="tile"><div class="num" id="h">--</div><div class="label">Hours</div></div>
-          <div class="tile"><div class="num" id="m">--</div><div class="label">Minutes</div></div>
-          <div class="tile"><div class="num" id="s">--</div><div class="label">Seconds</div></div>
+      <div class="countdown" id="countdownWrap">
+        <div class="countdown-label">Estimated time remaining</div>
+        <div class="countdown-row">
+          <div class="unit"><div class="unit-num" id="d">--</div><div class="unit-lab">Days</div></div>
+          <div class="unit"><div class="unit-num" id="h">--</div><div class="unit-lab">Hours</div></div>
+          <div class="unit"><div class="unit-num" id="m">--</div><div class="unit-lab">Minutes</div></div>
+          <div class="unit"><div class="unit-num" id="s">--</div><div class="unit-lab">Seconds</div></div>
         </div>
       </div>
     </div>
 
-    <div class="grid">
-
-      <div class="card">
-        <div class="panel-title">Admin Bypass</div>
-        <p>Enter the bypass password to access the full site for <b id="hrs">--</b> hours.</p>
-
-        <input id="pw" type="password" placeholder="Admin password" autocomplete="off" />
-
-        <div class="actions">
-          <button class="btn primary" id="btnEnter" type="button">Enter</button>
-          <button class="btn ghost" id="btnLogout" type="button">Logout</button>
-        </div>
-
-        <div class="status" id="status"></div>
-        <div class="note" id="until"></div>
-        <div class="note">
-          Tip: You can also bypass with a secret link:
-          <br><code>?admin=YOUR_PASSWORD</code>
-        </div>
+    <!-- Admin bypass -->
+    <div class="card">
+      <h2>Admin Bypass</h2>
+      <p class="lead" style="font-size:0.88rem;">
+        Enter the bypass password to access the full site for <span id="hrs">--</span> hours.
+      </p>
+      <div class="field">
+        <input id="pw" type="password" placeholder="Bypass password" autocomplete="current-password" />
+        <button class="btn btn-primary" type="button" id="btnEnter">Enter</button>
+        <button class="btn btn-ghost" type="button" id="btnLogout">Logout</button>
       </div>
-
-      <div class="card">
-        <div class="panel-title">Quick Links</div>
-        <p class="note" style="margin-top:0;">
-          Allowed pages can still be opened while maintenance is ON.
-        </p>
-
-        <div class="actions">
-          <a class="btn ghost" href="index.html">Home</a>
-          <a class="btn ghost" href="about.html">About</a>
-          <a class="btn ghost" href="event.html">Events</a>
-          <a class="btn ghost" href="download.html">Downloads</a>
-          <a class="btn ghost" href="contact.html">Contact</a>
-        </div>
-
-        <p class="note">
-          If a page is not allowlisted, you’ll be redirected back here.
-        </p>
-      </div>
-
+      <div class="status" id="status"></div>
+      <div class="status" id="until" style="margin-top:6px;"></div>
+      <p class="hint">
+        Tip: you can also bypass with a secret link:
+        <code>?admin=YOUR_PASSWORD</code>
+      </p>
     </div>
 
-    <div class="footer-note">© 2026 LiloanUnited</div>
+    <!-- Quick links — temporary old features -->
+    <div class="card">
+      <h2>Quick Links</h2>
+      <div class="ql-note">
+        <strong>Temporary access:</strong> these links let you view the <em>current / older</em> site features
+        while maintenance is active (if the page is allowlisted). New PROH1T tools, Reels, and upgraded
+        systems are still <strong>coming soon</strong> — this is not the final experience.
+      </div>
+      <div class="links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="blog.html">News</a>
+        <a href="event.html">Events</a>
+        <a href="download.html">Downloads</a>
+        <a href="contact.html">Support (DM)</a>
+      </div>
+      <p class="hint" style="margin-top:14px;">
+        If a page is not allowlisted in <code>maintenance</code>, you’ll be redirected back here.
+      </p>
+    </div>
+
+    <div class="footer">
+      © 2026 <span>Prime Blog</span> · Owner <span>[Code.Dev] Nems</span>
+    </div>
   </div>
 
   <script>
-    const statusEl = document.getElementById("status");
-    const untilEl = document.getElementById("until");
-    const pwEl = document.getElementById("pw");
-    const hrsEl = document.getElementById("hrs");
-    const btnEnter = document.getElementById("btnEnter");
-    const btnLogout = document.getElementById("btnLogout");
+    document.addEventListener("DOMContentLoaded", () => {
+      const pwEl = document.getElementById("pw");
+      const btnEnter = document.getElementById("btnEnter");
+      const btnLogout = document.getElementById("btnLogout");
+      const statusEl = document.getElementById("status");
+      const untilEl = document.getElementById("until");
+      const hrsEl = document.getElementById("hrs");
+      const countdownWrap = document.getElementById("countdownWrap");
+      const dEl = document.getElementById("d");
+      const hEl = document.getElementById("h");
+      const mEl = document.getElementById("m");
+      const sEl = document.getElementById("s");
 
-    const countdownWrap = document.getElementById("countdownWrap");
-    const dEl = document.getElementById("d");
-    const hEl = document.getElementById("h");
-    const mEl = document.getElementById("m");
-    const sEl = document.getElementById("s");
+      const setStatus = (msg, cls = "") => {
+        statusEl.className = "status " + cls;
+        statusEl.textContent = msg;
+      };
 
-    const setStatus = (msg, cls="") => {
-      statusEl.className = "status " + cls;
-      statusEl.textContent = msg;
-    };
+      hrsEl.textContent = String(window.LU_MAINT?.expiresHours ?? "--");
 
-    // show bypass duration hours
-    hrsEl.textContent = (window.LU_MAINT?.expiresHours ?? "--");
+      const refreshUntil = () => {
+        const until = window.LU_MAINT?.bypassUntil?.();
+        if (!until) {
+          untilEl.textContent = "Bypass: not active";
+          return;
+        }
+        untilEl.textContent = "Bypass active until: " + new Date(until).toLocaleString();
+      };
 
-    const refreshUntil = () => {
-      const until = window.LU_MAINT?.bypassUntil?.();
-      if (!until) {
-        untilEl.textContent = "Bypass: not active";
-        return;
-      }
-      const dt = new Date(until);
-      untilEl.textContent = "Bypass active until: " + dt.toLocaleString();
-    };
+      btnEnter.addEventListener("click", () => {
+        const ok = window.LU_MAINT?.bypass?.(pwEl.value.trim());
+        if (ok) {
+          setStatus("✅ Bypass enabled. Redirecting to Home…", "ok");
+          refreshUntil();
+          setTimeout(() => { location.href = "index.html"; }, 500);
+        } else {
+          setStatus("❌ Wrong password.", "err");
+        }
+      });
 
-    btnEnter.addEventListener("click", () => {
-      const ok = window.LU_MAINT?.bypass?.(pwEl.value.trim());
-      if (ok) {
-        setStatus("✅ Bypass enabled. Redirecting to Home...", "ok");
+      btnLogout.addEventListener("click", () => {
+        window.LU_MAINT?.logout?.();
+        setStatus("Bypass removed.");
+        pwEl.value = "";
         refreshUntil();
-        setTimeout(() => location.href = "index.html", 500);
-      } else {
-        setStatus("❌ Wrong password.", "err");
-      }
-    });
+      });
 
-    btnLogout.addEventListener("click", () => {
-      window.LU_MAINT?.logout?.();
-      setStatus("Bypass removed.");
-      pwEl.value = "";
+      pwEl.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") btnEnter.click();
+      });
+
       refreshUntil();
-    });
 
-    pwEl.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") btnEnter.click();
-    });
-
-    refreshUntil();
-
-    // Countdown (optional)
-    const endISO = window.LU_MAINT?.endISO;
-    if (endISO) {
-      const end = new Date(endISO).getTime();
-      if (!isNaN(end)) {
-        countdownWrap.style.display = "block";
-        const tick = () => {
-          const now = Date.now();
-          let diff = Math.max(0, end - now);
-
-          const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-          diff -= days * (1000 * 60 * 60 * 24);
-          const hours = Math.floor(diff / (1000 * 60 * 60));
-          diff -= hours * (1000 * 60 * 60);
-          const mins = Math.floor(diff / (1000 * 60));
-          diff -= mins * (1000 * 60);
-          const secs = Math.floor(diff / 1000);
-
-          dEl.textContent = String(days).padStart(2, "0");
-          hEl.textContent = String(hours).padStart(2, "0");
-          mEl.textContent = String(mins).padStart(2, "0");
-          sEl.textContent = String(secs).padStart(2, "0");
-
-          if (end - now <= 0) setStatus("Maintenance end time reached (switch OFF in maintenance.js).");
-        };
-        tick();
-        setInterval(tick, 1000);
+      const endISO = window.LU_MAINT?.endISO;
+      if (endISO) {
+        const end = new Date(endISO).getTime();
+        if (!isNaN(end)) {
+          countdownWrap.style.display = "block";
+          const tick = () => {
+            let diff = Math.max(0, end - Date.now());
+            const days = Math.floor(diff / 86400000); diff -= days * 86400000;
+            const hours = Math.floor(diff / 3600000); diff -= hours * 3600000;
+            const mins = Math.floor(diff / 60000); diff -= mins * 60000;
+            const secs = Math.floor(diff / 1000);
+            dEl.textContent = String(days).padStart(2, "0");
+            hEl.textContent = String(hours).padStart(2, "0");
+            mEl.textContent = String(mins).padStart(2, "0");
+            sEl.textContent = String(secs).padStart(2, "0");
+            if (end - Date.now() <= 0) {
+              setStatus("Maintenance end time reached (switch OFF in maintenance.js).");
+            }
+          };
+          tick();
+          setInterval(tick, 1000);
+        }
       }
-    }
+    });
   </script>
 </body>
 </html>
