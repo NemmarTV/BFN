@@ -1,5 +1,5 @@
 /* ================================================
-   PrimeTactics — Server Lock Protection v20.5.1
+   Prime Blog — Server Lock Protection v20.5.1
    Anti-cheat gate + F12 / dev tools blocker
    - 8 second countdown before enter
    - Password protection (default: "2000")

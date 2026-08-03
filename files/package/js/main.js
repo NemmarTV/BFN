@@ -1,5 +1,5 @@
 /* ================================================
-   PrimeTactics — Package Download Modal v20.5.1
+   Prime Blog — Package Download Modal v20.5.1
    Password-protected download system
    - Progress simulation
    - Password validation
@@ -7,7 +7,7 @@
 ================================================ */
 
 (() => {
-  const PASSWORD = "cfphlu2026";
+  const PASSWORD = "cfph2026";
 
   // DOM elements
   const btnDownload = document.getElementById("btnDownload");

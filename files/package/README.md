@@ -1,10 +1,10 @@
-# PrimeTactics CF-PH Package v20.5.1
+# Prime Blog CF-PH Package v20.5.1
 
 ## Overview
-Upgraded download page for PrimeTactics (formerly LiloanUnited) CF-PH exclusive package.
+Upgraded download page for Prime Blog (formerly LiloanUnited) CF-PH exclusive package.
 
 ### Features
-✅ **PrimeTactics v20.5.1 Design System**
+✅ **Prime Blog v20.5.1 Design System**
 - Matches global site branding (dual red/blue theme)
 - Orbitron + Exo 2 fonts
 - Glassmorphism cards, gradient buttons
@@ -47,9 +47,9 @@ Upgraded download page for PrimeTactics (formerly LiloanUnited) CF-PH exclusive 
 | Download Modal | `cfphlu2026` | `js/main.js` line ~5 |
 
 ## Integration
-This page lives in the PrimeTactics download folder:
+This page lives in the Prime Blog download folder:
 ```
-primetactics/
+prime-blog/
   ├── files/
   │   └── package/
   │       ├── package.html  ← Download folder page
@@ -98,8 +98,8 @@ Edit `package.html` line ~111:
 - This is a UX gate, not a security measure
 
 ## Deployment
-1. Copy all files to `primetactics/files/package/`
-2. Ensure `images/pt-logo.png` exists in `primetactics/images/`
+1. Copy all files to `prime-blog/files/package/`
+2. Ensure `images/pt-logo.png` exists in `prime-blog/images/`
 3. Update download links on main `download.html` if needed
 4. Test on mobile & desktop browsers
 
@@ -107,4 +107,4 @@ Edit `package.html` line ~111:
 
 **Version:** v20.5.1  
 **Updated:** May 2026  
-**Brand:** PrimeTactics (Formerly LiloanUnited CFPH)
+**Brand:** Prime Blog (Formerly LiloanUnited CFPH)

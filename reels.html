@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reels — Prime Blog</title>
+  <meta name="description" content="Prime Blog Reels — short highlights and community clips." />
+  <link rel="icon" href="images/pt-logo.png" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/intro.css" />
+  <link rel="stylesheet" href="css/player.css" />
+  <style>
+    .reels-layout {
+      display: grid;
+      grid-template-columns: minmax(280px, 420px) 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .reels-layout { grid-template-columns: 1fr; }
+    }
+    .reel-phone {
+      position: relative;
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto;
+      aspect-ratio: 9 / 16;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid rgba(255,45,85,0.25);
+      background: #000;
+      box-shadow: var(--glow-dual), 0 24px 60px rgba(0,0,0,0.5);
+    }
+    .reel-phone video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      background: #000;
+    }
+    .reel-overlay {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      padding: 48px 16px 16px;
+      background: linear-gradient(transparent, rgba(0,0,0,0.85));
+      pointer-events: none;
+    }
+    .reel-overlay strong {
+      font-family: var(--font-head);
+      font-size: 14px;
+      letter-spacing: 0.5px;
+    }
+    .reel-overlay p {
+      font-size: 12px;
+      color: rgba(255,255,255,0.75);
+      margin-top: 4px;
+    }
+    .reel-list { display: grid; gap: 12px; }
+    .reel-item {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      padding: 14px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      cursor: pointer;
+      transition: all var(--trans);
+      text-align: left;
+      width: 100%;
+      color: inherit;
+    }
+    .reel-item:hover, .reel-item.active {
+      border-color: rgba(255,45,85,0.35);
+      box-shadow: var(--glow-dual);
+      background: var(--surface2);
+    }
+    .reel-thumb {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(255,45,85,0.25), rgba(91,140,255,0.2));
+      border: 1px solid rgba(255,45,85,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+    .reel-meta { min-width: 0; }
+    .reel-meta h3 {
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .reel-meta p {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="pb-bg" aria-hidden="true"></div>
+  <div class="pb-noise" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <nav class="nav">
+      <a href="index.html" class="brand">
+        <div class="logo"><img src="images/logo-prime.png" alt="Prime Blog" onerror="this.src='images/pt-logo.png'" /></div>
+        <div class="brand-text"><span class="brand-name">PRIME BLOG</span><span class="brand-tag">Esports • Community • Competitive</span></div>
+      </a>
+      <div class="nav-right">
+        <span class="version-badge">v21.1</span>
+        <div class="nav-links" data-navlinks>
+          <a href="index.html" data-nav="home">Home</a>
+          <a href="about.html" data-nav="about">About</a>
+          <a href="blog.html" data-nav="blog">News</a>
+          <a href="event.html" data-nav="events">Events</a>
+          <a href="prohit.html" data-nav="prohit">PROH1T</a>
+          <a href="reels.html" data-nav="reels">Reels</a>
+          <a href="download.html" data-nav="downloads">Downloads</a>
+          <a href="contact.html" data-nav="contact">Support</a>
+        </div>
+        <a href="contact.html" class="btn-discord" title="Discord locked">Discord 🔒</a>
+        <button class="theme-toggle" data-theme-toggle aria-label="Toggle theme"><span class="theme-icon">☾</span></button>
+        <button class="nav-toggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </nav>
+  </header>
+
+  <div class="marquee"><div class="marquee-track">
+    <span>🔥 Prime Blog Reels — Highlights · Clips · Community Moments 🔥</span>
+    <span>🔥 Prime Blog Reels — Highlights · Clips · Community Moments 🔥</span>
+    <span>🔥 Prime Blog Reels — Highlights · Clips · Community Moments 🔥</span>
+  </div></div>
+
+  <main>
+    <div class="container page-head">
+      <div class="section-label">Video</div>
+      <h1>Reels &amp; Highlights</h1>
+      <p class="lead">Short-form clips from the Prime Blog community. More reels coming soon.</p>
+      <div class="chip-row" style="margin-top:14px;">
+        <span class="chip chip-live">Live</span>
+        <span class="chip">Vertical</span>
+        <span class="chip chip-new">New</span>
+      </div>
+    </div>
+
+    <section class="section" style="padding-top:10px;">
+      <div class="container">
+        <div class="reels-layout">
+          <div class="reveal">
+            <div class="reel-phone">
+              <video id="reelPlayer" playsinline controls loop preload="metadata" poster="">
+                <source src="files/post/reels/reels1.mp4" type="video/mp4" />
+                Your browser does not support video.
+              </video>
+              <div class="reel-overlay">
+                <strong id="reelTitle">Prime Blog Reel #1</strong>
+                <p id="reelSub">Community highlight</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="reveal reveal-delay-1">
+            <h2 style="margin-bottom:14px;font-size:1.2rem;">Playlist</h2>
+            <div class="reel-list" id="reelList">
+              <button type="button" class="reel-item active" data-src="files/post/reels/reels1.mp4" data-title="Prime Blog Reel #1" data-sub="Community highlight">
+                <div class="reel-thumb">🎬</div>
+                <div class="reel-meta">
+                  <h3>Prime Blog Reel #1</h3>
+                  <p>reels1.mp4 · Tap to play</p>
+                </div>
+              </button>
+              <div class="card" style="opacity:0.7;">
+                <div class="chip-row"><span class="chip chip-new">Soon</span></div>
+                <h3 style="margin:8px 0 6px;">More reels</h3>
+                <p style="color:var(--text-secondary);font-size:0.9rem;">Soon!</p>
+              </div>
+            </div>
+            <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap;">
+              <a href="prohit.html" class="btn btn-sm btn-primary">PROH1T Clan</a>
+              <a href="blog.html" class="btn btn-sm btn-ghost">News</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand-col">
+        <img class="footer-logo" src="images/logo-prime.png" alt="" onerror="this.src='images/pt-logo.png'" />
+        <div class="footer-title">PRIME BLOG</div>
+        <p class="footer-desc">Elite esports community hub.</p>
+      </div>
+      <div class="footer-col"><h4>Platform</h4><a href="index.html">Home</a><a href="blog.html">News</a><a href="reels.html">Reels</a><a href="prohit.html">PROH1T</a></div>
+      <div class="footer-col"><h4>Community</h4><a href="about.html">About</a><a href="contact.html">Support</a></div>
+      <div class="footer-col"><h4>Legal</h4><a href="#">Privacy</a><a href="#">Terms</a></div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 Prime Blog · Owner [Code.Dev] Nems</div>
+      <div class="footer-socials"><a href="#">f</a><a href="#">▶</a><span style="opacity:0.4;">D</span></div>
+    </div>
+  </div></footer>
+
+  <script src="js/maintenance.js"></script>
+  <script src="js/intro.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    (function () {
+      var player = document.getElementById("reelPlayer");
+      var title = document.getElementById("reelTitle");
+      var sub = document.getElementById("reelSub");
+      document.querySelectorAll(".reel-item[data-src]").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          document.querySelectorAll(".reel-item").forEach(function (b) { b.classList.remove("active"); });
+          btn.classList.add("active");
+          var src = btn.getAttribute("data-src");
+          title.textContent = btn.getAttribute("data-title") || "Reel";
+          sub.textContent = btn.getAttribute("data-sub") || "";
+          player.src = src;
+          player.play().catch(function () {});
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

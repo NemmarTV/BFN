@@ -1,158 +1,245 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css" />
-  <script defer src="js/main.js"></script>
-  <title>PrimeTactics — Blog</title>
-  <meta name="description" content="PrimeTactics blog — announcements, updates, and highlights." />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>News — Prime Blog</title>
   <link rel="icon" href="images/pt-logo.png" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/intro.css" />
+  <link rel="stylesheet" href="css/player.css" />
 </head>
 <body>
-  <!-- REBRAND ANNOUNCEMENT BANNER -->
-  <div class="rebrand-banner" id="rebrandBanner">
-    <span class="banner-icon">⭐</span>
-    <span class="banner-text">📢 <strong>LiloanUnited</strong> has officially rebranded to <strong>PrimeTactics</strong>! Same team. New identity. Elevated game.</span>
-    <span class="banner-badge">🔥 REBRAND</span>
-    <button class="banner-close" onclick="document.getElementById('rebrandBanner').classList.add('hidden')" aria-label="Close">✕</button>
-  </div>
+  <div class="pb-bg" aria-hidden="true"></div>
+  <div class="pb-noise" aria-hidden="true"></div>
 
   <header class="site-header">
-    <nav class="nav" aria-label="Primary">
-      <a class="brand" href="index.html" aria-label="PrimeTactics Home">
-        <span class="logo"><img src="images/pt-logo.png" alt="PrimeTactics Logo" /></span>
-        <span class="brand-text">
-          <span class="brand-name">PrimeTactics</span>
-          <span class="brand-tag">Esports • Community • Competitive</span>
-        </span>
+    <nav class="nav">
+      <a href="index.html" class="brand">
+        <div class="logo"><img src="images/logo-prime.png" alt="Prime Blog" onerror="this.src='images/pt-logo.png'" /></div>
+        <div class="brand-text"><span class="brand-name">PRIME BLOG</span><span class="brand-tag">Esports • Community • Competitive</span></div>
       </a>
-      <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
       <div class="nav-right">
-        <span class="version-badge">v20.5.1</span>
+        <span class="version-badge">v21.1</span>
         <div class="nav-links" data-navlinks>
           <a href="index.html" data-nav="home">Home</a>
           <a href="about.html" data-nav="about">About</a>
-          <a href="blog.html" data-nav="blog">Blog</a>
+          <a href="blog.html" data-nav="blog">News</a>
           <a href="event.html" data-nav="events">Events</a>
+          <a href="prohit.html" data-nav="prohit">PROH1T</a>
+          <a href="reels.html" data-nav="reels">Reels</a>
           <a href="download.html" data-nav="downloads">Downloads</a>
-          <a href="contact.html" data-nav="contact">Contact</a>
+          <a href="contact.html" data-nav="contact">Support</a>
         </div>
-        <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle theme">
-          <span class="theme-icon" aria-hidden="true">☾</span>
-          <span class="theme-text">Theme</span>
-        </button>
+        <a href="contact.html" class="btn-discord" title="Discord server locked — DM owner">Discord 🔒</a>
+        <button class="theme-toggle" data-theme-toggle aria-label="Toggle theme"><span class="theme-icon">☾</span></button>
+        <button class="nav-toggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
       </div>
     </nav>
-    <div class="marquee" role="status" aria-live="polite">
-      <div class="marquee-track">
-        <span>🔥 PrimeTactics — Formerly LiloanUnited. Rebranded. Evolved. Elite. • Tryouts Open 2026 • Discord &amp; Facebook 🔥</span>
-        <span>🔥 PrimeTactics — Formerly LiloanUnited. Rebranded. Evolved. Elite. • Tryouts Open 2026 • Discord &amp; Facebook 🔥</span>
-        <span>🔥 PrimeTactics — Formerly LiloanUnited. Rebranded. Evolved. Elite. • Tryouts Open 2026 • Discord &amp; Facebook 🔥</span>
-      </div>
-    </div>
   </header>
-  <main class="container">
-    <section class="page-head">
-      <div>
-        <h1>Blog &amp; <span class="text-accent">Updates</span></h1>
-        <p class="lead">Announcements, highlights, roster updates, and community posts from PrimeTactics.</p>
-      </div>
-    </section>
 
-    <section class="section">
-      <div class="grid cards-2">
+  <div class="marquee"><div class="marquee-track">
+    <span>🔥 Prime Blog — Elite Esports • Tryouts Open 2026 • Discord & Facebook 🔥</span>
+    <span>🔥 Prime Blog — Elite Esports • Tryouts Open 2026 • Discord & Facebook 🔥</span>
+    <span>🔥 Prime Blog — Elite Esports • Tryouts Open 2026 • Discord & Facebook 🔥</span>
+  </div></div>
 
-        <!-- REBRAND ANNOUNCEMENT -->
-        <article class="card rebrand-post hover-rise" style="grid-column: 1 / -1;">
-          <div class="post-top">
-            <div class="post-badge">
-              <span class="chip chip-new">📢 MAJOR ANNOUNCEMENT</span>
-              <span class="muted">May 2026</span>
+  <main>
+    <div class="container page-head">
+      <div class="section-label">News</div>
+      <h1>Blog & Updates</h1>
+      <p class="lead">Announcements, highlights, roster updates, and community posts from Prime Blog.</p>
+    </div>
+
+    <section class="section" style="padding-top:10px;">
+      <div class="container">
+        <div class="grid cards-2">
+
+          <article class="card post-card hover-rise glow reveal">
+            <div class="chip-row">
+              <span class="chip chip-new">✨ WHAT'S NEW</span>
+              <span class="chip">Aug 2026</span>
+              <span class="chip chip-live">Reels</span>
             </div>
-            <span class="chip">Pinned</span>
-          </div>
-          <h2 class="post-title">🔥 LiloanUnited is Now PrimeTactics!</h2>
-          <p class="post-text">
-            After months of planning, growth, and reflection — <strong>LiloanUnited CFPH</strong> has officially rebranded to
-            <strong>PrimeTactics</strong>. This isn't just a name change. It's a declaration of our evolution as a team, a community,
-            and a competitive force in CrossFire Philippines. The same players you know and trust, now operating under a sharper,
-            more elite identity. PrimeTactics represents our commitment to strategic excellence, disciplined training, and a community
-            that pushes each other to be better every day. Welcome to the new era. Welcome to <strong>PrimeTactics</strong>.
-          </p>
-          <div class="post-actions">
-            <a class="btn btn-primary btn-sm" href="contact.html">Join the Team</a>
-            <a class="btn btn-blue btn-sm" href="event.html">See Upcoming Events</a>
-          </div>
-        </article>
+            <h3 class="post-title">Reels Are Live + PROH1T CM Update</h3>
+            <p class="post-excerpt">
+              The Reels page is online with the first community clip. PROH1T clan management is now led by community managers:
+            </p>
+            <ul style="margin:10px 0 0;padding-left:18px;color:var(--text-secondary);font-size:0.9rem;line-height:1.65;">
+              <li><strong>Mamiplays</strong> — Community Manager 1</li>
+              <li><strong>BlairePH</strong> — Community Manager 2</li>
+              <li>Watch clips on the new <strong>Reels</strong> page</li>
+              <li>PROH1T applications still open via the apply form</li>
+            </ul>
+            <div class="post-footer">
+              <div class="post-author">
+                <span class="rainbow-name">[Code]Dev.xiexie</span>
+                <span class="owner-badge"><img src="images/owner-badge.gif" alt="" /> Owner</span>
+              </div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                <a href="reels.html" class="btn btn-sm btn-primary">Watch Reels</a>
+                <a href="prohit.html" class="btn btn-sm btn-ghost">PROH1T</a>
+              </div>
+            </div>
+          </article>
 
-        <article class="card post hover-rise">
-          <div class="post-top">
-            <div class="post-badge">
+
+          <article class="card post-card hover-rise glow reveal">
+            <div class="chip-row">
+              <span class="chip chip-new">✨ WHAT'S NEW</span>
+              <span class="chip">Aug 2026</span>
+              <span class="chip chip-hot">Pinned</span>
+              <span class="chip chip-live">PROH1T</span>
+            </div>
+            <h3 class="post-title">PROH1T Clan Applications Are Open (CFPH)</h3>
+            <p class="post-excerpt">
+              You can now apply to join the <strong>PROH1T</strong> clan on CrossFire Philippines.
+              Fill out the official form with your IGN, role, rank, schedule, and experience —
+              then send the summary to the owner on Discord (<strong>nemmartvy</strong>).
+            </p>
+            <ul style="margin:10px 0 0;padding-left:18px;color:var(--text-secondary);font-size:0.9rem;line-height:1.65;">
+              <li>Dedicated <strong>PROH1T</strong> page with apply form</li>
+              <li>Roles: IGL, Entry, Support, Flex &amp; more</li>
+              <li>Rules / Admins panels still <em>coming soon</em></li>
+              <li>Public Discord invite remains locked — DM only</li>
+            </ul>
+            <div class="post-footer">
+              <div class="post-author">
+                <span class="rainbow-name">[Code]Dev.xiexie</span>
+                <span class="owner-badge"><img src="images/owner-badge.gif" alt="" /> Owner</span>
+              </div>
+              <a href="prohit.html#apply" class="btn btn-sm btn-primary">Apply Now</a>
+            </div>
+          </article>
+
+
+          <article class="card post-card hover-rise glow reveal">
+            <div class="chip-row">
+              <span class="chip chip-new">✨ WHAT'S NEW</span>
+              <span class="chip">Aug 2026</span>
+              <span class="chip chip-hot">Pinned</span>
+            </div>
+            <h3 class="post-title">PROH1T Features — Coming Soon</h3>
+            <p class="post-excerpt">
+              New PROH1T module is in development for Prime Blog. Planned features:
+            </p>
+            <ul style="margin:10px 0 0;padding-left:18px;color:var(--text-secondary);font-size:0.9rem;line-height:1.7;">
+              <li><strong>Discord</strong> — integrated community &amp; alerts (invite locked for now)</li>
+              <li><strong>Rules</strong> — official rulebook &amp; fair-play guidelines</li>
+              <li><strong>Admins</strong> — staff tools &amp; moderation panel</li>
+              <li><strong>Owner</strong> — owner dashboard &amp; controls for <em>[Code.Dev] Nems</em></li>
+            </ul>
+            <p class="post-excerpt" style="margin-top:10px;">Status: <strong style="color:var(--pb-gold);">Soon</strong>. Public Discord invites are temporarily disabled — message <strong>nemmartvy</strong> on Discord for support.</p>
+            <div class="post-footer">
+              <div class="post-author">
+                <span class="rainbow-name">[Code]Dev.xiexie</span>
+                <span class="owner-badge"><img src="images/owner-badge.gif" alt="" /> Owner</span>
+              </div>
+              <a href="contact.html" class="btn btn-sm btn-primary">Contact Owner</a>
+            </div>
+          </article>
+
+
+          <article class="card post-card hover-rise glow reveal">
+            <div class="chip-row">
+              <span class="chip chip-new">✨ WHAT'S NEW</span>
+              <span class="chip">Aug 2026</span>
+              <span class="chip chip-hot">Pinned</span>
+            </div>
+            <h3 class="post-title">v21.1 Platform Update — Mobile Nav, Reels & Brand Polish</h3>
+            <p class="post-excerpt">
+              Fresh updates across Prime Blog:
+            </p>
+            <ul class="changelog-list" style="margin:10px 0 0;padding-left:18px;color:var(--text-secondary);font-size:0.9rem;line-height:1.65;">
+              <li><strong>Mobile menu fixed</strong> — navbar no longer hides or clips on smartphones</li>
+              <li><strong>Reels</strong> — short-form video hub marked <em>Soon</em></li>
+              <li><strong>Brand cleanup</strong> — pure Prime Blog identity across the site</li>
+              <li><strong>Author credit</strong> — posts now by <code>[Code]Dev.xiexie</code></li>
+              <li>Download thumbs, guide page, and glass UI polish retained</li>
+            </ul>
+            <div class="post-footer">
+              <div class="post-author">
+                <span class="rainbow-name">[Code]Dev.xiexie</span>
+                <span class="owner-badge"><img src="images/owner-badge.gif" alt="" /> Owner</span>
+              </div>
+              <a href="index.html" class="btn btn-sm btn-primary">Home</a>
+            </div>
+          </article>
+
+          <article class="card post-card hover-rise glow reveal reveal-delay-1">
+            <div class="chip-row">
+              <span class="chip chip-new">✨ WHAT'S NEW</span>
+              <span class="chip">July 2026</span>
+              <span class="chip">Pinned</span>
+            </div>
+            <h3 class="post-title">Site Update — Player, Intro & Downloads</h3>
+            <p class="post-excerpt">YouTube Music–style player, intro splash, mobile polish, downloads upgrades, maintenance mode off.</p>
+            <div class="post-footer">
+              <div class="post-author">
+                <span class="rainbow-name">[Code]Dev.xiexie</span>
+                <span class="owner-badge"><img src="images/owner-badge.gif" alt="" /> Owner</span>
+              </div>
+              <a href="download.html" class="btn btn-sm btn-primary">Downloads</a>
+            </div>
+          </article>
+
+          <article class="card post-card hover-rise reveal">
+            <div class="chip-row">
+              <span class="chip chip-hot">📢 MAJOR</span>
+              <span class="chip">May 2026</span>
+            </div>
+            <h3 class="post-title">🔥 Welcome to the Prime Blog Era</h3>
+            <p class="post-excerpt">Sharper elite identity for CrossFire Philippines competitive play — strategic excellence and disciplined training.</p>
+            <div class="post-footer">
+              <div class="post-author">
+                <span class="rainbow-name">[Code]Dev.xiexie</span>
+                <span class="owner-badge"><img src="images/owner-badge.gif" alt="" /> Owner</span>
+              </div>
+              <a href="contact.html" class="btn btn-sm btn-primary" target="_blank" rel="noopener">Discord</a>
+            </div>
+          </article>
+
+          <article class="card post-card hover-rise reveal reveal-delay-1">
+            <div class="chip-row">
               <span class="chip chip-live">ANNOUNCEMENT</span>
-              <span class="muted">March 2026</span>
+              <span class="chip">March 2026</span>
             </div>
-            <span class="chip">Pinned</span>
-          </div>
-          <h2 class="post-title">Tryouts Open — PrimeTactics Roster Pool</h2>
-          <p class="post-text">
-            We're opening limited slots for our roster pool. If you're disciplined, coachable, and consistent —
-            this is your chance. Message us via the Contact page with your IGN and role.
-          </p>
-          <div class="post-actions">
-            <a class="btn btn-primary btn-sm" href="contact.html">Apply</a>
-            <a class="btn btn-ghost btn-sm" href="event.html">See Schedule</a>
-          </div>
-        </article>
-
-        <article class="card post hover-rise">
-          <div class="post-top">
-            <div class="post-badge">
-              <span class="chip">UPDATE</span>
-              <span class="muted">2026</span>
+            <h3 class="post-title">Tryouts Open — Roster Pool</h3>
+            <p class="post-excerpt">Limited slots for disciplined, coachable players. Message Discord with IGN and role.</p>
+            <div class="post-footer">
+              <div class="post-author">
+                <span class="rainbow-name">[Code]Dev.xiexie</span>
+                <span class="owner-badge"><img src="images/owner-badge.gif" alt="" /> Owner</span>
+              </div>
+              <a href="prohit.html#apply" class="btn btn-sm btn-primary">Apply</a>
             </div>
-          </div>
-          <h2 class="post-title">Website Upgraded — v20.5.1</h2>
-          <p class="post-text">
-            The PrimeTactics website has been fully upgraded to v20.5.1 — featuring a brand new UI, improved
-            performance, dual red/blue color theme, and the new PrimeTactics branding across all pages.
-          </p>
-          <div class="post-actions">
-            <a class="btn btn-ghost btn-sm" href="download.html">Downloads</a>
-          </div>
-        </article>
+          </article>
 
+        </div>
       </div>
     </section>
   </main>
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <div class="footer-left">
-        <div class="footer-brand">
-          <img src="images/pt-logo.png" alt="PrimeTactics Logo" class="footer-logo" />
-          <div>
-            <div class="footer-title">PrimeTactics</div>
-            <div class="footer-sub">Elite esports community hub • v20.5.1</div>
-          </div>
-        </div>
-        <div class="footer-copy">© 2026 PrimeTactics (Formerly LiloanUnited CFPH). All rights reserved.</div>
+
+  <footer class="site-footer"><div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand-col">
+        <img class="footer-logo" src="images/logo-prime.png" alt="" onerror="this.src='images/pt-logo.png'" />
+        <div class="footer-title">PRIME BLOG</div>
+        <p class="footer-desc">Elite esports community hub.</p>
       </div>
-      <div class="footer-right">
-        <div class="footer-links">
-          <a href="https://facebook.com/LiloanUnitedOFFICIAL">Facebook</a>
-          <a href="https://www.youtube.com/@NemmarOfficial">YouTube</a>
-          <a href="https://discord.com/invite/YtfsaAHV">Discord</a>
-        </div>
-        <div class="footer-mini">
-          <span class="dot"></span> PrimeTactics v20.5.1 • HTML • CSS • JS
-        </div>
-      </div>
+      <div class="footer-col"><h4>Platform</h4><a href="index.html">Home</a><a href="blog.html">News</a><a href="event.html">Events</a><a href="download.html">Downloads</a></div>
+      <div class="footer-col"><h4>Community</h4><a href="about.html">About</a><a href="contact.html" target="_blank" rel="noopener">Discord</a><a href="contact.html">Support</a></div>
+      <div class="footer-col"><h4>Legal</h4><a href="#">Privacy</a><a href="#">Terms</a></div>
     </div>
-  </footer>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 Prime Blog · Owner [Code.Dev] Nems. All rights reserved.</div>
+      <div class="footer-socials"><a href="#">f</a><a href="#">▶</a><a href="contact.html" target="_blank" rel="noopener">D</a></div>
+    </div>
+  </div></footer>
+
+  <script src="js/maintenance.js"></script>
+  <script src="js/intro.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>

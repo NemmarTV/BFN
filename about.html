@@ -1,190 +1,133 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css" />
-  <script defer src="js/main.js"></script>
-  <title>PrimeTactics — About</title>
-  <meta name="description" content="Meet the PrimeTactics team and learn about our mission." />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Prime Blog</title>
   <link rel="icon" href="images/pt-logo.png" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/intro.css" />
+  <link rel="stylesheet" href="css/player.css" />
 </head>
 <body>
-  <!-- REBRAND ANNOUNCEMENT BANNER -->
-  <div class="rebrand-banner" id="rebrandBanner">
-    <span class="banner-icon">⭐</span>
-    <span class="banner-text">📢 <strong>LiloanUnited</strong> has officially rebranded to <strong>PrimeTactics</strong>! Same team. New identity. Elevated game.</span>
-    <span class="banner-badge">🔥 REBRAND</span>
-    <button class="banner-close" onclick="document.getElementById('rebrandBanner').classList.add('hidden')" aria-label="Close">✕</button>
-  </div>
-
-  <header class="site-header">
-    <nav class="nav" aria-label="Primary">
-      <a class="brand" href="index.html" aria-label="PrimeTactics Home">
-        <span class="logo"><img src="images/pt-logo.png" alt="PrimeTactics Logo" /></span>
-        <span class="brand-text">
-          <span class="brand-name">PrimeTactics</span>
-          <span class="brand-tag">Esports • Community • Competitive</span>
-        </span>
+  <div class="pb-bg" aria-hidden="true"></div>
+  <div class="pb-noise" aria-hidden="true"></div>
+<header class="site-header">
+    <nav class="nav">
+      <a href="index.html" class="brand">
+        <div class="logo"><img src="images/logo-prime.png" alt="Prime Blog" onerror="this.src='images/pt-logo.png'" /></div>
+        <div class="brand-text"><span class="brand-name">PRIME BLOG</span><span class="brand-tag">Esports • Community • Competitive</span></div>
       </a>
-      <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
       <div class="nav-right">
-        <span class="version-badge">v20.5.1</span>
+        <span class="version-badge">v21.1</span>
         <div class="nav-links" data-navlinks>
           <a href="index.html" data-nav="home">Home</a>
           <a href="about.html" data-nav="about">About</a>
-          <a href="blog.html" data-nav="blog">Blog</a>
+          <a href="blog.html" data-nav="blog">News</a>
           <a href="event.html" data-nav="events">Events</a>
+          <a href="prohit.html" data-nav="prohit">PROH1T</a>
+          <a href="reels.html" data-nav="reels">Reels</a>
           <a href="download.html" data-nav="downloads">Downloads</a>
-          <a href="contact.html" data-nav="contact">Contact</a>
+          <a href="contact.html" data-nav="contact">Support</a>
         </div>
-        <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle theme">
-          <span class="theme-icon" aria-hidden="true">☾</span>
-          <span class="theme-text">Theme</span>
-        </button>
+        <a href="contact.html" class="btn-discord" title="Discord server locked — DM owner">Discord 🔒</a>
+        <button class="theme-toggle" data-theme-toggle aria-label="Toggle theme"><span class="theme-icon">☾</span></button>
+        <button class="nav-toggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
       </div>
     </nav>
-    <div class="marquee" role="status" aria-live="polite">
-      <div class="marquee-track">
-        <span>🔥 PrimeTactics — Formerly LiloanUnited. Rebranded. Evolved. Elite. • Tryouts Open 2026 • Discord &amp; Facebook 🔥</span>
-        <span>🔥 PrimeTactics — Formerly LiloanUnited. Rebranded. Evolved. Elite. • Tryouts Open 2026 • Discord &amp; Facebook 🔥</span>
-        <span>🔥 PrimeTactics — Formerly LiloanUnited. Rebranded. Evolved. Elite. • Tryouts Open 2026 • Discord &amp; Facebook 🔥</span>
-      </div>
-    </div>
   </header>
-  <main class="container">
-    <section class="page-head">
-      <div>
-        <h1>About <span class="text-accent">PrimeTactics</span></h1>
-        <p class="lead">
-          PrimeTactics (formerly LiloanUnited) is a competitive esports community focused on growth, discipline,
-          and high-level teamwork. We've rebranded with a fresh identity — same dedication, elevated game.
-        </p>
-      </div>
-      <div class="card glow">
-        <div class="chip-row">
-          <span class="chip">Elite Esports</span>
+  <div class="marquee"><div class="marquee-track">
+    <span>🔥 Prime Blog — Elite Esports • Community • Competitive 🔥</span>
+    <span>🔥 Prime Blog — Elite Esports • Community • Competitive 🔥</span>
+    <span>🔥 Prime Blog — Elite Esports • Community • Competitive 🔥</span>
+  </div></div>
+  <main>
+    <div class="container page-head">
+      <div class="section-label">About</div>
+      <h1>About Prime Blog</h1>
+      <p class="lead">Prime Blog is a competitive esports community focused on growth, discipline, and high-level teamwork.</p>
+    </div>
+    <section class="section" style="padding-top:20px;">
+      <div class="container">
+        <div class="chip-row reveal">
+          <span class="chip chip-hot">Elite Esports</span>
           <span class="chip">Community First</span>
           <span class="chip">Competitive Mindset</span>
           <span class="chip chip-new">Rebranded 2026</span>
         </div>
-        <p class="muted">
-          We train smart, play hard, and keep it respectful. Whether you're a player, editor,
-          streamer, or supporter — you're welcome here at PrimeTactics.
-        </p>
+        <p class="lead reveal" style="margin-top:16px;">We train smart, play hard, and keep it respectful. Players, editors, streamers, and supporters are welcome.</p>
       </div>
     </section>
-
     <section class="section">
-      <div class="section-head">
-        <h2>Our Mission</h2>
-        <p>Build a stronger esports culture through teamwork, training, and consistent events.</p>
-      </div>
-      <div class="grid cards-3">
-        <article class="card hover-rise">
-          <div class="card-icon">🧠</div>
-          <h3>Train with Purpose</h3>
-          <p>We focus on fundamentals, communication, and consistency — not just "rank grinding."</p>
-        </article>
-        <article class="card hover-rise">
-          <div class="card-icon">🤝</div>
-          <h3>Build the Community</h3>
-          <p>We host scrims, review sessions, and community nights to help everyone improve.</p>
-        </article>
-        <article class="card hover-rise">
-          <div class="card-icon">🔥</div>
-          <h3>Compete Confidently</h3>
-          <p>From local tournaments to online events — we show up prepared and professional.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-head">
-        <h2>The Rebrand Story</h2>
-        <p>From LiloanUnited to PrimeTactics — why we evolved.</p>
-      </div>
-      <div class="card glow rebrand-post">
-        <h3>🏆 LiloanUnited → PrimeTactics</h3>
-        <p class="muted" style="margin-top:10px;line-height:1.7">
-          What started as <strong>LiloanUnited</strong> — a tight-knit local esports squad — has grown into something bigger.
-          The rebrand to <strong>PrimeTactics</strong> reflects our evolution: sharper strategy, broader reach, and an elite mindset
-          that goes beyond our roots. The name changes. The mission intensifies. The brotherhood stays.
-        </p>
-        <div style="margin-top:16px;">
-          <a class="btn btn-primary btn-sm" href="blog.html">Read the Full Announcement</a>
+      <div class="container">
+        <div class="section-label reveal">Mission</div>
+        <h2 class="reveal" style="margin-bottom:28px;">Build a stronger esports culture</h2>
+        <div class="grid cards-3">
+          <div class="card hover-rise reveal"><div class="card-icon">🧠</div><h3>Train with Purpose</h3><p style="color:var(--text-secondary);font-size:0.9rem;">Fundamentals, communication, and consistency.</p></div>
+          <div class="card hover-rise reveal reveal-delay-1"><div class="card-icon">🤝</div><h3>Build the Community</h3><p style="color:var(--text-secondary);font-size:0.9rem;">Scrims, reviews, and community nights.</p></div>
+          <div class="card hover-rise reveal reveal-delay-2"><div class="card-icon">🔥</div><h3>Compete Confidently</h3><p style="color:var(--text-secondary);font-size:0.9rem;">Local to online — prepared and professional.</p></div>
         </div>
       </div>
     </section>
-
     <section class="section">
-      <div class="section-head">
-        <h2>Team Roles</h2>
-        <p>The people behind PrimeTactics.</p>
-      </div>
-      <div class="grid cards-3">
-        <article class="card team-card hover-rise">
-          <div class="avatar">IGL</div>
-          <h3>In-Game Leader</h3>
-          <div class="role">Shotcaller</div>
-          <p class="muted">Calls the plays, reads the map, and leads the charge in every match.</p>
-        </article>
-        <article class="card team-card hover-rise">
-          <div class="avatar">FRG</div>
-          <h3>Fragger</h3>
-          <div class="role">Entry / Support</div>
-          <p class="muted">First in. Fast hands. Clearing sites and creating space for the team.</p>
-        </article>
-        <article class="card team-card hover-rise">
-          <div class="avatar">MGR</div>
-          <h3>Team Manager</h3>
-          <div class="role">Operations</div>
-          <p class="muted">Handles scheduling, tryouts, partnerships, and community management.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="cta">
-      <div class="cta-inner">
-        <div>
-          <h2>Want to be part of <span class="text-accent">PrimeTactics</span>?</h2>
-          <p>Apply for tryouts or reach out to partner with us.</p>
-        </div>
-        <div class="cta-actions">
-          <a class="btn btn-primary" href="contact.html">Contact Us</a>
-          <a class="btn btn-ghost" href="download.html">Resources</a>
+      <div class="container">
+        <div class="section-label reveal">Story</div>
+        <h2 class="reveal" style="margin-bottom:20px;">The Rebrand</h2>
+        <div class="card glow reveal">
+          <h3 style="font-family:var(--font-head);margin-bottom:12px;">🏆 Prime Blog Era</h3>
+          <p style="color:var(--text-secondary);line-height:1.7;">What started as a tight-knit local squad has grown bigger. Sharper strategy, broader reach, and an elite mindset. The mission intensifies. The brotherhood stays.</p>
+          <a href="blog.html" class="btn btn-sm btn-primary" style="margin-top:18px;">Read Full Announcement</a>
         </div>
       </div>
     </section>
-  </main>
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <div class="footer-left">
-        <div class="footer-brand">
-          <img src="images/pt-logo.png" alt="PrimeTactics Logo" class="footer-logo" />
-          <div>
-            <div class="footer-title">PrimeTactics</div>
-            <div class="footer-sub">Elite esports community hub • v20.5.1</div>
+    <section class="section">
+      <div class="container">
+        <div class="section-label reveal">Team</div>
+        <h2 class="reveal" style="margin-bottom:28px;">Core Roles</h2>
+        <div class="grid cards-3">
+          <div class="card team-card hover-rise reveal"><div class="avatar">IGL</div><h3>In-Game Leader</h3><div class="role">Shotcaller</div><p style="color:var(--text-secondary);font-size:0.9rem;">Calls the plays and leads the charge.</p></div>
+          <div class="card team-card hover-rise reveal reveal-delay-1"><div class="avatar">FRG</div><h3>Fragger</h3><div class="role">Entry / Support</div><p style="color:var(--text-secondary);font-size:0.9rem;">First in. Fast hands. Creating space.</p></div>
+          <div class="card team-card hover-rise reveal reveal-delay-2"><div class="avatar">MGR</div><h3>Team Manager</h3><div class="role">Operations</div><p style="color:var(--text-secondary);font-size:0.9rem;">Scheduling, tryouts, and partnerships.</p></div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="section" id="owner">
+      <div class="container">
+        <div class="section-label reveal">Owner</div>
+        <h2 class="reveal" style="margin-bottom:24px;">[Code.Dev] Nems</h2>
+        <div class="card glow reveal" style="display:flex;flex-wrap:wrap;gap:24px;align-items:center;">
+          <div class="avatar" style="width:88px;height:88px;border-radius:22px;display:flex;align-items:center;justify-content:center;font-family:var(--font-head);font-weight:900;font-size:22px;background:linear-gradient(135deg,rgba(255,45,85,0.35),rgba(91,140,255,0.25));border:1px solid rgba(255,45,85,0.3);box-shadow:var(--glow-dual);flex-shrink:0;">CN</div>
+          <div style="flex:1;min-width:220px;">
+            <h3 style="font-family:var(--font-head);margin-bottom:6px;">[Code.Dev] Nems</h3>
+            <div class="role" style="margin:0 0 10px;">Founder · Owner · Developer</div>
+            <p style="color:var(--text-secondary);font-size:0.92rem;line-height:1.65;max-width:52ch;">
+              Platform owner of Prime Blog.
+              For support or partnerships, message Discord username <strong style="color:var(--text);">nemmartvy</strong> (server invite currently locked).
+            </p>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;">
+              <a href="contact.html" class="btn btn-sm btn-primary">Message Owner</a>
+              <a href="blog.html" class="btn btn-sm btn-ghost">News</a>
+            </div>
           </div>
         </div>
-        <div class="footer-copy">© 2026 PrimeTactics (Formerly LiloanUnited CFPH). All rights reserved.</div>
       </div>
-      <div class="footer-right">
-        <div class="footer-links">
-          <a href="https://facebook.com/LiloanUnitedOFFICIAL">Facebook</a>
-          <a href="https://www.youtube.com/@NemmarOfficial">YouTube</a>
-          <a href="https://discord.com/invite/YtfsaAHV">Discord</a>
-        </div>
-        <div class="footer-mini">
-          <span class="dot"></span> PrimeTactics v20.5.1 • HTML • CSS • JS
-        </div>
-      </div>
+    </section>
+
+    <section class="cta"><div class="container"><div class="cta-inner reveal">
+      <div><h2 style="margin-bottom:8px;">Want to be part of Prime Blog?</h2><p style="color:var(--text-secondary);">Apply for tryouts or partner with us.</p></div>
+      <div class="cta-actions"><a href="contact.html" class="btn btn-primary" target="_blank" rel="noopener">Join Discord</a><a href="download.html" class="btn btn-ghost">Resources</a></div>
+    </div></div></section>
+  </main>
+  <footer class="site-footer"><div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand-col"><img class="footer-logo" src="images/logo-prime.png" alt="" onerror="this.src='images/pt-logo.png'" /><div class="footer-title">PRIME BLOG</div><p class="footer-desc">Elite esports community hub.</p></div>
+      <div class="footer-col"><h4>Platform</h4><a href="index.html">Home</a><a href="blog.html">News</a><a href="event.html">Events</a><a href="download.html">Downloads</a></div>
+      <div class="footer-col"><h4>Community</h4><a href="about.html">About</a><a href="contact.html" target="_blank" rel="noopener">Discord</a><a href="contact.html">Support</a></div>
+      <div class="footer-col"><h4>Legal</h4><a href="#">Privacy</a><a href="#">Terms</a></div>
     </div>
-  </footer>
+    <div class="footer-bottom"><div class="footer-copy">© 2026 Prime Blog · Owner [Code.Dev] Nems .</div><div class="footer-socials"><a href="#">f</a><a href="#">▶</a><a href="contact.html" target="_blank" rel="noopener">D</a></div></div>
+  </div></footer>
+  <script src="js/maintenance.js"></script><script src="js/intro.js"></script><script src="js/player.js"></script><script src="js/main.js"></script>
 </body>
 </html>

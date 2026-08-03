@@ -14,10 +14,10 @@
      ========================= */
 
   // ✅ MASTER SWITCH
-  const MAINTENANCE_ON = true; // true = ON, false = OFF
+  const MAINTENANCE_ON = false; // true = ON, false = OFF
 
   // ✅ Admin password (change this)
-  const ADMIN_PASSWORD = "luadmin2026";
+  const ADMIN_PASSWORD = "2000";
 
   // ✅ How long bypass lasts (hours)
   const BYPASS_EXPIRES_HOURS = 6;

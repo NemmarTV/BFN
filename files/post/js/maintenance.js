@@ -14,7 +14,7 @@
      ========================= */
 
   // ✅ MASTER SWITCH
-  const MAINTENANCE_ON = true; // true = ON, false = OFF
+  const MAINTENANCE_ON = false; // true = ON, false = OFF
 
   // ✅ Admin password (change this)
   const ADMIN_PASSWORD = "luadmin2026";
