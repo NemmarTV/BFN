@@ -126,9 +126,10 @@
         <div class="card" style="margin-top:16px;">
           <h3 style="font-family:var(--font-head);margin-bottom:8px;">Tips</h3>
           <ul style="padding-left:18px;color:var(--text-secondary);font-size:0.9rem;line-height:1.75;">
-            <li>Use <strong>Attach image</strong> so Discord always receives the file.</li>
+            <li>Use <strong>Attach image</strong> so Discord receives the file inside the embed.</li>
+            <li><strong>Attach other files</strong> (PDF, ZIP, etc.) appear as downloadable message attachments.</li>
             <li>Image URL only works if the link is public and allows Discord’s servers.</li>
-            <li>Logo (thumbnail) is added automatically from <code>images/pt-logo.png</code> / <code>proh1t.png</code>.</li>
+            <li>Logo (thumbnail) is added automatically. Keep images under ~8 MB.</li>
           </ul>
         </div>
       </div>
@@ -256,12 +257,23 @@
 
         req
           .then(function (res) {
-            if (check) return check(res);
+            if (check) return check(res).then(function () { return res; });
             if (res.status === 204 || res.status === 200 || res.ok) return res;
             throw new Error("Discord " + res.status);
           })
-          .then(function () {
-            setStatus("Done. Announcement sent to Discord" + (imgFile ? " (with image file)." : "."), "ok");
+          .then(function (res) {
+            var parts = [];
+            if (imgFile) parts.push("image");
+            if (extras.length) parts.push(extras.length + " file(s)");
+            var attachNote = parts.length ? " (with " + parts.join(" + ") + ")" : "";
+            if (res && res._pbFilesDropped) {
+              setStatus(
+                "Posted text only — Discord rejected the attachments. Try a smaller image (under 8 MB) or different format.",
+                "err"
+              );
+            } else {
+              setStatus("Done. Announcement sent to Discord" + attachNote + ".", "ok");
+            }
             form.reset();
             previewWrap.style.display = "none";
             preview.removeAttribute("src");
