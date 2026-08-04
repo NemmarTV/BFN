@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Announce — Prime Blog</title>
+  <meta name="description" content="Post announcements to the Prime Blog Discord server." />
+  <link rel="icon" href="images/pt-logo.png" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/intro.css" />
+  <link rel="stylesheet" href="css/player.css" />
+</head>
+<body>
+  <div class="pb-bg" aria-hidden="true"></div>
+  <div class="pb-noise" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <nav class="nav">
+      <a href="index.html" class="brand">
+        <div class="logo"><img src="images/logo-prime.png" alt="Prime Blog" onerror="this.src='images/pt-logo.png'" /></div>
+        <div class="brand-text"><span class="brand-name">PRIME BLOG</span><span class="brand-tag">Esports • Community • Competitive</span></div>
+      </a>
+      <div class="nav-right">
+        <span class="version-badge">v21.1</span>
+        <div class="nav-links" data-navlinks>
+          <a href="index.html" data-nav="home">Home</a>
+          <a href="about.html" data-nav="about">About</a>
+          <a href="blog.html" data-nav="blog">News</a>
+          <a href="event.html" data-nav="events">Events</a>
+          <a href="prohit.html" data-nav="prohit">PROH1T</a>
+          <a href="reels.html" data-nav="reels">Reels</a>
+          <a href="download.html" data-nav="downloads">Downloads</a>
+          <a href="contact.html" data-nav="contact">Support</a>
+        </div>
+        <a href="https://discord.gg/FweAccztUr" class="btn-discord" target="_blank" rel="noopener">Discord</a>
+        <button class="theme-toggle" data-theme-toggle aria-label="Toggle theme"><span class="theme-icon">☾</span></button>
+        <button class="nav-toggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <div class="container page-head">
+      <div class="section-label">Staff</div>
+      <h1>Discord Announcement</h1>
+      <p class="lead">Post a titled announcement to Discord. Attach an image file (optional) — it will show in the embed.</p>
+    </div>
+
+    <section class="section" style="padding-top:10px;">
+      <div class="container" style="max-width:720px;">
+        <div class="card glow">
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:18px;">
+            <img src="images/proh1t.png" alt="PROH1T" width="56" height="56" style="border-radius:12px;" onerror="this.src='images/pt-logo.png'" />
+            <div>
+              <h3 style="font-family:var(--font-head);margin:0 0 4px;">New announcement</h3>
+              <p style="color:var(--text-muted);font-size:0.85rem;margin:0;">Webhook: <code>announcementsWebhook</code> in discord-config.js</p>
+            </div>
+          </div>
+
+          <form class="form" id="announceForm" novalidate>
+            <label>
+              <span>Title *</span>
+              <input type="text" id="annTitle" required maxlength="120" placeholder="e.g. Scrim Night — Friday 9 PM" />
+            </label>
+            <label>
+              <span>Topic / Message *</span>
+              <textarea id="annBody" rows="5" required placeholder="Write the announcement body…"></textarea>
+            </label>
+            <div class="form-row">
+              <label>
+                <span>Link URL (optional)</span>
+                <input type="url" id="annLink" placeholder="https://…" />
+              </label>
+              <label>
+                <span>Link label (optional)</span>
+                <input type="text" id="annLinkLabel" maxlength="60" placeholder="Open page" />
+              </label>
+            </div>
+
+            <label>
+              <span>Attach image (optional)</span>
+              <input type="file" id="annImageFile" accept="image/png,image/jpeg,image/jpg,image/gif,image/webp,.png,.jpg,.jpeg,.gif,.webp" />
+              <span style="display:block;margin-top:6px;font-size:12px;color:var(--text-muted);text-transform:none;letter-spacing:0;font-weight:500;">
+                Upload a file from your device (PNG / JPG / GIF / WEBP). Max ~8 MB.
+              </span>
+            </label>
+            <div id="annPreviewWrap" style="display:none;margin-top:4px;">
+              <img id="annPreview" alt="Preview" style="max-width:220px;max-height:140px;border-radius:12px;border:1px solid var(--border);object-fit:cover;" />
+            </div>
+
+            <label>
+              <span>Or image URL (optional)</span>
+              <input type="url" id="annImageUrl" placeholder="https://… only if the image is already online" />
+              <span style="display:block;margin-top:6px;font-size:12px;color:var(--text-muted);text-transform:none;letter-spacing:0;font-weight:500;">
+                Prefer <strong>Attach image</strong> above — URLs often fail if the site blocks Discord.
+              </span>
+            </label>
+
+            <label>
+              <span>Attach other files (optional)</span>
+              <input type="file" id="annExtraFiles" multiple />
+              <span style="display:block;margin-top:6px;font-size:12px;color:var(--text-muted);text-transform:none;letter-spacing:0;font-weight:500;">
+                PDF, ZIP, etc. (shown as Discord attachments, not inside the embed image).
+              </span>
+            </label>
+
+            <label>
+              <span>Ping / content line (optional)</span>
+              <input type="text" id="annPing" maxlength="200" placeholder="@everyone or custom text above the embed" />
+            </label>
+            <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;">
+              <input type="checkbox" id="annConfirm" required style="width:auto;margin-top:4px;" />
+              <span style="text-transform:none;letter-spacing:0;font-size:13px;color:var(--text-secondary);font-weight:500;">
+                I confirm this will post publicly to the Discord channel. *
+              </span>
+            </label>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary" id="btnAnnounce">Send to Discord</button>
+              <button type="reset" class="btn btn-ghost" id="btnAnnReset">Clear</button>
+              <a href="prohit.html" class="btn btn-ghost">PROH1T</a>
+            </div>
+            <p id="annStatus" style="margin-top:12px;font-size:13px;min-height:1.3em;color:var(--text-muted);"></p>
+          </form>
+        </div>
+
+        <div class="card" style="margin-top:16px;">
+          <h3 style="font-family:var(--font-head);margin-bottom:8px;">Tips</h3>
+          <ul style="padding-left:18px;color:var(--text-secondary);font-size:0.9rem;line-height:1.75;">
+            <li>Use <strong>Attach image</strong> so Discord always receives the file.</li>
+            <li>Image URL only works if the link is public and allows Discord’s servers.</li>
+            <li>Logo (thumbnail) is added automatically from <code>images/pt-logo.png</code> / <code>proh1t.png</code>.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><div class="container">
+    <div class="footer-bottom" style="border:0;">
+      <div class="footer-copy">© 2026 Prime Blog · Owner [Code.Dev] Nems</div>
+    </div>
+  </div></footer>
+
+  <script src="js/maintenance.js"></script>
+  <script src="js/intro.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/discord-config.js"></script>
+  <script src="js/discord-send.js"></script>
+  <script>
+    (function () {
+      var form = document.getElementById("announceForm");
+      var status = document.getElementById("annStatus");
+      var btn = document.getElementById("btnAnnounce");
+      var fileInput = document.getElementById("annImageFile");
+      var preview = document.getElementById("annPreview");
+      var previewWrap = document.getElementById("annPreviewWrap");
+      var extraInput = document.getElementById("annExtraFiles");
+
+      function v(id) {
+        var el = document.getElementById(id);
+        return el ? el.value.trim() : "";
+      }
+      function setStatus(msg, kind) {
+        status.textContent = msg || "";
+        status.style.color =
+          kind === "ok" ? "#22C55E" :
+          kind === "err" ? "#FF2D55" :
+          kind === "wait" ? "#00E5FF" :
+          "var(--text-muted)";
+      }
+
+      if (fileInput) {
+        fileInput.addEventListener("change", function () {
+          var f = fileInput.files && fileInput.files[0];
+          if (!f) {
+            previewWrap.style.display = "none";
+            preview.removeAttribute("src");
+            return;
+          }
+          if (f.size > 8 * 1024 * 1024) {
+            setStatus("Image too large (max 8 MB).", "err");
+            fileInput.value = "";
+            previewWrap.style.display = "none";
+            return;
+          }
+          var url = URL.createObjectURL(f);
+          preview.src = url;
+          previewWrap.style.display = "block";
+          setStatus("");
+        });
+      }
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
+        }
+        var c = window.PB_DISCORD || {};
+        var webhook = (c.announcementsWebhook || "").trim();
+        if (!webhook) {
+          webhook =
+            "https://discord.com/api/webhooks/1534133921011335178/QqZX_150kvjZDXmG0xrNlw8QPHTUKqnPqvkiCkf8rURCtYLv9_1wqsxc5cwlw4JMUGoW";
+        }
+
+        var title = v("annTitle");
+        var bodyText = v("annBody");
+        var link = v("annLink");
+        var linkLabel = v("annLinkLabel") || "Open link";
+        var imageUrl = v("annImageUrl");
+        var ping = v("annPing");
+        var imgFile = fileInput && fileInput.files && fileInput.files[0] ? fileInput.files[0] : null;
+
+        var embed = {
+          title: title,
+          description: bodyText,
+          color: 0x5B8CFF,
+          timestamp: new Date().toISOString(),
+          footer: { text: "Prime Blog Announcement" }
+        };
+        if (link) {
+          embed.fields = [{ name: "Link", value: "[" + linkLabel + "](" + link + ")" }];
+          embed.url = link;
+        }
+        // URL image only if no file uploaded
+        if (!imgFile && imageUrl) {
+          embed.image = { url: imageUrl };
+        }
+
+        var payload = {
+          username: c.announceUsername || "Prime Blog Announcements",
+          embeds: [embed]
+        };
+        if (ping) payload.content = ping;
+
+        var extras = [];
+        if (extraInput && extraInput.files) {
+          for (var i = 0; i < extraInput.files.length; i++) extras.push(extraInput.files[i]);
+        }
+
+        btn.disabled = true;
+        btn.textContent = "Sending…";
+        setStatus("Posting to Discord…", "wait");
+
+        var send = window.PB_DISCORD_SEND && window.PB_DISCORD_SEND.send;
+        var check = window.PB_DISCORD_SEND && window.PB_DISCORD_SEND.ok;
+
+        var req = send
+          ? send(webhook, payload, { imageFile: imgFile, extraFiles: extras })
+          : fetch(webhook, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(payload)
+            });
+
+        req
+          .then(function (res) {
+            if (check) return check(res);
+            if (res.status === 204 || res.status === 200 || res.ok) return res;
+            throw new Error("Discord " + res.status);
+          })
+          .then(function () {
+            setStatus("Done. Announcement sent to Discord" + (imgFile ? " (with image file)." : "."), "ok");
+            form.reset();
+            previewWrap.style.display = "none";
+            preview.removeAttribute("src");
+          })
+          .catch(function (err) {
+            setStatus("Failed: " + (err.message || "network error"), "err");
+          })
+          .finally(function () {
+            btn.disabled = false;
+            btn.textContent = "Send to Discord";
+          });
+      });
+
+      var resetBtn = document.getElementById("btnAnnReset");
+      if (resetBtn) {
+        resetBtn.addEventListener("click", function () {
+          setTimeout(function () {
+            previewWrap.style.display = "none";
+            preview.removeAttribute("src");
+            setStatus("");
+          }, 0);
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -31,8 +31,7 @@
           <a href="download.html" data-nav="downloads">Downloads</a>
           <a href="contact.html" data-nav="contact">Support</a>
         </div>
-        <!-- Discord server invite locked temporarily -->
-        <span class="btn-discord" style="opacity:0.45;cursor:not-allowed;" title="Discord server temporarily locked">Discord 🔒</span>
+        <a href="https://discord.gg/FweAccztUr" class="btn-discord" target="_blank" rel="noopener">Discord</a>
         <button class="theme-toggle" data-theme-toggle aria-label="Toggle theme"><span class="theme-icon">☾</span></button>
         <button class="nav-toggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
       </div>
@@ -40,70 +39,91 @@
   </header>
 
   <div class="marquee"><div class="marquee-track">
-    <span>🔥 Prime Blog — Elite Esports • Support via DM @nemmartvy • Tryouts 2026 🔥</span>
-    <span>🔥 Prime Blog — Elite Esports • Support via DM @nemmartvy • Tryouts 2026 🔥</span>
-    <span>🔥 Prime Blog — Elite Esports • Support via DM @nemmartvy • Tryouts 2026 🔥</span>
+    <span>🔥 Prime Blog Support · Fill the form · We reply on Discord 🔥</span>
+    <span>🔥 Prime Blog Support · Fill the form · We reply on Discord 🔥</span>
+    <span>🔥 Prime Blog Support · Fill the form · We reply on Discord 🔥</span>
   </div></div>
 
   <main>
     <div class="container page-head">
       <div class="section-label">Support</div>
       <h1>Contact &amp; Support</h1>
-      <p class="lead">Public Discord invite is temporarily locked. For tryouts, partnerships, or support — message the owner directly on Discord.</p>
+      <p class="lead">Fill out the form below — it posts to our Discord so staff can reply. You can also DM <strong>nemmartvy</strong>.</p>
     </div>
 
     <section class="section" style="padding-top:10px;">
       <div class="container" style="max-width:720px;">
+        <div class="card glow reveal">
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:18px;">
+            <img src="images/logo-prime.png" alt="" width="56" height="56" style="border-radius:12px;" onerror="this.src='images/pt-logo.png'" />
+            <div>
+              <h2 style="font-family:var(--font-head);margin:0 0 4px;font-size:1.15rem;">Send a message</h2>
+              <p style="color:var(--text-muted);font-size:0.85rem;margin:0;">Tryouts, support, partnerships — goes to Discord</p>
+            </div>
+          </div>
 
-        <div class="card glow reveal" style="text-align:center;padding:40px 28px;">
-          <div class="chip-row" style="justify-content:center;">
-            <span class="chip chip-hot">Discord Locked</span>
-            <span class="chip chip-live">DM Only</span>
+          <form class="form" id="supportForm" novalidate>
+            <div class="form-row">
+              <label>
+                <span>Name *</span>
+                <input type="text" id="supName" required maxlength="60" placeholder="Your name" />
+              </label>
+              <label>
+                <span>Discord username *</span>
+                <input type="text" id="supDiscord" required maxlength="40" placeholder="e.g. player123" />
+              </label>
+            </div>
+            <div class="form-row">
+              <label>
+                <span>Topic *</span>
+                <select id="supTopic" required>
+                  <option value="">Select</option>
+                  <option value="Tryouts">Tryouts</option>
+                  <option value="PROH1T Application">PROH1T Application</option>
+                  <option value="Partnership">Partnership</option>
+                  <option value="Event Question">Event Question</option>
+                  <option value="Support">Support</option>
+                  <option value="Other">Other</option>
+                </select>
+              </label>
+              <label>
+                <span>IGN (optional)</span>
+                <input type="text" id="supIgn" maxlength="40" placeholder="In-game name" />
+              </label>
+            </div>
+            <label>
+              <span>Message *</span>
+              <textarea id="supMessage" rows="5" required placeholder="How can we help?"></textarea>
+            </label>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary" id="btnSupport">Send to Discord</button>
+              <button type="reset" class="btn btn-ghost">Reset</button>
+            </div>
+            <p id="supStatus" style="margin-top:12px;font-size:13px;min-height:1.3em;color:var(--text-muted);"></p>
+          </form>
+
+          <div id="supDone" style="display:none;margin-top:18px;padding-top:18px;border-top:1px solid var(--border);text-align:center;">
+            <div class="chip-row" style="justify-content:center;"><span class="chip chip-live">Sent</span></div>
+            <h3 style="font-family:var(--font-head);margin:12px 0 8px;">Message sent</h3>
+            <p style="color:var(--text-secondary);font-size:0.92rem;line-height:1.65;">
+              Staff will see it on Discord. Wait for a reply or DM <strong>nemmartvy</strong> /
+              <strong>Mamiplays</strong> / <strong>BlairePH</strong>.
+            </p>
           </div>
-          <div style="font-size:42px;margin:12px 0 8px;">💬</div>
-          <h2 style="margin-bottom:8px;">Message the owner</h2>
-          <p style="color:var(--text-secondary);margin-bottom:6px;font-size:0.95rem;">
-            Discord username
-          </p>
-          <div style="font-family:var(--font-head);font-size:clamp(1.4rem,4vw,2rem);font-weight:800;letter-spacing:1px;margin:8px 0 20px;background:linear-gradient(90deg,var(--pb-crimson),var(--pb-cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
-            nemmartvy
-          </div>
-          <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:22px;max-width:42ch;margin-left:auto;margin-right:auto;line-height:1.6;">
-            Open Discord → search <strong style="color:var(--text);">nemmartvy</strong> → send a friend request or DM.
-            Server invite links are disabled until further notice.
-          </p>
-          <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-            <button type="button" class="btn btn-primary" id="copyDiscordUser" data-user="nemmartvy">
-              Copy Username
-            </button>
-            <a href="https://discord.com/channels/@me" class="btn btn-ghost" target="_blank" rel="noopener">
-              Open Discord App
-            </a>
-            <a href="index.html" class="btn btn-ghost">Back to Home</a>
-          </div>
-          <p id="copyHint" style="margin-top:14px;font-size:13px;color:var(--pb-cyan);min-height:1.2em;"></p>
         </div>
 
         <div class="grid cards-2" style="margin-top:20px;">
           <div class="card hover-rise reveal">
-            <div class="chip-row"><span class="chip">Locked</span></div>
-            <h3 style="margin-bottom:8px;">Discord Server</h3>
-            <p style="color:var(--text-secondary);font-size:0.9rem;margin-bottom:12px;">Public invite is temporarily disabled. Use direct message instead.</p>
-            <span class="btn btn-sm btn-ghost" style="opacity:0.5;cursor:not-allowed;">Unavailable</span>
+            <h3 style="margin-bottom:8px;">Discord server</h3>
+            <p style="color:var(--text-secondary);font-size:0.9rem;margin-bottom:12px;">Join the community channel.</p>
+            <a href="https://discord.gg/WEYFeBWgB6" class="btn btn-sm btn-primary" target="_blank" rel="noopener">Join Discord</a>
           </div>
           <div class="card hover-rise reveal reveal-delay-1">
-            <div class="chip-row"><span class="chip chip-new">Owner</span></div>
-            <h3 style="margin-bottom:8px;">[Code.Dev] Nems</h3>
-            <p style="color:var(--text-secondary);font-size:0.9rem;margin-bottom:12px;">Platform owner &amp; developer.</p>
-            <a href="about.html#owner" class="btn btn-sm btn-primary">Owner Page</a>
+            <h3 style="margin-bottom:8px;">Owner</h3>
+            <p style="color:var(--text-secondary);font-size:0.9rem;margin-bottom:12px;">[Code.Dev] Nems · Discord: <strong>nemmartvy</strong></p>
+            <a href="about.html#owner" class="btn btn-sm btn-ghost">Owner page</a>
           </div>
         </div>
-
-        <div class="card reveal" style="margin-top:20px;">
-          <h3 style="font-family:var(--font-head);margin-bottom:10px;">Contact form</h3>
-          <p style="color:var(--text-secondary);font-size:0.9rem;">The contact form remains offline during system upgrades. Please DM <strong>nemmartvy</strong> on Discord for all requests.</p>
-        </div>
-
       </div>
     </section>
   </main>
@@ -113,16 +133,14 @@
       <div class="footer-brand-col">
         <img class="footer-logo" src="images/logo-prime.png" alt="" onerror="this.src='images/pt-logo.png'" />
         <div class="footer-title">PRIME BLOG</div>
-        <p class="footer-desc">Elite esports community hub.</p>
-        <p class="footer-desc" style="margin-top:8px;">Owner: <strong style="color:var(--text);">[Code.Dev] Nems</strong></p>
+        <p class="footer-desc">Elite esports community hub. Owner: [Code.Dev] Nems</p>
       </div>
-      <div class="footer-col"><h4>Platform</h4><a href="index.html">Home</a><a href="blog.html">News</a><a href="event.html">Events</a><a href="download.html">Downloads</a></div>
-      <div class="footer-col"><h4>Community</h4><a href="about.html">About</a><a href="contact.html">Support (DM)</a><a href="about.html#owner">Owner</a></div>
+      <div class="footer-col"><h4>Platform</h4><a href="index.html">Home</a><a href="blog.html">News</a><a href="prohit.html">PROH1T</a><a href="download.html">Downloads</a></div>
+      <div class="footer-col"><h4>Community</h4><a href="about.html">About</a><a href="contact.html">Support</a><a href="announce.html">Announce</a></div>
       <div class="footer-col"><h4>Legal</h4><a href="#">Privacy</a><a href="#">Terms</a></div>
     </div>
     <div class="footer-bottom">
       <div class="footer-copy">© 2026 Prime Blog · Owner [Code.Dev] Nems</div>
-      <div class="footer-socials"><a href="#" aria-label="Facebook">f</a><a href="#" aria-label="YouTube">▶</a><span title="Discord locked" style="opacity:0.4;cursor:not-allowed;width:38px;height:38px;border-radius:10px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:14px;">D</span></div>
     </div>
   </div></footer>
 
@@ -130,24 +148,88 @@
   <script src="js/intro.js"></script>
   <script src="js/player.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/discord-config.js"></script>
+  <script src="js/discord-send.js"></script>
   <script>
     (function () {
-      var btn = document.getElementById("copyDiscordUser");
-      var hint = document.getElementById("copyHint");
-      if (!btn) return;
-      btn.addEventListener("click", function () {
-        var user = btn.getAttribute("data-user") || "nemmartvy";
-        function ok() {
-          if (hint) hint.textContent = "Copied: " + user + " — paste in Discord search.";
-          setTimeout(function () { if (hint) hint.textContent = ""; }, 3500);
+      var form = document.getElementById("supportForm");
+      var status = document.getElementById("supStatus");
+      var done = document.getElementById("supDone");
+      var btn = document.getElementById("btnSupport");
+
+      function v(id) {
+        var el = document.getElementById(id);
+        return el ? el.value.trim() : "";
+      }
+      function setStatus(msg, kind) {
+        status.textContent = msg || "";
+        status.style.color =
+          kind === "ok" ? "#22C55E" :
+          kind === "err" ? "#FF2D55" :
+          kind === "wait" ? "#00E5FF" :
+          "var(--text-muted)";
+      }
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
         }
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(user).then(ok).catch(function () {
-            hint.textContent = "Username: " + user;
+        var c = window.PB_DISCORD || {};
+        var webhook = (c.supportWebhook || c.applicationsWebhook || "").trim();
+        if (!webhook) {
+          webhook = "https://discordapp.com/api/webhooks/1473273620787630234/RuEApTCwlnNKS6fvmha1LpWoX-rAQgDWD-jZ5XKhCnf2SxOXcemHQIy5SuUJeeIiBvWW";
+        }
+
+        var payload = {
+          username: c.supportUsername || "Prime Blog Support",
+          content: "📩 New support message — please review",
+          embeds: [{
+            title: "Support / Contact Form",
+            description: "From **Prime Blog** · contact.html",
+            color: 0x5B8CFF,
+            fields: [
+              { name: "Name", value: v("supName") || "—", inline: true },
+              { name: "Discord", value: "```" + v("supDiscord") + "```", inline: true },
+              { name: "Topic", value: v("supTopic") || "—", inline: true },
+              { name: "IGN", value: v("supIgn") || "—", inline: true },
+              { name: "Message", value: v("supMessage") || "—", inline: false }
+            ],
+            footer: { text: "Prime Blog Support · " + new Date().toLocaleString() },
+            timestamp: new Date().toISOString()
+          }]
+        };
+
+        btn.disabled = true;
+        btn.textContent = "Sending…";
+        setStatus("Sending to Discord…", "wait");
+
+        var send = window.PB_DISCORD_SEND && window.PB_DISCORD_SEND.send;
+        var check = window.PB_DISCORD_SEND && window.PB_DISCORD_SEND.ok;
+        var req = send
+          ? send(webhook, payload)
+          : fetch(webhook, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+
+        req
+          .then(function (res) {
+            if (check) return check(res);
+            if (res.status === 204 || res.status === 200 || res.ok) return res;
+            throw new Error("Discord " + res.status);
+          })
+          .then(function () {
+            setStatus("");
+            done.style.display = "block";
+            form.reset();
+            done.scrollIntoView({ behavior: "smooth", block: "nearest" });
+          })
+          .catch(function (err) {
+            setStatus("Failed: " + (err.message || "network error"), "err");
+          })
+          .finally(function () {
+            btn.disabled = false;
+            btn.textContent = "Send to Discord";
           });
-        } else {
-          hint.textContent = "Username: " + user;
-        }
       });
     })();
   </script>

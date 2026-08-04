@@ -48,7 +48,10 @@
   <main>
     <div class="container page-head">
       <div class="section-label">PROH1T</div>
-      <h1>Join PROH1T Clan</h1>
+      <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:8px;">
+        <img src="images/proh1t.png" alt="PROH1T" width="72" height="72" style="border-radius:16px;box-shadow:var(--glow-dual);background:rgba(0,0,0,0.3);" />
+        <h1 style="margin:0;">Join PROH1T Clan</h1>
+      </div>
       <p class="lead">Competitive CrossFire Philippines clan under Prime Blog. Apply below — disciplined, coachable players only.</p>
       <div class="chip-row" style="margin-top:16px;">
         <span class="chip chip-live">Tryouts Open</span>
@@ -72,13 +75,29 @@
               <li>Clear roles (IGL, entry, support, etc.)</li>
               <li>Respectful, no-toxicity standard</li>
               <li>CM-managed tryouts &amp; roster (Mamiplays · BlairePH)</li>
+
+              
+              <br><br>
+              <li>Open Recruit For PROH1T</li>
+
+              <li>Second Lieutenant🆙</li>
+              <li>Age 18 Above🆙</li>
+              <li>Need Try Out!</li>
+              <li>Respect/Members </li>
+              <li>Also Admins✅</li>
+              <li>Need Discord✅</li>
+              <li>No Discord No Clan War⚠️ </li>
+              <li>Own Your Change Code Name  Example:BlanchePHT/PRETTY.PHT✅</li>
+              <li>Set NameCard:(Rose/Ghost)</li>
+
+              no toxic allow!
             </ul>
           </div>
           <div class="card reveal reveal-delay-1">
             <h3 style="font-family:var(--font-head);margin-bottom:12px;">Suite status</h3>
             <div class="status-bar" style="grid-template-columns:1fr;gap:10px;">
               <div class="status-item"><span class="status-dot online"></span><div><div class="status-label">Applications</div><div class="status-value">Open</div></div></div>
-              <div class="status-item"><span class="status-dot warn"></span><div><div class="status-label">Discord Server</div><div class="status-value">Locked (DM only)</div></div></div>
+              <div class="status-item"><span class="status-dot online"></span><div><div class="status-label">Discord Server</div><a href="https://discord.gg/FweAccztUr" class="btn btn-ghost">Join Discord</a></div></div>
               <div class="status-item"><span class="status-dot warn"></span><div><div class="status-label">Rules Panel</div><div class="status-value">Coming Soon</div></div></div>
               <div class="status-item"><span class="status-dot warn"></span><div><div class="status-label">Admins Tools</div><div class="status-value">Coming Soon</div></div></div>
               <div class="status-item"><span class="status-dot online"></span><div><div class="status-label">CM 1</div><div class="status-value">Mamiplays</div></div></div>
@@ -129,7 +148,7 @@
             <div class="form-row">
               <label>
                 <span>Main Game</span>
-                <input type="text" name="game" id="game" value="CrossFire PH" maxlength="40" />
+                <input type="text" name="game" id="game" value="CrossFire PH" maxlength="40" style="opacity:0.45;cursor:not-allowed;" title="Discord server temporarily locked"/>
               </label>
               <label>
                 <span>Schedule availability *</span>
@@ -152,28 +171,40 @@
             </label>
 
             <div class="form-actions" style="margin-top:8px;">
-              <button type="submit" class="btn btn-primary">Prepare Application</button>
+              <button type="submit" class="btn btn-primary" id="btnSubmitApp">Submit to Discord</button>
               <button type="button" class="btn btn-ghost" id="btnReset">Reset</button>
-              <a href="contact.html" class="btn btn-ghost">DM Owner</a>
+              <a href="https://discord.gg/FweAccztUr" class="btn btn-ghost" target="_blank" rel="noopener">Join Discord</a>
             </div>
+            <p id="formStatus" style="margin-top:12px;font-size:13px;min-height:1.3em;color:var(--text-muted);"></p>
           </form>
 
           <div id="formResult" style="display:none;margin-top:22px;padding-top:20px;border-top:1px solid var(--border);">
             <div class="chip-row">
-              <span class="chip chip-live">Ready</span>
-              <span class="chip">Copy &amp; send</span>
+              <span class="chip chip-live">Sent</span>
+              <span class="chip">Discord</span>
             </div>
-            <h3 style="font-family:var(--font-head);margin:10px 0;">Your application summary</h3>
-            <p style="color:var(--text-secondary);font-size:0.9rem;margin-bottom:12px;">
-              Copy the text below and send it to <strong style="color:var(--text);">Mamiplays</strong> or <strong style="color:var(--text);">BlairePH</strong> (or platform contact <strong>nemmartvy</strong>) on Discord
-              (public server invite is locked).
-            </p>
-            <textarea id="summaryBox" rows="12" readonly style="font-family:ui-monospace,monospace;font-size:12.5px;line-height:1.5;"></textarea>
-            <div class="form-actions" style="margin-top:12px;">
-              <button type="button" class="btn btn-primary" id="btnCopy">Copy Summary</button>
-              <a href="https://discord.com/channels/@me" class="btn btn-ghost" target="_blank" rel="noopener">Open Discord</a>
+            <div style="text-align:center;padding:12px 0 8px;">
+              <img src="images/proh1t.png" alt="" width="64" height="64" style="margin:0 auto 12px;border-radius:14px;" />
+              <h3 style="font-family:var(--font-head);margin:0 0 10px;">Application sent to Discord</h3>
+              <p style="color:var(--text-secondary);font-size:0.95rem;line-height:1.65;max-width:42ch;margin:0 auto 14px;">
+                <strong style="color:var(--text);">Done.</strong> Your application was posted to the PROH1T applications channel.
+                Please <strong style="color:var(--pb-gold);">wait for a response</strong> or DM a clan master / owner:
+              </p>
+              <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:16px;">
+                <strong style="color:var(--text);">Mamiplays</strong> (CM 1) ·
+                <strong style="color:var(--text);">BlairePH</strong> (CM 2) ·
+                <strong style="color:var(--text);">nemmartvy</strong> (Owner)
+              </p>
             </div>
-            <p id="copyStatus" style="margin-top:10px;font-size:13px;color:var(--pb-cyan);min-height:1.2em;"></p>
+            <details style="margin-top:8px;">
+              <summary style="cursor:pointer;color:var(--pb-cyan);font-size:13px;font-weight:600;">View summary</summary>
+              <textarea id="summaryBox" rows="10" readonly style="margin-top:10px;font-family:ui-monospace,monospace;font-size:12.5px;line-height:1.5;"></textarea>
+              <div class="form-actions" style="margin-top:12px;">
+                <button type="button" class="btn btn-sm btn-ghost" id="btnCopy">Copy Summary</button>
+                <a href="https://discord.gg/FweAccztUr" class="btn btn-sm btn-primary" target="_blank" rel="noopener">Open Discord Server</a>
+              </div>
+              <p id="copyStatus" style="margin-top:10px;font-size:13px;color:var(--pb-cyan);min-height:1.2em;"></p>
+            </details>
           </div>
         </div>
       </div>
@@ -263,18 +294,41 @@
   <script src="js/intro.js"></script>
   <script src="js/player.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/discord-config.js"></script>
+  <script src="js/discord-send.js"></script>
   <script>
     (function () {
       var form = document.getElementById("prohitForm");
+      if (!form) return;
+
       var result = document.getElementById("formResult");
       var box = document.getElementById("summaryBox");
       var copyBtn = document.getElementById("btnCopy");
       var copyStatus = document.getElementById("copyStatus");
       var resetBtn = document.getElementById("btnReset");
+      var formStatus = document.getElementById("formStatus");
+      var submitBtn = document.getElementById("btnSubmitApp");
+
+      var FALLBACK_WEBHOOK =
+        "https://discord.com/api/webhooks/1534085510945837117/S4Ry94FzQyoOKupFWmfzTHvLemUilVX12PQlsvRt5mEzKwAqk6QiLXeCq2iubN1xh-CS";
 
       function val(id) {
         var el = document.getElementById(id);
-        return el ? el.value.trim() : "";
+        return el ? String(el.value || "").trim() : "";
+      }
+
+      function cfg() {
+        return window.PB_DISCORD || {};
+      }
+
+      function setStatus(msg, kind) {
+        if (!formStatus) return;
+        formStatus.textContent = msg || "";
+        formStatus.style.color =
+          kind === "ok" ? "#22C55E" :
+          kind === "err" ? "#FF2D55" :
+          kind === "wait" ? "#00E5FF" :
+          "var(--text-muted)";
       }
 
       function buildSummary() {
@@ -286,8 +340,8 @@
           "Rank: " + val("rank"),
           "Game: " + val("game"),
           "Schedule: " + val("schedule"),
-          "Experience: " + (val("experience") || "—"),
-          "Why join: " + (val("why") || "—"),
+          "Experience: " + (val("experience") || "-"),
+          "Why join: " + (val("why") || "-"),
           "Submitted via: Prime Blog / prohit.html",
           "Date: " + new Date().toLocaleString(),
           "====================================="
@@ -295,41 +349,133 @@
         return lines.join("\n");
       }
 
+      function buildEmbedPayload() {
+        var c = cfg();
+        var site = c.siteUrl || "https://nemmartv.github.io/main1";
+        var now = new Date();
+        var embed = {
+          title: "PROH1T Clan Application (CFPH)",
+          description: "Submitted from **Prime Blog** · [Open form](" + site + "/prohit.html)",
+          color: 0xFF2D55,
+          fields: [
+            { name: "IGN", value: "```" + (val("ign") || "-") + "```", inline: true },
+            { name: "Discord", value: "```" + (val("discord") || "-") + "```", inline: true },
+            { name: "Role", value: "```" + (val("role") || "-") + "```", inline: true },
+            { name: "Rank / Level", value: val("rank") || "-", inline: true },
+            { name: "Main Game", value: val("game") || "CrossFire PH", inline: true },
+            { name: "Schedule", value: val("schedule") || "-", inline: false },
+            { name: "Experience", value: val("experience") || "-", inline: false },
+            { name: "Why join PROH1T?", value: val("why") || "-", inline: false }
+          ],
+          footer: { text: "Prime Blog · Wait for CM / owner reply · " + now.toLocaleString() },
+          timestamp: now.toISOString()
+        };
+        return {
+          username: c.username || "PROH1T Applications",
+          content: c.applicationsMention || "🔔 New PROH1T clan application — CMs / owner please review",
+          embeds: [embed]
+        };
+      }
+
+      function postToDiscord(webhook, payload) {
+        if (window.PB_DISCORD_SEND && typeof window.PB_DISCORD_SEND.send === "function") {
+          return window.PB_DISCORD_SEND.send(webhook, payload).then(function (res) {
+            if (window.PB_DISCORD_SEND.ok) return window.PB_DISCORD_SEND.ok(res);
+            if (res.status === 204 || res.status === 200 || res.ok) return res;
+            throw new Error("Discord " + res.status);
+          });
+        }
+        return fetch(webhook, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        }).then(function (res) {
+          if (res.status === 204 || res.status === 200 || res.ok) return res;
+          return res.text().then(function (txt) {
+            throw new Error("Discord " + res.status + (txt ? ": " + String(txt).slice(0, 100) : ""));
+          });
+        });
+      }
+
       form.addEventListener("submit", function (e) {
         e.preventDefault();
+        e.stopPropagation();
+
         if (!form.checkValidity()) {
           form.reportValidity();
+          setStatus("Please fill all required fields.", "err");
           return;
         }
-        box.value = buildSummary();
-        result.style.display = "block";
-        result.scrollIntoView({ behavior: "smooth", block: "nearest" });
-        copyStatus.textContent = "";
-      });
 
-      resetBtn.addEventListener("click", function () {
-        form.reset();
-        document.getElementById("game").value = "CrossFire PH";
-        result.style.display = "none";
-        copyStatus.textContent = "";
-      });
+        var webhook = (cfg().applicationsWebhook || "").trim() || FALLBACK_WEBHOOK;
+        var summary = buildSummary();
+        if (box) box.value = summary;
 
-      copyBtn.addEventListener("click", function () {
-        var text = box.value;
-        function ok() {
-          copyStatus.textContent = "Copied! Paste into a DM to Mamiplays, BlairePH, or nemmartvy on Discord.";
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.textContent = "Sending…";
         }
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(text).then(ok).catch(function () {
-            box.select();
-            copyStatus.textContent = "Select the text and copy manually (Ctrl+C).";
+        setStatus("Sending application to Discord server…", "wait");
+
+        postToDiscord(webhook, buildEmbedPayload())
+          .then(function () {
+            setStatus("Sent! Admins have been notified on Discord.", "ok");
+            if (result) {
+              result.style.display = "block";
+              result.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            }
+            form.reset();
+            var game = document.getElementById("game");
+            if (game) game.value = "CrossFire PH";
+            if (box) box.value = summary;
+          })
+          .catch(function (err) {
+            console.error("PROH1T webhook error:", err);
+            setStatus(
+              "Could not reach Discord (" + (err && err.message ? err.message : "network error") + "). Try again or DM the owner.",
+              "err"
+            );
+            if (result) result.style.display = "block";
+            if (box) box.value = summary;
+          })
+          .finally(function () {
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.textContent = "Submit to Discord";
+            }
           });
-        } else {
-          box.select();
-          copyStatus.textContent = "Select the text and copy manually (Ctrl+C).";
-        }
       });
+
+      if (resetBtn) {
+        resetBtn.addEventListener("click", function () {
+          form.reset();
+          var game = document.getElementById("game");
+          if (game) game.value = "CrossFire PH";
+          if (result) result.style.display = "none";
+          setStatus("");
+          if (copyStatus) copyStatus.textContent = "";
+        });
+      }
+
+      if (copyBtn) {
+        copyBtn.addEventListener("click", function () {
+          var text = box ? box.value : "";
+          function ok() {
+            if (copyStatus) copyStatus.textContent = "Copied!";
+          }
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(ok).catch(function () {
+              if (box) box.select();
+              if (copyStatus) copyStatus.textContent = "Select text and copy (Ctrl+C).";
+            });
+          } else {
+            if (box) box.select();
+            if (copyStatus) copyStatus.textContent = "Select text and copy (Ctrl+C).";
+          }
+        });
+      }
     })();
   </script>
+
 </body>
 </html>

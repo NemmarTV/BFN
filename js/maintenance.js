@@ -17,7 +17,7 @@
   const MAINTENANCE_ON = false; // true = ON, false = OFF
 
   // ✅ Admin password (change this)
-  const ADMIN_PASSWORD = "2000";
+  const ADMIN_PASSWORD = "luadmin2026";
 
   // ✅ How long bypass lasts (hours)
   const BYPASS_EXPIRES_HOURS = 6;

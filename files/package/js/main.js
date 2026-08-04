@@ -7,7 +7,7 @@
 ================================================ */
 
 (() => {
-  const PASSWORD = "cfph2026";
+  const PASSWORD = "2026";
 
   // DOM elements
   const btnDownload = document.getElementById("btnDownload");
