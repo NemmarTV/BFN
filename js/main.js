@@ -83,7 +83,7 @@
     "blog.html": "blog",
     "event.html": "events",
     "download.html": "downloads",
-    "contact.html": "contact", "prohit.html": "prohit", "reels.html": "reels",
+    "contact.html": "contact", "prohit.html": "prohit", "reels.html": "reels", "donate.html": "donate",
   };
   const activeKey = navMap[currentFile] || "home";
   document.querySelectorAll("[data-nav]").forEach((link) => {
