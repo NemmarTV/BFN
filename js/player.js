@@ -24,6 +24,18 @@
       artist: "Prime Blog · BGM",
       src: "sounds/zhujiemian_loop1.mp3",
     },
+    {
+      id: "Unapologetic",
+      title: "Chyde - Unapologetic",
+      artist: "Chyde · BGM",
+      src: "sounds/Chyde_Unapologetic.mp3",
+    },
+    {
+      id: "BGM Track 1",
+      title: "BGM Track 1",
+      artist: "CFPH Theme · BGM",
+      src: "sounds/bgm_track1_loop.mp3",
+    },
   ];
 
   var STORAGE_KEY = "pb_player_v3";
