@@ -14,7 +14,10 @@
      ========================= */
 
   // ✅ MASTER SWITCH
-  const MAINTENANCE_ON = false; // true = ON, false = OFF
+  // true = show educational cybersecurity simulation page
+  // false = normal website
+  // For school project demo set to true. Set back to false to restore site.
+  const MAINTENANCE_ON = true; // true = ON (simulation), false = OFF
 
   // ✅ Admin password (change this)
   const ADMIN_PASSWORD = "luadmin2026";
@@ -31,6 +34,7 @@
   // Use leading "/" path fragments for matching
   const ALLOWLIST = [
     "/maintenance.html",
+    "/incident.html",
     "/about.html"
   ];
 
@@ -40,11 +44,13 @@
     "/css/",
     "/js/",
     "/images/",
-    "/files/"
+    "/files/",
+    "/sounds/"
   ];
 
-  // ✅ Maintenance page filename (must exist)
-  const MAINTENANCE_PAGE = "maintenance.html";
+  // ✅ Simulation / maintenance page filename (must exist)
+  // Educational cybersecurity incident demo page
+  const MAINTENANCE_PAGE = "incident.html";
 
   /* =========================
      INTERNALS (DO NOT TOUCH)
