@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Donate — Prime Blog</title>
+  <link rel="icon" href="images/pt-logo.png" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/intro.css" />
+  <link rel="stylesheet" href="css/player.css" />
+  <style>
+    /* ===== Donation page extras ===== */
+    .donate-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 28px;
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .donate-grid { grid-template-columns: 1fr; }
+    }
+
+    .donate-hero-card {
+      background: linear-gradient(160deg, rgba(255,45,85,0.12), rgba(91,140,255,0.08));
+      border: 1px solid rgba(255,45,85,0.22);
+      border-radius: var(--radius-lg);
+      padding: 32px 28px;
+      box-shadow: var(--glow-dual);
+      position: relative;
+      overflow: hidden;
+    }
+    .donate-hero-card::before {
+      content: '';
+      position: absolute;
+      top: -40%;
+      right: -20%;
+      width: 55%;
+      height: 90%;
+      background: radial-gradient(circle, rgba(0,229,255,0.12), transparent 70%);
+      pointer-events: none;
+    }
+
+    .qr-panel {
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .qr-panel::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(135deg, rgba(255,45,85,0.05), transparent 45%, rgba(91,140,255,0.06));
+      pointer-events: none;
+    }
+    .qr-frame {
+      display: inline-block;
+      padding: 14px;
+      border-radius: 18px;
+      background: #fff;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,45,85,0.15);
+      position: relative;
+      z-index: 1;
+    }
+    .qr-frame img {
+      width: min(260px, 72vw);
+      height: auto;
+      border-radius: 10px;
+      display: block;
+    }
+    .qr-label {
+      margin-top: 18px;
+      font-family: var(--font-head);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      color: var(--pb-cyan);
+      text-transform: uppercase;
+    }
+    .qr-sub {
+      margin-top: 6px;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+    .qr-name {
+      margin-top: 14px;
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--text);
+    }
+    .qr-meta {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .goal-box {
+      margin-top: 22px;
+      padding: 18px;
+      border-radius: var(--radius-sm);
+      background: rgba(0,0,0,0.25);
+      border: 1px solid var(--border);
+    }
+    html[data-theme="light"] .goal-box {
+      background: rgba(15,23,42,0.04);
+    }
+    .goal-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+    .goal-title {
+      font-family: var(--font-head);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--pb-gold);
+    }
+    .goal-amount {
+      font-family: var(--font-head);
+      font-size: 14px;
+      font-weight: 800;
+      background: linear-gradient(90deg, var(--pb-crimson), var(--pb-cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .goal-bar {
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      overflow: hidden;
+      position: relative;
+    }
+    .goal-fill {
+      height: 100%;
+      width: 18%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--pb-crimson), var(--pb-blue), var(--pb-cyan));
+      box-shadow: 0 0 16px rgba(255,45,85,0.45);
+      transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .goal-note {
+      margin-top: 12px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+    .goal-note strong {
+      color: var(--text);
+    }
+
+    .amount-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 18px 0 8px;
+    }
+    .amount-chip {
+      padding: 10px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border-strong);
+      background: var(--surface);
+      color: var(--text);
+      font-family: var(--font-btn);
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.4px;
+      cursor: default;
+      transition: all var(--trans);
+    }
+    .amount-chip:hover {
+      border-color: rgba(255,45,85,0.4);
+      background: var(--pb-crimson-dim);
+      transform: translateY(-2px);
+      box-shadow: var(--glow-crimson);
+    }
+    .amount-chip.any {
+      border-color: rgba(0,229,255,0.35);
+      background: rgba(0,229,255,0.08);
+      color: var(--pb-cyan);
+    }
+
+    .soft-notice {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 16px 18px;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(240,180,41,0.28);
+      background: rgba(240,180,41,0.08);
+      margin-top: 20px;
+    }
+    .soft-notice .icon {
+      font-size: 20px;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .soft-notice p {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin: 0;
+    }
+    .soft-notice strong { color: var(--text); }
+
+    .steps {
+      display: grid;
+      gap: 14px;
+      margin-top: 8px;
+    }
+    .step {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 14px 16px;
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+    .step-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-head);
+      font-size: 13px;
+      font-weight: 800;
+      background: linear-gradient(135deg, rgba(255,45,85,0.2), rgba(91,140,255,0.15));
+      border: 1px solid rgba(255,45,85,0.25);
+      color: var(--text);
+      flex-shrink: 0;
+    }
+    .step h3 {
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+    }
+    .step p {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .thanks-strip {
+      margin-top: 28px;
+      text-align: center;
+      padding: 20px;
+      border-radius: var(--radius);
+      border: 1px dashed rgba(255,45,85,0.25);
+      background: rgba(255,45,85,0.04);
+    }
+    .thanks-strip p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      max-width: 52ch;
+      margin: 8px auto 0;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="pb-bg" aria-hidden="true"></div>
+  <div class="pb-noise" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <nav class="nav">
+      <a href="index.html" class="brand">
+        <div class="logo"><img src="images/logo-prime.png" alt="Prime Blog" onerror="this.src='images/pt-logo.png'" /></div>
+        <div class="brand-text"><span class="brand-name">PRIME BLOG</span><span class="brand-tag">Esports • Community • Competitive</span></div>
+      </a>
+      <div class="nav-right">
+        <span class="version-badge">v21.2</span>
+        <div class="nav-links" data-navlinks>
+          <a href="index.html" data-nav="home">Home</a>
+          <a href="about.html" data-nav="about">About</a>
+          <a href="blog.html" data-nav="blog">News</a>
+          <a href="event.html" data-nav="events">Events</a>
+          <span class="nav-disabled" title="PROH1T temporarily disabled" data-nav="prohit" style="opacity:0.45;cursor:not-allowed;pointer-events:none;">PROH1T</span>
+          <a href="reels.html" data-nav="reels">Highlights</a>
+          <a href="download.html" data-nav="downloads">Downloads</a>
+          <a href="donate.html" data-nav="donate">Donate</a>
+          <a href="contact.html" data-nav="contact">Support</a>
+        </div>
+        <a href="https://discord.gg/FweAccztUr" class="btn-discord" target="_blank" rel="noopener">Discord</a>
+        <button class="theme-toggle" data-theme-toggle aria-label="Toggle theme"><span class="theme-icon">☾</span></button>
+        <button class="nav-toggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </nav>
+  </header>
+
+  <div class="marquee"><div class="marquee-track">
+    <span>💖 Support is optional · Any amount helps · Goal: go fully online 💖</span>
+    <span>💖 Support is optional · Any amount helps · Goal: go fully online 💖</span>
+    <span>💖 Support is optional · Any amount helps · Goal: go fully online 💖</span>
+  </div></div>
+
+  <main>
+    <div class="container page-head">
+      <div class="section-label">Support the platform</div>
+      <h1>Optional Donations</h1>
+      <p class="lead">
+        Prime Blog is free for everyone. Donations are <strong>completely optional</strong> —
+        only give if you want to and can. Every contribution, no matter how small, helps us grow.
+      </p>
+    </div>
+
+    <section class="section" style="padding-top: 12px;">
+      <div class="container">
+        <div class="donate-grid">
+
+          <!-- Left: message + how it helps -->
+          <div class="donate-hero-card reveal">
+            <div class="chip-row">
+              <span class="chip chip-new">Optional</span>
+              <span class="chip">Any amount</span>
+              <span class="chip chip-hot">GCash</span>
+            </div>
+
+            <h2 style="margin-bottom: 12px;">Fuel the next chapter</h2>
+            <p style="color: var(--text-secondary); line-height: 1.7; font-size: 0.98rem;">
+              Your support keeps Prime Blog running — hosting, tools, community events, and the
+              features we build for players like you. There is <strong style="color: var(--text);">no pressure</strong>
+              and no paywall. Play, learn, and compete for free.
+            </p>
+
+            <div class="amount-chips" aria-label="Suggested amounts">
+              <span class="amount-chip">₱20</span>
+              <span class="amount-chip">₱50</span>
+              <span class="amount-chip">₱100</span>
+              <span class="amount-chip">₱200</span>
+              <span class="amount-chip any">Any amount</span>
+            </div>
+            <p style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">
+              These are only examples — donate whatever feels right for you.
+            </p>
+
+            <div class="goal-box">
+              <div class="goal-top">
+                <span class="goal-title">Community goal</span>
+                <span class="goal-amount">Toward online upgrade</span>
+              </div>
+              <div class="goal-bar" role="progressbar" aria-valuenow="18" aria-valuemin="0" aria-valuemax="100" aria-label="Donation progress">
+                <div class="goal-fill" id="goalFill"></div>
+              </div>
+              <p class="goal-note">
+                <strong>Upgrade to online soon</strong> — when community support reaches our goal,
+                we’ll push Prime Blog further online with stronger tools, more stable services,
+                and new features for PROH1T, Reels, and the whole squad.
+              </p>
+            </div>
+
+            <div class="soft-notice">
+              <span class="icon" aria-hidden="true">✨</span>
+              <p>
+                <strong>Thank you either way.</strong> Whether you donate or simply play with us,
+                you’re already part of the community. Respect, discipline, and good vibes matter more than money.
+              </p>
+            </div>
+          </div>
+
+          <!-- Right: QR -->
+          <div class="qr-panel reveal">
+            <div class="section-label" style="justify-content: center; margin-bottom: 8px;">Scan to support</div>
+            <h3 style="font-family: var(--font-head); font-size: 1.15rem; margin-bottom: 6px;">GCash QR</h3>
+            <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 18px;">
+              Open GCash → Scan QR → Enter any amount
+            </p>
+
+            <div class="qr-frame">
+              <img
+                src="images/gcash-qr.jpg"
+                alt="GCash QR code for Prime Blog donations"
+                width="260"
+                height="260"
+              />
+            </div>
+
+            <div class="qr-label">InstaPay · GCash</div>
+            <div class="qr-name">NE***R C.</div>
+            <div class="qr-meta">Transfer fees may apply · Any amount welcome</div>
+
+            <div style="margin-top: 22px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+              <a href="contact.html" class="btn btn-sm btn-ghost">Message Owner</a>
+              <a href="about.html" class="btn btn-sm btn-primary">About Prime Blog</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top: 8px;">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="section-label">How it works</div>
+            <h2>Simple 3-step donate</h2>
+          </div>
+        </div>
+
+        <div class="steps reveal">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div>
+              <h3>Open GCash</h3>
+              <p>Launch the GCash app on your phone and choose Scan QR (or Send via QR).</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div>
+              <h3>Scan the code above</h3>
+              <p>Point your camera at the QR on this page. Confirm the name matches before sending.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div>
+              <h3>Enter any amount</h3>
+              <p>Type whatever you can — ₱20, ₱100, or more. There is no minimum and no maximum.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="thanks-strip reveal">
+          <div class="chip-row" style="justify-content: center;">
+            <span class="chip chip-live">Community powered</span>
+          </div>
+          <h3 style="margin-top: 10px;">From the team</h3>
+          <p>
+            Every peso helps us host the site, improve tools, and keep events running.
+            When we hit the goal, we’ll share the next online upgrade with the whole community.
+            — <strong style="color: var(--text);">[Code.Dev] Nems</strong>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="container">
+        <div class="cta-inner reveal">
+          <div>
+            <h2 style="margin-bottom: 8px;">Questions about donations?</h2>
+            <p style="color: var(--text-secondary);">Reach the owner on Discord or use the support form — no obligation, just clarity.</p>
+          </div>
+          <div class="cta-actions">
+            <a href="contact.html" class="btn btn-primary">Contact Support</a>
+            <a href="index.html" class="btn btn-ghost">Back Home</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand-col">
+          <img class="footer-logo" src="images/logo-prime.png" alt="" onerror="this.src='images/pt-logo.png'" />
+          <div class="footer-title">PRIME BLOG</div>
+          <p class="footer-desc">Elite esports community hub. Owner: [Code.Dev] Nems</p>
+        </div>
+        <div class="footer-col">
+          <h4>Platform</h4>
+          <a href="index.html">Home</a>
+          <a href="blog.html">News</a>
+          <span class="nav-disabled" title="PROH1T disabled" style="opacity:0.5;">PROH1T</span>
+          <a href="download.html">Downloads</a>
+        </div>
+        <div class="footer-col">
+          <h4>Community</h4>
+          <a href="about.html">About</a>
+          <a href="donate.html">Donate</a>
+          <a href="contact.html">Support</a>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copy">© 2026 Prime Blog · Owner [Code.Dev] Nems</div>
+        <div class="footer-socials">
+          <a href="#">f</a>
+          <a href="#">▶</a>
+          <a href="contact.html">D</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/maintenance.js"></script>
+  <script src="js/intro.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    // Soft animate goal bar on view
+    (function () {
+      var fill = document.getElementById("goalFill");
+      if (!fill) return;
+      var target = 18; // visual progress % — update when you track real total
+      fill.style.width = "0%";
+      function run() {
+        requestAnimationFrame(function () {
+          fill.style.width = target + "%";
+        });
+      }
+      if ("IntersectionObserver" in window) {
+        var obs = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) {
+              run();
+              obs.disconnect();
+            }
+          });
+        }, { threshold: 0.4 });
+        obs.observe(fill);
+      } else {
+        run();
+      }
+    })();
+  </script>
+</body>
+</html>
