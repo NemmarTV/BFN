@@ -46,25 +46,28 @@
 }
 
 html[data-theme="light"] {
-  /* Sky blue + white default theme */
-  --bg: #E8F4FC;
-  --bg2: #FFFFFF;
-  --bg3: #D6EAF8;
-  --surface: rgba(14, 165, 233, 0.06);
-  --surface2: rgba(14, 165, 233, 0.1);
-  --surface3: rgba(14, 165, 233, 0.14);
-  --border: rgba(14, 165, 233, 0.18);
-  --border-strong: rgba(14, 165, 233, 0.28);
-  --text: #0C4A6E;
-  --text-secondary: #0369A1;
+  /* True white / light surfaces — not muddy grey */
+  --bg: #FFFFFF;
+  --bg2: #F8FAFC;
+  --bg3: #F1F5F9;
+  --surface: rgba(15, 23, 42, 0.03);
+  --surface2: rgba(15, 23, 42, 0.05);
+  --surface3: rgba(15, 23, 42, 0.08);
+  --border: rgba(15, 23, 42, 0.1);
+  --border-strong: rgba(15, 23, 42, 0.18);
+  --text: #0F172A;
+  --text-secondary: #334155;
   --text-muted: #64748B;
-  --pb-blue: #0EA5E9;
-  --pb-cyan: #38BDF8;
-  --pb-electric: #0284C7;
-  --glow-crimson: 0 0 24px rgba(255, 45, 85, 0.2);
-  --glow-blue: 0 0 28px rgba(14, 165, 233, 0.35);
-  --glow-cyan: 0 0 28px rgba(56, 189, 248, 0.3);
-  --glow-dual: 0 0 30px rgba(14, 165, 233, 0.2), 0 0 50px rgba(56, 189, 248, 0.15);
+
+  /* Default blue instead of sky cyan */
+  --pb-cyan: #2563EB;
+  --pb-blue: #3B82F6;
+  --pb-electric: #1D4ED8;
+
+  --glow-crimson: 0 0 20px rgba(255, 45, 85, 0.2);
+  --glow-blue: 0 0 24px rgba(37, 99, 235, 0.25);
+  --glow-cyan: 0 0 24px rgba(37, 99, 235, 0.2);
+  --glow-dual: 0 0 28px rgba(255, 45, 85, 0.12), 0 0 48px rgba(37, 99, 235, 0.12);
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -195,7 +198,8 @@ ul, ol { list-style: none; }
   box-shadow: 0 4px 30px rgba(0,0,0,0.3);
 }
 html[data-theme="light"] .site-header.scrolled {
-  background: rgba(241, 245, 249, 0.9);
+  background: rgba(255, 255, 255, 0.95);
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
 }
 .site-header.scrolled .nav { height: 64px; }
 
@@ -1442,4 +1446,38 @@ html[data-theme="light"] .btn-primary {
 }
 html[data-theme="light"] .theme-toggle .theme-icon {
   /* when light is active, icon shows moon for switching to dark */
+}
+
+
+/* ===== Light mode polish: white bg, default blue accents ===== */
+html[data-theme="light"] body {
+  background: #FFFFFF;
+}
+html[data-theme="light"] .pb-bg {
+  background:
+    radial-gradient(ellipse 80% 50% at 20% -10%, rgba(255, 45, 85, 0.06), transparent 50%),
+    radial-gradient(ellipse 70% 40% at 85% 10%, rgba(37, 99, 235, 0.08), transparent 50%),
+    linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
+}
+html[data-theme="light"] .site-header {
+  background: rgba(255, 255, 255, 0.92);
+}
+html[data-theme="light"] .card,
+html[data-theme="light"] .post-card,
+html[data-theme="light"] .dl-card,
+html[data-theme="light"] .event-card {
+  background: #FFFFFF;
+  border-color: rgba(15, 23, 42, 0.1);
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+}
+html[data-theme="light"] .btn-primary {
+  background: linear-gradient(135deg, #2563EB, #1D4ED8);
+  color: #fff;
+}
+html[data-theme="light"] a:not(.btn):not(.nav-links a) {
+  color: #2563EB;
+}
+html[data-theme="light"] .nav-links a.active,
+html[data-theme="light"] .nav-links a:hover {
+  color: #2563EB;
 }

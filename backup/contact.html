@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>LiloanUnited — Contact</title>
+  <meta name="description" content="Contact LiloanUnited for tryouts, partnerships, and questions." />
+  <link rel="icon" href="images/lu.png" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script defer src="js/main.js"></script>
+</head>
+
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="index.html" aria-label="LiloanUnited Home">
+        <span class="logo">
+          <img src="images/lu.png" alt="LiloanUnited Logo" />
+        </span>
+        <span class="brand-text">
+          <span class="brand-name">LiloanUnited</span>
+          <span class="brand-tag">Esports • Community • Competitive</span>
+        </span>
+      </a>
+
+      <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <div class="nav-right">
+        <div class="nav-links" data-navlinks>
+          <a href="index.html" data-nav="home">Home</a>
+          <a href="about.html" data-nav="about">About</a>
+          <a href="blog.html" data-nav="blog">Blog</a>
+          <a href="event.html" data-nav="events">Events</a>
+          <a href="download.html" data-nav="downloads">Downloads</a>
+          <a href="contact.html" data-nav="contact">Contact</a>
+        </div>
+
+        <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle theme">
+          <span class="theme-icon" aria-hidden="true">☾</span>
+          <span class="theme-text">Theme</span>
+        </button>
+      </div>
+    </nav>
+
+    <div class="marquee" role="status" aria-live="polite">
+      <div class="marquee-track">
+        <span>🔥 Welcome to LiloanUnited! Stay tuned for updates, events, and announcements. 🔥</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="page-head">
+      <div>
+        <h1>Contact</h1>
+        <p class="lead">Apply for tryouts, ask questions, or propose partnerships.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="grid contact-grid">
+        <div class="card glow">
+          <h2>Send a Message</h2>
+          <p class="muted">Fill out the form and it will send directly to your Discord channel.</p>
+
+          
+          <form class="form" id="contactForm">
+            <div class="form-row">
+              <label>
+                <span>Name</span>
+                <input type="text" name="name" placeholder="Your name" required />
+              </label>
+
+              <label>
+                <span>Email</span>
+                <input type="email" name="email" placeholder="you@example.com" required />
+              </label>
+            </div>
+
+            <div class="form-row">
+              <label>
+                <span>Topic</span>
+                <select name="topic" required>
+                  <option value="" selected disabled>Select</option>
+                  <option>Tryouts</option>
+                  <option>Partnership</option>
+                  <option>Event Question</option>
+                  <option>Support</option>
+                </select>
+              </label>
+
+              <label>
+                <span>IGN (Priority)</span>
+                <input type="text" name="ign" placeholder="In-game name" />
+              </label>
+            </div>
+
+            <label>
+              <span>Message</span>
+              <textarea name="message" rows="6" placeholder="Type your message..." required></textarea>
+            </label>
+
+            <div class="form-actions">
+              <button class="btn btn-primary" type="submit" id="sendBtn">Send</button>
+              <a class="btn btn-ghost" href="about.html">Meet the Team</a>
+            </div>
+
+            <p class="muted" id="formStatus" style="margin-top:10px;"></p>
+          </form>
+        </div>
+
+        <aside class="card hover-rise">
+          <h2>Quick Info</h2>
+          <p class="muted">Replace placeholders with your real links and contacts.</p>
+
+          <div class="info-list">
+            <div class="info-item">
+              <div class="info-label">Discord</div>
+              <div class="info-value"><a href="https://discord.com/invite/YtfsaAHV">LiloanUnited Clan</a></div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Facebook</div>
+              <div class="info-value"><a href="https://facebook.com/LiloanUnitedOFFICIAL">LiloanUnited CFPH</a></div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">YouTube</div>
+              <div class="info-value"><a href="https://www.youtube.com/@NemmarOfficial">@LiloanCFPH™</a></div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Email</div>
+              <div class="info-value"><a href="#">nemmarcampos7@email.com</a></div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <h3>Tryout Template</h3>
+          <ul class="clean-list">
+            <li><span class="chip">IGN</span> + Role</li>
+            <li><span class="chip">Rank</span> + Main game</li>
+            <li><span class="chip">Schedule</span> availability</li>
+            <li><span class="chip">Experience</span> (teams/tourneys)</li>
+          </ul>
+
+          <div class="divider"></div>
+
+          <a class="btn btn-primary btn-sm" href="download.html">Download Tryout Form</a>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-left">
+        <div class="footer-brand">
+          <img src="images/lu.png" alt="LiloanUnited Logo" class="footer-logo" />
+          <div>
+            <div class="footer-title">LiloanUnited</div>
+            <div class="footer-sub">Modern esports community hub</div>
+          </div>
+        </div>
+        <div class="footer-copy">© 2026 LiloanUnited. All rights reserved.</div>
+      </div>
+
+      <div class="footer-right">
+        <div class="footer-links">
+          <a href="#" aria-label="Facebook (placeholder)">Facebook</a>
+          <a href="#" aria-label="YouTube (placeholder)">YouTube</a>
+          <a href="#" aria-label="Discord (placeholder)">Discord</a>
+        </div>
+        <div class="footer-mini">
+          <span class="dot"></span> Built with HTML • CSS • JS
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ✅ UPDATED DISCORD WEBHOOK SCRIPT (NO-CORS for GitHub Pages) -->
+  <script>
+    // ✅ Paste your Discord Webhook URL here
+    const DISCORD_WEBHOOK_URL = "https://discordapp.com/api/webhooks/1473273620787630234/RuEApTCwlnNKS6fvmha1LpWoX-rAQgDWD-jZ5XKhCnf2SxOXcemHQIy5SuUJeeIiBvWW";
+
+    const form = document.getElementById("contactForm");
+    const statusEl = document.getElementById("formStatus");
+    const sendBtn = document.getElementById("sendBtn");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      // Check if webhook is set
+      if (!DISCORD_WEBHOOK_URL || DISCORD_WEBHOOK_URL.includes("PASTE_YOUR_WEBHOOK_URL_HERE")) {
+        statusEl.textContent = "❌ Webhook not set. Paste your Discord webhook URL in the code.";
+        return;
+      }
+
+      const data = Object.fromEntries(new FormData(form).entries());
+
+      const content =
+      `📩 **New Contact Form**
+      **Name:** ${data.name}
+      **Email:** ${data.email}
+      **Topic:** ${data.topic}
+      **IGN:** ${data.ign || "-"}
+      **Message:**
+      ${data.message}`;
+
+      try {
+        sendBtn.disabled = true;
+        statusEl.textContent = "Sending...";
+
+        // ✅ no-cors fixes CORS issue on GitHub Pages
+        await fetch(DISCORD_WEBHOOK_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ content })
+        });
+
+        statusEl.textContent = "✅ Sent! Check Discord.";
+        form.reset();
+      } catch (err) {
+        statusEl.textContent = "❌ Failed to send.";
+      } finally {
+        sendBtn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
