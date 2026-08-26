@@ -2,7 +2,8 @@
 <html lang="en" data-theme="light">
 <head>
  <meta charset="UTF-8" />
- <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <meta name="theme-color" content="#0B1020" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
  <meta name="description" content="Prime Blog — Elite esports community. Unite. Compete. Dominate. Tournaments, news, downloads & exclusive content." />
  <title>Prime Blog — Esports • Community • Competitive</title>
  <link rel="icon" href="images/pt-logo.png" />
@@ -111,12 +112,12 @@
        <span class="chip chip-hot">🔥 Major</span>
        <span class="chip chip-new">NEW</span>
       </div>
-      <h3 style="font-family:var(--font-head);margin-bottom:10px;">Prime Blog Era</h3>
+      <h3 style="font-family:var(--font-head);margin-bottom:10px;">Primeblog V21 APK</h3>
       <p style="color:var(--text-secondary);font-size:0.9rem;margin-bottom:18px;">
-       Sharper identity, bigger ambitions for 2026 season.
+       Website APK is live — open Prime Blog on Android. Get the full site experience on your phone.
       </p>
       <div style="display:flex;gap:10px;flex-wrap:wrap;">
-       <a href="blog.html" class="btn btn-sm btn-primary">Read Full Post</a>
+       <a href="download.html#primeblog-apk" class="btn btn-sm btn-primary">Download APK</a>
        <a href="contact.html" class="btn btn-sm btn-ghost">Join Discord</a>
       </div>
      </div>
@@ -413,6 +414,17 @@
   </section>
  </main>
 
+  <!-- APK update notice (above music player) -->
+  <div class="pb-apk-notice" id="pbApkNotice" role="status">
+    <div class="pb-apk-notice-inner">
+      <div class="pb-apk-notice-text">
+        <strong>New update:</strong> Primeblog V21 website APK is available for Android.
+      </div>
+      <a href="download.html#primeblog-apk" class="pb-apk-notice-btn">Download APK</a>
+      <button type="button" class="pb-apk-notice-close" id="pbApkNoticeClose" aria-label="Dismiss">×</button>
+    </div>
+  </div>
+
  <!-- Footer -->
  <footer class="site-footer">
   <div class="container">
@@ -457,6 +469,21 @@
  <script src="js/maintenance.js"></script>
  <script src="js/intro.js"></script>
  <script src="js/player.js"></script>
+
+ <script>
+  (function(){
+    var KEY="pb_apk_notice_v21_dismissed";
+    var el=document.getElementById("pbApkNotice");
+    var btn=document.getElementById("pbApkNoticeClose");
+    if(!el) return;
+    try{ if(localStorage.getItem(KEY)==="1"){ el.classList.add("hidden"); return; } }catch(e){}
+    if(btn) btn.addEventListener("click", function(){
+      el.classList.add("hidden");
+      try{ localStorage.setItem(KEY,"1"); }catch(e){}
+    });
+  })();
+ </script>
+
  <script src="js/main.js"></script>
 </body>
 </html>
