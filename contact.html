@@ -26,6 +26,7 @@
           <a href="about.html" data-nav="about">About</a>
           <a href="blog.html" data-nav="blog">News</a>
           <a href="event.html" data-nav="events">Events</a>
+     <a href="games.html" data-nav="games">Games</a>
           <a href="reels.html" data-nav="reels">Highlights</a>
           <a href="download.html" data-nav="downloads">Downloads</a>
           <a href="donate.html" data-nav="donate">Donate</a>
@@ -50,10 +51,6 @@
       <h1>Contact &amp; Support</h1>
       <p class="lead">Fill out the form below — it posts to our Discord so staff can reply. You can also DM <strong>nemmartvy</strong>.</p>
 
-      <div class="card" style="margin-top:16px;padding:14px 18px;border:1px solid rgba(0,180,255,0.35);background:linear-gradient(135deg,rgba(0,180,255,0.12),rgba(255,255,255,0.06));border-radius:14px;">
-        <strong style="color:#0ea5e9;">✅ Website is back online</strong>
-        <p style="margin:6px 0 0;color:var(--text-secondary);font-size:0.9rem;">Prime Blog is live again. Messages from this form go to our Discord support channel. Thank you for your patience!</p>
-      </div>
 
     </div>
 
@@ -130,6 +127,29 @@
             <a href="about.html#owner" class="btn btn-sm btn-ghost">Owner page</a>
           </div>
         </div>
+
+        <!-- Subscribe -->
+        <div class="card glow reveal" style="margin-top:28px;max-width:420px;margin-left:auto;margin-right:auto;padding:28px 24px;text-align:center;background:linear-gradient(160deg,rgba(15,20,40,0.95),rgba(10,14,28,0.98));border:1px solid rgba(255,255,255,0.08);">
+          <h2 style="font-family:var(--font-head);font-size:1.25rem;margin:0 0 8px;color:#fff;">Subscribe to receive future updates</h2>
+          <div style="height:1px;background:rgba(255,255,255,0.12);margin:16px auto 20px;max-width:80%;"></div>
+          <form id="subscribeForm" novalidate style="display:flex;flex-direction:column;gap:12px;">
+            <input type="text" id="subName" required maxlength="60" placeholder="Enter your name"
+              style="width:100%;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.08);color:#fff;font-size:0.95rem;outline:none;" />
+            <input type="email" id="subEmail" required maxlength="120" placeholder="Enter your email"
+              style="width:100%;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.08);color:#fff;font-size:0.95rem;outline:none;" />
+            <button type="submit" id="btnSubscribe" class="btn btn-primary"
+              style="width:100%;padding:12px;border-radius:10px;background:#3B82F6;border:none;font-weight:700;font-size:1rem;cursor:pointer;">
+              Subscribe
+            </button>
+          </form>
+          <p id="subStatus" style="margin-top:12px;font-size:13px;min-height:1.2em;color:var(--text-muted);"></p>
+          <p style="margin-top:10px;font-size:0.8rem;color:var(--text-muted);line-height:1.5;">No spam guaranteed, So please don't send any spam mail.</p>
+          <div id="subDone" style="display:none;margin-top:14px;">
+            <span class="chip chip-live">Subscribed</span>
+            <p style="margin-top:8px;color:var(--text-secondary);font-size:0.9rem;">Thanks! You're on the list for future updates.</p>
+          </div>
+        </div>
+
       </div>
     </section>
   </main>
@@ -141,7 +161,8 @@
         <div class="footer-title">PRIME BLOG</div>
         <p class="footer-desc">Elite esports community hub. Owner: [Code.Dev] Nems</p>
       </div>
-      <div class="footer-col"><h4>Platform</h4><a href="index.html">Home</a><a href="blog.html">News</a><a href="download.html">Downloads</a></div>
+      <div class="footer-col"><h4>Platform</h4><a href="index.html">Home</a>
+     <a href="games.html">Games</a><a href="blog.html">News</a><a href="download.html">Downloads</a></div>
       <div class="footer-col"><h4>Community</h4><a href="about.html">About</a><a href="donate.html">Donate</a><a href="contact.html">Support</a></div>
       <div class="footer-col"><h4>Legal</h4><a href="#">Privacy</a><a href="#">Terms</a></div>
     </div>
@@ -200,8 +221,7 @@
               { name: "Discord", value: "```" + v("supDiscord") + "```", inline: true },
               { name: "Topic", value: v("supTopic") || "—", inline: true },
               { name: "IGN", value: v("supIgn") || "—", inline: true },
-              { name: "Message", value: v("supMessage") || "—", inline: false },
-              { name: "Site Status", value: (c.siteStatusMessage || "✅ Website is back online"), inline: false }
+              { name: "Message", value: v("supMessage") || "—", inline: false }
             ],
             footer: { text: "Prime Blog Support · " + new Date().toLocaleString() },
             timestamp: new Date().toISOString()
@@ -240,5 +260,91 @@
       });
     })();
   </script>
+
+  <script>
+    (function () {
+      var form = document.getElementById("subscribeForm");
+      if (!form) return;
+      var status = document.getElementById("subStatus");
+      var done = document.getElementById("subDone");
+      var btn = document.getElementById("btnSubscribe");
+
+      function setStatus(msg, kind) {
+        status.textContent = msg || "";
+        status.style.color =
+          kind === "ok" ? "#22C55E" :
+          kind === "err" ? "#FF2D55" :
+          kind === "wait" ? "#00E5FF" :
+          "var(--text-muted)";
+      }
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        var name = (document.getElementById("subName").value || "").trim();
+        var email = (document.getElementById("subEmail").value || "").trim();
+        if (!name || !email) {
+          setStatus("Please enter name and email.", "err");
+          return;
+        }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          setStatus("Please enter a valid email.", "err");
+          return;
+        }
+
+        var c = window.PB_DISCORD || {};
+        var webhook = (c.subscribeWebhook || "").trim();
+        if (!webhook) {
+          setStatus("Subscribe webhook not configured.", "err");
+          return;
+        }
+
+        var payload = {
+          username: c.subscribeUsername || "Prime Blog Subscribe",
+          content: "🔔 New subscriber",
+          embeds: [{
+            title: "Newsletter Subscribe",
+            description: "From **Prime Blog** · contact.html",
+            color: 0x3B82F6,
+            fields: [
+              { name: "Name", value: name, inline: true },
+              { name: "Email", value: "```" + email + "```", inline: true }
+            ],
+            footer: { text: "Prime Blog Subscribe · " + new Date().toLocaleString() },
+            timestamp: new Date().toISOString()
+          }]
+        };
+
+        btn.disabled = true;
+        btn.textContent = "Subscribing…";
+        setStatus("Sending…", "wait");
+
+        var send = window.PB_DISCORD_SEND && window.PB_DISCORD_SEND.send;
+        var check = window.PB_DISCORD_SEND && window.PB_DISCORD_SEND.ok;
+        var req = send
+          ? send(webhook, payload)
+          : fetch(webhook, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+
+        req
+          .then(function (res) {
+            if (check) return check(res);
+            if (res.status === 204 || res.status === 200 || res.ok) return res;
+            throw new Error("Discord " + res.status);
+          })
+          .then(function () {
+            setStatus("");
+            done.style.display = "block";
+            form.reset();
+          })
+          .catch(function (err) {
+            setStatus("Failed: " + (err.message || "network error"), "err");
+          })
+          .finally(function () {
+            btn.disabled = false;
+            btn.textContent = "Subscribe";
+          });
+      });
+    })();
+  </script>
+
 </body>
 </html>

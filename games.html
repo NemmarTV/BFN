@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Discover our games — Talisman Online, iDatePH Boriwak, AQW Private by Prime Blog." />
+  <title>Games — Prime Blog</title>
+  <link rel="icon" href="images/pt-logo.png" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/intro.css" />
+  <link rel="stylesheet" href="css/player.css" />
+  <style>
+    .games-hero {
+      text-align: center;
+      padding: 40px 0 20px;
+    }
+    .games-hero h1 {
+      font-family: var(--font-head);
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      margin-bottom: 10px;
+      background: linear-gradient(90deg, var(--pb-crimson), #fff 50%, var(--pb-cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .games-hero p {
+      color: var(--text-secondary);
+      max-width: 520px;
+      margin: 0 auto 32px;
+    }
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    @media (max-width: 960px) {
+      .games-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      .games-grid { grid-template-columns: 1fr; }
+    }
+    .game-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all var(--trans);
+      height: 100%;
+    }
+    .game-card:hover {
+      border-color: var(--border-strong);
+      transform: translateY(-6px);
+      box-shadow: var(--glow-dual);
+    }
+    .game-thumb {
+      position: relative;
+      aspect-ratio: 16 / 10;
+      background: var(--bg3);
+      overflow: hidden;
+    }
+    .game-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .game-card:hover .game-thumb img {
+      transform: scale(1.05);
+    }
+    .game-thumb .placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-head);
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      background: linear-gradient(135deg, rgba(255,45,85,0.15), rgba(91,140,255,0.12));
+    }
+    .game-body {
+      padding: 18px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      gap: 10px;
+    }
+    .game-title-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .game-title-row h3 {
+      font-family: var(--font-head);
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin: 0;
+    }
+    .player-count {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+      padding-top: 3px;
+    }
+    .game-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .status-dot.live { background: #22c55e; box-shadow: 0 0 8px rgba(34,197,94,0.6); }
+    .status-dot.dev { background: #f59e0b; box-shadow: 0 0 8px rgba(245,158,11,0.5); }
+    .status-dot.soon { background: #64748b; }
+    .game-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+    .game-tags .chip {
+      font-size: 0.7rem;
+      padding: 3px 9px;
+    }
+    .game-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: auto;
+      padding-top: 12px;
+    }
+    .game-actions .btn {
+      flex: 1;
+      justify-content: center;
+      font-size: 0.85rem;
+      padding: 9px 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="pb-bg" aria-hidden="true"></div>
+  <div class="pb-noise" aria-hidden="true"></div>
+  <header class="site-header">
+    <nav class="nav">
+      <a href="index.html" class="brand">
+        <div class="logo"><img src="images/logo-prime.png" alt="Prime Blog" onerror="this.src='images/pt-logo.png'" /></div>
+        <div class="brand-text"><span class="brand-name">PRIME BLOG</span><span class="brand-tag">Esports • Community • Competitive</span></div>
+      </a>
+      <div class="nav-right">
+        <span class="version-badge">v21.2</span>
+        <div class="nav-links" data-navlinks>
+          <a href="index.html" data-nav="home">Home</a>
+          <a href="about.html" data-nav="about">About</a>
+          <a href="blog.html" data-nav="blog">News</a>
+          <a href="event.html" data-nav="events">Events</a>
+          <a href="games.html" data-nav="games" class="active">Games</a>
+          <a href="reels.html" data-nav="reels">Highlights</a>
+          <a href="download.html" data-nav="downloads">Downloads</a>
+          <a href="donate.html" data-nav="donate">Donate</a>
+          <a href="contact.html" data-nav="contact">Support</a>
+        </div>
+        <a href="contact.html" class="btn-discord" title="Discord server locked — DM owner">Discord 🔒</a>
+        <button class="theme-toggle" data-theme-toggle aria-label="Toggle theme"><span class="theme-icon">☾</span></button>
+        <button class="nav-toggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </nav>
+  </header>
+  <div class="marquee"><div class="marquee-track">
+    <span>🔥 Prime Blog — Elite Esports • Community • Competitive 🔥</span>
+    <span>🔥 Prime Blog — Elite Esports • Community • Competitive 🔥</span>
+    <span>🔥 Prime Blog — Elite Esports • Community • Competitive 🔥</span>
+  </div></div>
+  <main>
+    <div class="container">
+      <div class="games-hero reveal">
+        <div class="section-label" style="justify-content:center;">Discover our Games</div>
+        <h1>Our Games</h1>
+        <p>Competitive & community-driven private servers and experiences by Prime Blog.</p>
+      </div>
+
+      <div class="games-grid" style="padding-bottom:60px;">
+        <!-- Talisman Online -->
+        <article class="game-card hover-rise reveal">
+          <div class="game-thumb">
+            <div class="placeholder">TALISMAN ONLINE</div>
+          </div>
+          <div class="game-body">
+            <div class="game-title-row">
+              <h3>Talisman Online</h3>
+              <span class="player-count">Private Server</span>
+            </div>
+            <div class="game-status">
+              <span class="status-dot live"></span>
+              MMORPG · Live
+            </div>
+            <div class="game-tags">
+              <span class="chip">MMORPG</span>
+              <span class="chip">Multiplayer</span>
+              <span class="chip">PC</span>
+            </div>
+            <div class="game-actions">
+              <a href="download.html" class="btn btn-sm btn-primary">Download</a>
+              <a href="contact.html" class="btn btn-sm btn-ghost">Website</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- iDatePH Boriwak -->
+        <article class="game-card hover-rise reveal reveal-delay-1">
+          <div class="game-thumb" style="background:#000;">
+            <img src="images/boriwak.png" alt="iDatePH Boriwak" style="object-fit:contain;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+            <div class="placeholder" style="display:none;">Boriwak</div>
+          </div>
+          <div class="game-body">
+            <div class="game-title-row">
+              <h3>iDatePH Boriwak</h3>
+              <span class="player-count">Private Server</span>
+            </div>
+            <div class="game-status">
+              <span class="status-dot live"></span>
+              Rhythm / Dating · Live
+            </div>
+            <div class="game-tags">
+              <span class="chip">Rhythm</span>
+              <span class="chip">Dating</span>
+              <span class="chip">Multiplayer</span>
+              <span class="chip">PC</span>
+            </div>
+            <div class="game-actions">
+              <a href="download.html" class="btn btn-sm btn-primary">Download</a>
+              <a href="contact.html" class="btn btn-sm btn-ghost">Website</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- AQW Private -->
+        <article class="game-card hover-rise reveal reveal-delay-2">
+          <div class="game-thumb">
+            <div class="placeholder">AQW PRIVATE</div>
+          </div>
+          <div class="game-body">
+            <div class="game-title-row">
+              <h3>AQW Private</h3>
+              <span class="player-count">Private Server</span>
+            </div>
+            <div class="game-status">
+              <span class="status-dot live"></span>
+              Adventure · Live
+            </div>
+            <div class="game-tags">
+              <span class="chip">Adventure</span>
+              <span class="chip">Multiplayer</span>
+              <span class="chip">PC</span>
+            </div>
+            <div class="game-actions">
+              <a href="download.html" class="btn btn-sm btn-primary">Download</a>
+              <a href="contact.html" class="btn btn-sm btn-ghost">Website</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand-col">
+          <img class="footer-logo" src="images/logo-prime.png" alt="Prime Blog" onerror="this.src='images/pt-logo.png'" />
+          <div class="footer-title">PRIME BLOG</div>
+          <p class="footer-desc">Elite esports community hub. Owner: [Code.Dev] Nems</p>
+        </div>
+        <div class="footer-col">
+          <h4>Platform</h4>
+          <a href="index.html">Home</a>
+          <a href="games.html">Games</a>
+          <a href="blog.html">News</a>
+          <a href="event.html">Events</a>
+          <a href="download.html">Downloads</a>
+        </div>
+        <div class="footer-col">
+          <h4>Community</h4>
+          <a href="about.html">About</a>
+          <a href="contact.html">Discord</a>
+          <a href="contact.html">Support</a>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Careers</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copy">© 2026 Prime Blog · Owner [Code.Dev] Nems . All rights reserved.</div>
+        <div class="footer-socials">
+          <a href="#" aria-label="Facebook">f</a>
+          <a href="#" aria-label="YouTube">▶</a>
+          <a href="contact.html" aria-label="Discord">D</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/maintenance.js"></script>
+  <script src="js/intro.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
