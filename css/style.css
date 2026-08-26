@@ -190,10 +190,32 @@ ul, ol { list-style: none; }
   z-index: 1000;
   transition: all var(--trans);
   overflow: visible;
+  /* Keep header below phone status bar / notch (APK WebView & iOS) */
+  padding-top: env(safe-area-inset-top, 0px);
+  background: var(--bg);
 }
+
+/* Android WebView / APK often reports 0 safe-area — add fallback clearance */
+@supports (padding: max(0px)) {
+  .site-header {
+    padding-top: max(env(safe-area-inset-top, 0px), 0px);
+  }
+}
+@media (max-width: 900px) {
+  .site-header {
+    /* Extra top gap so nav never sits under the system clock/status icons */
+    padding-top: max(env(safe-area-inset-top, 0px), 12px);
+  }
+}
+@media (display-mode: standalone), (display-mode: fullscreen) {
+  .site-header {
+    padding-top: max(env(safe-area-inset-top, 0px), 24px);
+  }
+}
+
 .site-header.scrolled {
   backdrop-filter: blur(20px) saturate(180%);
-  background: rgba(11, 16, 32, 0.85);
+  background: rgba(11, 16, 32, 0.92);
   border-bottom: 1px solid var(--border);
   box-shadow: 0 4px 30px rgba(0,0,0,0.3);
 }

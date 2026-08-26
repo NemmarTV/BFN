@@ -283,3 +283,94 @@ body.has-pb-player {
   .pb-player-artist { display: none; }
   .pb-time-row { font-size: 10px; }
 }
+
+/* ===== APK update notice (sits above music player) ===== */
+.pb-apk-notice {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+  z-index: 9999;
+  padding: 0 12px 10px;
+  pointer-events: none;
+}
+.pb-apk-notice.hidden {
+  display: none;
+}
+.pb-apk-notice-inner {
+  pointer-events: auto;
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(30, 41, 59, 0.96));
+  border: 1px solid rgba(255, 45, 85, 0.35);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), 0 0 24px rgba(255, 45, 85, 0.15);
+  color: #f8fafc;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+.pb-apk-notice-text {
+  flex: 1;
+  min-width: 180px;
+  color: #e2e8f0;
+}
+.pb-apk-notice-text strong {
+  color: #fff;
+  font-weight: 700;
+}
+.pb-apk-notice-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #FF2D55, #e11d48);
+  color: #fff !important;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.3px;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(255, 45, 85, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.pb-apk-notice-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(255, 45, 85, 0.55);
+}
+.pb-apk-notice-close {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #94a3b8;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.pb-apk-notice-close:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+}
+body.has-pb-player {
+  padding-bottom: calc(76px + 72px + env(safe-area-inset-bottom, 0px));
+}
+@media (max-width: 640px) {
+  .pb-apk-notice {
+    bottom: calc(110px + env(safe-area-inset-bottom, 0px));
+  }
+  body.has-pb-player {
+    padding-bottom: calc(110px + 90px + env(safe-area-inset-bottom, 0px));
+  }
+  .pb-apk-notice-inner {
+    padding: 12px;
+    gap: 10px;
+  }
+}
