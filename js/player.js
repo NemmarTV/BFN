@@ -463,4 +463,39 @@
   } else {
     buildUI();
   }
+
+  // APK update notice above player
+  (function () {
+    var KEY = "pb_apk_notice_v21_dismissed";
+    try {
+      if (localStorage.getItem(KEY) === "1") return;
+    } catch (e) {}
+    if (document.getElementById("pbApkNotice")) {
+      var closeBtn = document.getElementById("pbApkNoticeClose");
+      if (closeBtn) {
+        closeBtn.addEventListener("click", function () {
+          var el = document.getElementById("pbApkNotice");
+          if (el) el.classList.add("hidden");
+          try { localStorage.setItem(KEY, "1"); } catch (e) {}
+        });
+      }
+      return;
+    }
+    var wrap = document.createElement("div");
+    wrap.className = "pb-apk-notice";
+    wrap.id = "pbApkNotice";
+    wrap.setAttribute("role", "status");
+    wrap.innerHTML =
+      '<div class="pb-apk-notice-inner">' +
+      '<div class="pb-apk-notice-text"><strong>New update:</strong> Primeblog V21 website APK is available for Android.</div>' +
+      '<a href="download.html#primeblog-apk" class="pb-apk-notice-btn">Download APK</a>' +
+      '<button type="button" class="pb-apk-notice-close" id="pbApkNoticeClose" aria-label="Dismiss">×</button>' +
+      "</div>";
+    document.body.appendChild(wrap);
+    document.getElementById("pbApkNoticeClose").addEventListener("click", function () {
+      wrap.classList.add("hidden");
+      try { localStorage.setItem(KEY, "1"); } catch (e) {}
+    });
+  })();
+
 })();
