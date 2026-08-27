@@ -1,7 +1,9 @@
 /* =========================
    Prime Blog — YouTube Music style player
-   - Continues across page navigation
-   - UI clicks do not reset the track
+   - Continues across page navigation (localStorage + resume)
+   - Auto-resumes after navigation when browser allows
+   - Fallback: resume on any user gesture if autoplay blocked
+   - Lighter progress updates for better FPS
 ========================= */
 (function () {
   function asset(path) {
@@ -38,11 +40,14 @@
     },
   ];
 
-  var STORAGE_KEY = "pb_player_v3";
+  var STORAGE_KEY = "pb_player_v4";
   var index = 0;
   var audio = null;
   var seeking = false;
   var persistTimer = null;
+  var progressTimer = null;
+  var pendingResume = false;
+  var gestureBound = false;
 
   function loadState() {
     try {
@@ -87,6 +92,14 @@
     });
   }
 
+  function schedulePersist() {
+    if (persistTimer) return;
+    persistTimer = setTimeout(function () {
+      persistTimer = null;
+      persistNow();
+    }, 400);
+  }
+
   function fmt(t) {
     if (!isFinite(t) || t < 0) return "0:00";
     var m = Math.floor(t / 60);
@@ -123,6 +136,69 @@
     if (fill) fill.style.width = Math.min(100, Math.max(0, ratio * 100)) + "%";
   }
 
+  function startProgressLoop() {
+    if (progressTimer) return;
+    progressTimer = setInterval(function () {
+      if (!audio || audio.paused) return;
+      updateProgressUI();
+      schedulePersist();
+    }, 500);
+  }
+
+  function stopProgressLoop() {
+    if (progressTimer) {
+      clearInterval(progressTimer);
+      progressTimer = null;
+    }
+  }
+
+  function tryPlay() {
+    if (!audio) return Promise.resolve(false);
+    var p = audio.play();
+    if (p && typeof p.then === "function") {
+      return p
+        .then(function () {
+          setPlayingUI(true);
+          pendingResume = false;
+          startProgressLoop();
+          persistNow();
+          return true;
+        })
+        .catch(function () {
+          setPlayingUI(false);
+          pendingResume = true;
+          bindGestureResume();
+          return false;
+        });
+    }
+    setPlayingUI(!audio.paused);
+    if (!audio.paused) {
+      pendingResume = false;
+      startProgressLoop();
+    }
+    persistNow();
+    return Promise.resolve(!audio.paused);
+  }
+
+  function bindGestureResume() {
+    if (gestureBound) return;
+    gestureBound = true;
+    function onGesture() {
+      if (!pendingResume || !audio) return;
+      tryPlay().then(function (ok) {
+        if (ok) {
+          document.removeEventListener("pointerdown", onGesture, true);
+          document.removeEventListener("keydown", onGesture, true);
+          document.removeEventListener("touchstart", onGesture, true);
+          gestureBound = false;
+        }
+      });
+    }
+    document.addEventListener("pointerdown", onGesture, true);
+    document.addEventListener("keydown", onGesture, true);
+    document.addEventListener("touchstart", onGesture, { capture: true, passive: true });
+  }
+
   function loadTrack(i, autoplay, resumeTime) {
     index = ((i % PLAYLIST.length) + PLAYLIST.length) % PLAYLIST.length;
     var t = currentTrack();
@@ -157,20 +233,13 @@
       }
       updateProgressUI();
       if (autoplay) {
-        var p = audio.play();
-        if (p && typeof p.then === "function") {
-          p.then(function () {
-            setPlayingUI(true);
-          }).catch(function () {
-            setPlayingUI(false);
-          });
-        } else {
-          setPlayingUI(!audio.paused);
-        }
+        tryPlay();
       } else {
         setPlayingUI(false);
+        stopProgressLoop();
       }
       persistNow();
+      updateMediaSession();
     }
 
     if (audio.readyState >= 1) {
@@ -179,8 +248,41 @@
       audio.addEventListener("loadedmetadata", applyTimeAndPlay, { once: true });
       setTimeout(function () {
         if (audio.readyState >= 1) applyTimeAndPlay();
-      }, 350);
+      }, 250);
     }
+  }
+
+  function updateMediaSession() {
+    if (!("mediaSession" in navigator)) return;
+    try {
+      var t = currentTrack();
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: t.title,
+        artist: t.artist,
+        album: "Prime Blog",
+        artwork: [
+          { src: asset("images/pt-logo.png"), sizes: "96x96", type: "image/png" },
+          { src: asset("images/pt-logo.png"), sizes: "256x256", type: "image/png" },
+        ],
+      });
+      navigator.mediaSession.setActionHandler("play", function () {
+        tryPlay();
+      });
+      navigator.mediaSession.setActionHandler("pause", function () {
+        if (audio) {
+          audio.pause();
+          setPlayingUI(false);
+          stopProgressLoop();
+          persistNow();
+        }
+      });
+      navigator.mediaSession.setActionHandler("previoustrack", function () {
+        loadTrack(index - 1, true, 0);
+      });
+      navigator.mediaSession.setActionHandler("nexttrack", function () {
+        loadTrack(index + 1, true, 0);
+      });
+    } catch (e) {}
   }
 
   function icon(name) {
@@ -228,10 +330,8 @@
       '<div class="pb-player-meta">' +
       '<div class="pb-art-wrap" id="pbArtWrap">' +
       '<img class="pb-player-art" id="pbArt" src="' +
-      asset("images/logo-prime.png") +
-      '" alt="" onerror="this.src=\'' +
       asset("images/pt-logo.png") +
-      "'\" />" +
+      '" alt="" loading="lazy" />' +
       "</div>" +
       '<div class="pb-player-info">' +
       '<div class="pb-player-title" id="pbTitle">' +
@@ -255,7 +355,7 @@
       icon("loop") +
       "</button>" +
       "</div>" +
-      '<div class="pb-time-row"><span id="pbCur">0:00</span><span class="pb-time-sep">/</span><span id="pbDur">0:00</span></div>' +
+      '<div class="pb-time-row"><span id="pbCur">0:00</span><span class="pb-time-sep"> / </span><span id="pbDur">0:00</span></div>' +
       "</div>" +
       '<div class="pb-player-right">' +
       '<button type="button" class="pb-btn" id="pbMute" title="Mute" aria-label="Mute">' +
@@ -265,7 +365,6 @@
       "</div></div>";
 
     document.body.appendChild(bar);
-    document.body.classList.add("has-pb-player");
 
     audio = new Audio();
     audio.preload = "auto";
@@ -286,6 +385,15 @@
     var resumeTime = typeof state.time === "number" ? state.time : 0;
     var shouldPlay = !!state.playing;
     loadTrack(index, shouldPlay, resumeTime);
+
+    window.addEventListener("pageshow", function () {
+      if (!audio) return;
+      var st = loadState();
+      if (st.playing && audio.paused) {
+        pendingResume = true;
+        tryPlay();
+      }
+    });
   }
 
   function bindEvents() {
@@ -307,18 +415,11 @@
       e.preventDefault();
       e.stopPropagation();
       if (audio.paused) {
-        audio
-          .play()
-          .then(function () {
-            setPlayingUI(true);
-            persistNow();
-          })
-          .catch(function () {
-            setPlayingUI(false);
-          });
+        tryPlay();
       } else {
         audio.pause();
         setPlayingUI(false);
+        stopProgressLoop();
         persistNow();
       }
     });
@@ -348,86 +449,94 @@
       persistNow();
     });
 
-    function commitSeek() {
-      if (audio.duration) {
-        audio.currentTime = (Number(seek.value) / 1000) * audio.duration;
-      }
-      seeking = false;
-      updateProgressUI();
-      persistNow();
-    }
-
-    seek.addEventListener("pointerdown", function () {
-      seeking = true;
-    });
-    seek.addEventListener("input", function () {
-      seeking = true;
-      var ratio = Number(seek.value) / 1000;
-      var fill = document.getElementById("pbSeekFill");
-      if (fill) fill.style.width = ratio * 100 + "%";
-      if (audio.duration) {
-        document.getElementById("pbCur").textContent = fmt(ratio * audio.duration);
-      }
-    });
-    seek.addEventListener("change", commitSeek);
-    seek.addEventListener("pointerup", commitSeek);
-
-    vol.addEventListener("input", function () {
-      var v = Number(vol.value) / 100;
-      audio.volume = v;
-      if (v > 0) audio.muted = false;
-      muteBtn.innerHTML = audio.muted || v === 0 ? icon("mute") : icon("vol");
-      persistNow();
-    });
-
     muteBtn.addEventListener("click", function (e) {
       e.preventDefault();
       e.stopPropagation();
       audio.muted = !audio.muted;
-      muteBtn.innerHTML = audio.muted ? icon("mute") : icon("vol");
+      muteBtn.innerHTML = audio.muted || audio.volume === 0 ? icon("mute") : icon("vol");
       persistNow();
     });
 
-    toggle.addEventListener("click", function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      bar.classList.toggle("hidden");
-      saveState({ hidden: bar.classList.contains("hidden") });
-    });
+    if (vol) {
+      vol.addEventListener("input", function () {
+        var v = Math.max(0, Math.min(100, Number(vol.value) || 0)) / 100;
+        audio.volume = v;
+        audio.muted = v === 0;
+        muteBtn.innerHTML = audio.muted || v === 0 ? icon("mute") : icon("vol");
+        schedulePersist();
+      });
+    }
 
-    audio.addEventListener("timeupdate", function () {
+    function seekFromEvent(e) {
+      if (!audio || !audio.duration || !isFinite(audio.duration)) return;
+      var trackEl = document.getElementById("pbSeekTrack");
+      if (!trackEl) return;
+      var rect = trackEl.getBoundingClientRect();
+      var x = (e.clientX != null ? e.clientX : (e.touches && e.touches[0] && e.touches[0].clientX) || 0) - rect.left;
+      var ratio = Math.max(0, Math.min(1, x / rect.width));
+      audio.currentTime = ratio * audio.duration;
       updateProgressUI();
-      if (!persistTimer) {
-        persistTimer = setTimeout(function () {
-          persistTimer = null;
-          if (!audio.paused) persistNow();
-        }, 4000);
-      }
-    });
+      schedulePersist();
+    }
+
+    if (seek) {
+      seek.addEventListener("pointerdown", function () {
+        seeking = true;
+      });
+      seek.addEventListener("input", function () {
+        if (!audio || !audio.duration) return;
+        var ratio = (Number(seek.value) || 0) / 1000;
+        var fill = document.getElementById("pbSeekFill");
+        if (fill) fill.style.width = ratio * 100 + "%";
+        var cur = document.getElementById("pbCur");
+        if (cur) cur.textContent = fmt(ratio * audio.duration);
+      });
+      seek.addEventListener("change", function () {
+        if (!audio || !audio.duration) return;
+        audio.currentTime = ((Number(seek.value) || 0) / 1000) * audio.duration;
+        seeking = false;
+        updateProgressUI();
+        persistNow();
+      });
+      seek.addEventListener("pointerup", function () {
+        seeking = false;
+      });
+    }
+
+    var seekTrack = document.getElementById("pbSeekTrack");
+    if (seekTrack) {
+      seekTrack.addEventListener("click", seekFromEvent);
+    }
+
+    if (toggle) {
+      toggle.addEventListener("click", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        bar.classList.toggle("hidden");
+        persistNow();
+      });
+    }
 
     audio.addEventListener("ended", function () {
       if (audio.loop) return;
       loadTrack(index + 1, true, 0);
     });
-
     audio.addEventListener("play", function () {
       setPlayingUI(true);
-      persistNow();
+      startProgressLoop();
+      pendingResume = false;
     });
     audio.addEventListener("pause", function () {
       setPlayingUI(false);
-      persistNow();
+      stopProgressLoop();
+      schedulePersist();
     });
-
-    audio.addEventListener("error", function () {
-      var artist = document.getElementById("pbArtist");
-      if (artist) {
-        artist.textContent = "Add: sounds/" + currentTrack().src.split("/").pop();
-      }
+    audio.addEventListener("timeupdate", function () {
+      if (!progressTimer) updateProgressUI();
     });
 
     document.addEventListener("keydown", function (e) {
-      if (e.code !== "Space" && e.key !== " ") return;
+      if (e.key !== "Space" && e.key !== " ") return;
       var tag = (e.target && e.target.tagName) || "";
       if (["INPUT", "TEXTAREA", "SELECT", "BUTTON", "A"].indexOf(tag) !== -1) return;
       if (e.target && e.target.isContentEditable) return;
@@ -476,7 +585,9 @@
         closeBtn.addEventListener("click", function () {
           var el = document.getElementById("pbApkNotice");
           if (el) el.classList.add("hidden");
-          try { localStorage.setItem(KEY, "1"); } catch (e) {}
+          try {
+            localStorage.setItem(KEY, "1");
+          } catch (e) {}
         });
       }
       return;
@@ -494,8 +605,9 @@
     document.body.appendChild(wrap);
     document.getElementById("pbApkNoticeClose").addEventListener("click", function () {
       wrap.classList.add("hidden");
-      try { localStorage.setItem(KEY, "1"); } catch (e) {}
+      try {
+        localStorage.setItem(KEY, "1");
+      } catch (e) {}
     });
   })();
-
 })();

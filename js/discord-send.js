@@ -6,10 +6,10 @@
 (function (global) {
   var LOGO_CANDIDATES = [
     "images/logo-prime.png",
-    "images/proh1t.png",
+    "images/prime.png",
     "images/pt-logo.png",
     "images/logo-prime.png",
-    "./images/proh1t.png",
+    "./images/prime.png",
     "./images/pt-logo.png"
   ];
 

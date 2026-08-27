@@ -2,7 +2,7 @@ window.PB_DISCORD = {
   siteUrl: "https://nemmartv.github.io/main1",
   logoUrl: "https://nemmartv.github.io/main1/images/logo-prime.png",
   brandLogoUrl: "https://nemmartv.github.io/main1/images/logo-prime.png",
-  // PROH1T applications webhook removed / disabled
+  // Prime applications webhook removed / disabled
   applicationsWebhook: "",
   // Announcements to Discord server disabled
   announcementsWebhook: "",

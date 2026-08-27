@@ -5,6 +5,12 @@
 (function () {
   const root = document.documentElement;
 
+  // Pause decorative CSS animations when tab is hidden (saves FPS/CPU)
+  document.addEventListener("visibilitychange", () => {
+    document.body.classList.toggle("pb-hidden", document.visibilityState === "hidden");
+  });
+
+
   // Theme
   const THEME_KEY = "pb_theme";
   const themeToggle = document.querySelector("[data-theme-toggle]");
@@ -83,7 +89,7 @@
     "blog.html": "blog",
     "event.html": "events",
     "download.html": "downloads",
-    "contact.html": "contact", "prohit.html": "prohit", "reels.html": "reels", "donate.html": "donate",
+    "contact.html": "contact", "reels.html": "reels", "donate.html": "donate",
   };
   const activeKey = navMap[currentFile] || "home";
   document.querySelectorAll("[data-nav]").forEach((link) => {

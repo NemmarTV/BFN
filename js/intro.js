@@ -1,6 +1,6 @@
 /* =========================
    Prime Blog — Intro loading splash
-   Logo: images/logo-prime.png
+   Logo: images/pt-logo.png
 ========================= */
 (function () {
   var MIN_MS = 1800;
@@ -33,7 +33,7 @@
     el.innerHTML =
       '<div class="pb-intro-ring">' +
       '<img class="pb-intro-logo" src="' +
-      asset("images/logo-prime.png") +
+      asset("images/pt-logo.png") +
       '" alt="Prime Blog" onerror="this.src=\'' +
       asset("images/pt-logo.png") +
       "'\" />" +
