@@ -123,7 +123,37 @@
     }
     .status-dot.live { background: #22c55e; box-shadow: 0 0 8px rgba(34,197,94,0.6); }
     .status-dot.dev { background: #f59e0b; box-shadow: 0 0 8px rgba(245,158,11,0.5); }
+    .status-dot.offline { background: #ef4444; box-shadow: 0 0 8px rgba(239,68,68,0.45); }
     .status-dot.soon { background: #64748b; }
+    .game-progress { margin-top: 4px; }
+    .game-progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-bottom: 5px;
+    }
+    .game-progress-bar {
+      height: 6px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    html[data-theme="light"] .game-progress-bar { background: rgba(0,0,0,0.08); }
+    .game-progress-fill {
+      height: 100%;
+      border-radius: 99px;
+      transition: width 0.6s ease;
+    }
+    .game-progress-fill.p1 { width: 1%; background: linear-gradient(90deg, #ef4444, #f97316); }
+    .game-progress-fill.p10 { width: 10%; background: linear-gradient(90deg, #f59e0b, #eab308); }
+    .game-progress-fill.p50 { width: 50%; background: linear-gradient(90deg, #f59e0b, #22c55e); }
+    .game-note {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+      margin-top: 2px;
+    }
     .game-tags {
       display: flex;
       flex-wrap: wrap;
@@ -145,6 +175,11 @@
       justify-content: center;
       font-size: 0.85rem;
       padding: 9px 12px;
+    }
+    .game-actions .btn.is-disabled {
+      opacity: 0.55;
+      pointer-events: none;
+      cursor: not-allowed;
     }
   </style>
 </head>
@@ -186,11 +221,11 @@
       <div class="games-hero reveal">
         <div class="section-label" style="justify-content:center;">Discover our Games</div>
         <h1>Our Games</h1>
-        <p>Competitive & community-driven private servers and experiences by Prime Blog.</p>
+        <p>Private servers in development by Prime Blog. Status and progress are updated as work continues.</p>
       </div>
 
       <div class="games-grid" style="padding-bottom:60px;">
-        <!-- Talisman Online -->
+        <!-- Talisman Online — Offline / 1% -->
         <article class="game-card hover-rise reveal">
           <div class="game-thumb">
             <div class="placeholder">TALISMAN ONLINE</div>
@@ -201,22 +236,28 @@
               <span class="player-count">Private Server</span>
             </div>
             <div class="game-status">
-              <span class="status-dot live"></span>
-              MMORPG · Live
+              <span class="status-dot offline"></span>
+              MMORPG · Offline
             </div>
+            <div class="game-progress">
+              <div class="game-progress-label"><span>Development</span><span>1%</span></div>
+              <div class="game-progress-bar"><div class="game-progress-fill p1"></div></div>
+            </div>
+            <p class="game-note">Very early stage. Complex to program — not available yet.</p>
             <div class="game-tags">
               <span class="chip">MMORPG</span>
               <span class="chip">Multiplayer</span>
               <span class="chip">PC</span>
+              <span class="chip chip-hot">Offline</span>
             </div>
             <div class="game-actions">
-              <a href="download.html" class="btn btn-sm btn-primary">Download</a>
-              <a href="contact.html" class="btn btn-sm btn-ghost">Website</a>
+              <span class="btn btn-sm btn-primary is-disabled">Offline</span>
+              <a href="contact.html" class="btn btn-sm btn-ghost">Ask updates</a>
             </div>
           </div>
         </article>
 
-        <!-- iDatePH Boriwak -->
+        <!-- iDatePH Boriwak — 50% Development -->
         <article class="game-card hover-rise reveal reveal-delay-1">
           <div class="game-thumb" style="background:#000;">
             <img src="images/boriwak.png" alt="iDatePH Boriwak" style="object-fit:contain;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
@@ -228,23 +269,29 @@
               <span class="player-count">Private Server</span>
             </div>
             <div class="game-status">
-              <span class="status-dot live"></span>
-              Rhythm / Dating · Live
+              <span class="status-dot dev"></span>
+              Rhythm / Dating · In Development
             </div>
+            <div class="game-progress">
+              <div class="game-progress-label"><span>Development</span><span>50%</span></div>
+              <div class="game-progress-bar"><div class="game-progress-fill p50"></div></div>
+            </div>
+            <p class="game-note">Halfway there — not fully online yet. Still in active development.</p>
             <div class="game-tags">
               <span class="chip">Rhythm</span>
               <span class="chip">Dating</span>
               <span class="chip">Multiplayer</span>
               <span class="chip">PC</span>
+              <span class="chip chip-new">50%</span>
             </div>
             <div class="game-actions">
-              <a href="download.html" class="btn btn-sm btn-primary">Download</a>
-              <a href="contact.html" class="btn btn-sm btn-ghost">Website</a>
+              <span class="btn btn-sm btn-primary is-disabled">Coming soon</span>
+              <a href="contact.html" class="btn btn-sm btn-ghost">Ask updates</a>
             </div>
           </div>
         </article>
 
-        <!-- AQW Private -->
+        <!-- AQW Private — Offline / 10% -->
         <article class="game-card hover-rise reveal reveal-delay-2">
           <div class="game-thumb">
             <div class="placeholder">AQW PRIVATE</div>
@@ -255,17 +302,23 @@
               <span class="player-count">Private Server</span>
             </div>
             <div class="game-status">
-              <span class="status-dot live"></span>
-              Adventure · Live
+              <span class="status-dot offline"></span>
+              Adventure · Offline
             </div>
+            <div class="game-progress">
+              <div class="game-progress-label"><span>Development</span><span>10%</span></div>
+              <div class="game-progress-bar"><div class="game-progress-fill p10"></div></div>
+            </div>
+            <p class="game-note">Early development only. Not available for play yet.</p>
             <div class="game-tags">
               <span class="chip">Adventure</span>
               <span class="chip">Multiplayer</span>
               <span class="chip">PC</span>
+              <span class="chip chip-hot">Offline</span>
             </div>
             <div class="game-actions">
-              <a href="download.html" class="btn btn-sm btn-primary">Download</a>
-              <a href="contact.html" class="btn btn-sm btn-ghost">Website</a>
+              <span class="btn btn-sm btn-primary is-disabled">Offline</span>
+              <a href="contact.html" class="btn btn-sm btn-ghost">Ask updates</a>
             </div>
           </div>
         </article>
@@ -297,8 +350,8 @@
         </div>
         <div class="footer-col">
           <h4>Legal</h4>
-          <a href="#">Privacy</a>
-          <a href="#">Terms</a>
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
           <a href="#">Careers</a>
         </div>
       </div>
