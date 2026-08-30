@@ -1,9 +1,9 @@
 {
-  "version": "21.3",
-  "versionCode": 213,
+  "version": "21.5",
+  "versionCode": 215,
   "apkUrl": "https://www.mediafire.com/file/k8fmyalka2yc6vz/Primeblog.apk/file",
   "title": "New Update Available!",
-  "message": "Prime Blog V21.3 is ready.\n• Performance boost\n• Music continuity across pages\n• Platform polish",
+  "message": "Prime Blog V21.5 is ready.\n• Performance boost\n• Music continuity across pages\n• Platform polish",
   "forceUpdate": false,
   "changelog": [
     "Performance boost (less lag)",
