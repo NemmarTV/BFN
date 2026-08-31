@@ -1,43 +1,95 @@
 /**
- * Prime Blog — APK Update Checker (Android only)
- * Runs ONLY inside Android WebView / APK.
+ * Prime Blog — APK Update Checker
+ * Fixed: works in most HTML-to-APK WebViews + online URL mode
  *
- * WHEN YOU RELEASE A NEW APK:
- * 1. Increase versionCode in version.json (on GitHub Pages)
- * 2. Change CURRENT_VERSION_CODE below to the SAME number
- * 3. Rebuild APK with this updated file
- * 4. Upload new APK + update version.json apkUrl
+ * SETUP:
+ * 1. Upload this file to: js/update-checker.js (GitHub Pages + offline ZIP)
+ * 2. Upload version.json to site root
+ * 3. Set CURRENT_VERSION_CODE = version of THIS APK build
+ * 4. Put higher versionCode in online version.json when you release next APK
  */
 (function () {
-  // ========== EDIT THIS EVERY NEW APK BUILD ==========
-  var CURRENT_VERSION_CODE = 215; // match the APK you are building NOW
+  // ========== EDIT EVERY TIME YOU BUILD A NEW APK ==========
+  // This number = the version INSIDE the APK you are building now.
+  // Online version.json versionCode must be HIGHER to show the popup.
+  var CURRENT_VERSION_CODE = 214;
   var VERSION_URL = 'https://nemmartv.github.io/main1/version.json';
-  // ==================================================
+  // =========================================================
 
   var STORAGE_KEY = 'pb_last_update_check';
-  var COOLDOWN_MS = 30 * 60 * 1000; // 30 min
+  var COOLDOWN_MS = 5 * 60 * 1000; // 5 min (was 30 — easier to test)
+  var DEBUG = true; // set false later to hide console logs
 
-  function isLikelyWebView() {
-    var ua = navigator.userAgent || '';
-    if (!/Android/i.test(ua)) return false;
-    if (/; wv\)/i.test(ua) || /WebView/i.test(ua)) return true;
-    if (location.protocol === 'file:' || location.protocol === 'content:') return true;
-    if (window.Capacitor || window.cordova || window.PhoneGap) return true;
+  function log() {
+    if (!DEBUG) return;
     try {
-      if (localStorage.getItem('pb_force_apk_check') === '1') return true;
+      var args = ['[PrimeBlog Update]'].concat(Array.prototype.slice.call(arguments));
+      console.log.apply(console, args);
     } catch (e) {}
-    return false;
   }
 
-  function shouldRun() {
-    return isLikelyWebView();
+  function isAndroid() {
+    return /Android/i.test(navigator.userAgent || '');
+  }
+
+  function isLikelyApp() {
+    var ua = navigator.userAgent || '';
+
+    // Force test from console
+    try {
+      if (localStorage.getItem('pb_force_apk_check') === '1') {
+        log('force flag ON');
+        return true;
+      }
+    } catch (e) {}
+
+    // Must be Android for normal use
+    if (!/Android/i.test(ua)) {
+      log('not Android — skip');
+      return false;
+    }
+
+    // Most HTML-to-APK / WebView cases:
+    // 1) Classic WebView marker
+    if (/; wv\)/i.test(ua) || /WebView/i.test(ua)) {
+      log('detected: WebView (; wv)');
+      return true;
+    }
+
+    // 2) Offline packaged (file:// or content://)
+    if (location.protocol === 'file:' || location.protocol === 'content:') {
+      log('detected: file/content protocol');
+      return true;
+    }
+
+    // 3) Cordova / Capacitor / PhoneGap
+    if (window.cordova || window.PhoneGap || window.Capacitor) {
+      log('detected: cordova/capacitor');
+      return true;
+    }
+
+    // 4) Standalone display mode
+    try {
+      if (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) {
+        log('detected: standalone');
+        return true;
+      }
+    } catch (e) {}
+
+    // 5) FALLBACK: any Android
+    // Many HTML-to-APK tools use a normal Chrome UA without "; wv"
+    // So we treat all Android as eligible. (Safe for your use case.)
+    log('detected: Android fallback (HTML-to-APK compatible)');
+    return true;
   }
 
   function shouldCheckNow() {
     try {
       var last = localStorage.getItem(STORAGE_KEY);
       if (!last) return true;
-      return Date.now() - parseInt(last, 10) > COOLDOWN_MS;
+      var ok = Date.now() - parseInt(last, 10) > COOLDOWN_MS;
+      if (!ok) log('cooldown active — skip network check');
+      return ok;
     } catch (e) {
       return true;
     }
@@ -49,14 +101,14 @@
     } catch (e) {}
   }
 
-  /**
-   * Open URL in EXTERNAL browser so Android can download the APK.
-   * WebView cannot install APKs reliably — must leave the app.
-   */
   function openExternalDownload(url) {
-    if (!url) return;
+    if (!url) {
+      log('no apkUrl');
+      return;
+    }
+    log('open download:', url);
 
-    // 1) Cordova / PhoneGap
+    // Cordova
     try {
       if (window.cordova && cordova.InAppBrowser) {
         cordova.InAppBrowser.open(url, '_system');
@@ -64,7 +116,7 @@
       }
     } catch (e) {}
 
-    // 2) Capacitor Browser plugin
+    // Capacitor
     try {
       if (window.Capacitor && Capacitor.Plugins && Capacitor.Plugins.Browser) {
         Capacitor.Plugins.Browser.open({ url: url });
@@ -72,22 +124,20 @@
       }
     } catch (e) {}
 
-    // 3) Android Intent → default browser (Chrome, etc.)
+    // Android Intent → external browser
     try {
-      var stripped = url.replace(/^https?:\/\//i, '');
+      var stripped = String(url).replace(/^https?:\/\//i, '');
       var intentUrl =
         'intent://' + stripped +
         '#Intent;scheme=https;action=android.intent.action.VIEW;' +
         'category=android.intent.category.BROWSABLE;end';
       window.location.href = intentUrl;
-      // Fallback if intent is blocked
       setTimeout(function () {
-        window.open(url, '_blank');
-      }, 400);
+        try { window.open(url, '_blank'); } catch (e2) {}
+      }, 500);
       return;
     } catch (e) {}
 
-    // 4) Last resort
     try {
       window.open(url, '_blank');
     } catch (e2) {
@@ -101,7 +151,7 @@
     css.id = 'pb-update-css';
     css.textContent = [
       '#pb-update-modal{position:fixed;inset:0;z-index:99999;font-family:system-ui,-apple-system,sans-serif;}',
-      '.pb-upd-overlay{position:absolute;inset:0;background:rgba(0,0,0,.8);display:flex;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);}',
+      '.pb-upd-overlay{position:absolute;inset:0;background:rgba(0,0,0,.82);display:flex;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);}',
       '.pb-upd-card{background:linear-gradient(160deg,#1a1a22 0%,#0e0e14 100%);color:#f0f0f0;border-radius:18px;padding:28px 22px 22px;max-width:360px;width:100%;box-shadow:0 24px 48px rgba(0,0,0,.6),0 0 0 1px rgba(255,68,68,.3);border:1px solid rgba(255,255,255,.08);animation:pbUpdIn .35s ease-out;}',
       '@keyframes pbUpdIn{from{opacity:0;transform:translateY(20px) scale(.96)}to{opacity:1;transform:none}}',
       '.pb-upd-badge{display:inline-block;background:#ff4444;color:#fff;font-size:11px;font-weight:700;letter-spacing:.08em;padding:4px 10px;border-radius:999px;margin-bottom:12px;}',
@@ -122,6 +172,7 @@
   function showModal(data) {
     if (document.getElementById('pb-update-modal')) return;
     injectStyles();
+    log('showing update modal', data.version, data.versionCode);
 
     var list = '';
     if (data.changelog && data.changelog.length) {
@@ -142,7 +193,7 @@
           '<div class="pb-upd-badge">UPDATE</div>' +
           '<h2 class="pb-upd-title">' + (data.title || 'Update Available') + '</h2>' +
           '<p class="pb-upd-ver">Version ' + (data.version || '') + '</p>' +
-          '<p class="pb-upd-msg">' + (data.message || 'A new version is available.').replace(/\n/g, '<br>') + '</p>' +
+          '<p class="pb-upd-msg">' + String(data.message || 'A new version is available.').replace(/\n/g, '<br>') + '</p>' +
           list +
           '<div class="pb-upd-actions">' +
             '<button type="button" class="pb-upd-btn pb-upd-primary" id="pb-upd-download">Download Update</button>' +
@@ -154,7 +205,6 @@
     document.body.appendChild(modal);
     document.body.style.overflow = 'hidden';
 
-    // Download → open external browser (not WebView)
     var dlBtn = document.getElementById('pb-upd-download');
     if (dlBtn) {
       dlBtn.addEventListener('click', function () {
@@ -172,26 +222,45 @@
   }
 
   function check(force) {
-    if (!shouldRun()) return;
+    log('check() called, force=', !!force);
+    log('UA=', navigator.userAgent);
+    log('protocol=', location.protocol);
+    log('CURRENT_VERSION_CODE=', CURRENT_VERSION_CODE);
+
+    if (!isLikelyApp()) {
+      log('not running as app — exit');
+      return;
+    }
+
     if (!force && !shouldCheckNow()) return;
 
-    fetch(VERSION_URL + '?t=' + Date.now(), { cache: 'no-store' })
+    log('fetching', VERSION_URL);
+
+    fetch(VERSION_URL + '?t=' + Date.now(), {
+      cache: 'no-store',
+      headers: { 'Accept': 'application/json' }
+    })
       .then(function (r) {
+        log('fetch status', r.status);
         if (!r.ok) throw new Error('HTTP ' + r.status);
         return r.json();
       })
       .then(function (data) {
         markChecked();
-        if (data.versionCode && Number(data.versionCode) > CURRENT_VERSION_CODE) {
+        log('server versionCode=', data.versionCode, 'local=', CURRENT_VERSION_CODE);
+        if (data.versionCode && Number(data.versionCode) > Number(CURRENT_VERSION_CODE)) {
           showModal(data);
+        } else {
+          log('already up to date (or server version not higher)');
         }
       })
       .catch(function (e) {
-        console.log('[Prime Blog] Update check skipped:', e.message || e);
+        log('fetch failed:', e && e.message ? e.message : e);
       });
   }
 
   function init() {
+    log('init');
     check(false);
     document.addEventListener('visibilitychange', function () {
       if (document.visibilityState === 'visible') check(false);
@@ -212,6 +281,10 @@
     },
     openDownload: openExternalDownload,
     currentVersionCode: CURRENT_VERSION_CODE,
-    isApp: shouldRun
+    isApp: isLikelyApp,
+    clearCooldown: function () {
+      try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+      log('cooldown cleared');
+    }
   };
 })();

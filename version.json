@@ -1,14 +1,14 @@
 {
-  "version": "21.5",
-  "versionCode": 215,
-  "apkUrl": "https://download1075.mediafire.com/ua8rrrreqevgxiAt0nNKsDy1EZsb6eM1wDdr4M_Dwfbv-1h2bDyBmMdIpakKVWkSH-2lHDCNiayiqauLjB6O_59XG4whAyhkufngisJgYwd4wEbIOWKHiAk_ND5r_7pJI5dSMVE7oX5puscWfmpuczhU9GiurzWKTPpGbmSWeHAPUg/9jxpqwqsohpnida/PrimeblogV25.apk",
+  "version": "21.6",
+  "versionCode": 216,
+  "apkUrl": "https://www.mediafire.com/file/9jxpqwqsohpnida/PrimeblogV25.apk/file",
   "title": "New Update Available!",
-  "message": "Prime Blog V21.5 is ready.\n• Performance boost\n• Music continuity across pages\n• Platform polish",
+  "message": "Prime Blog V21.6 is ready.\n• Better update download (opens browser)\n• Performance improvements\n• Bug fixes",
   "forceUpdate": false,
   "changelog": [
-    "Performance boost (less lag)",
-    "Music keeps playing across pages",
-    "New Features Soon!",
-    "Overall platform polish"
+    "Update button opens external browser",
+    "More reliable APK download",
+    "Performance improvements",
+    "Bug fixes"
   ]
 }
