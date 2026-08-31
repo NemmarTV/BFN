@@ -106,9 +106,18 @@
       log('no apkUrl');
       return;
     }
+    // Always use normal https — never intent:// (WebView shows ERR_UNKNOWN_URL_SCHEME)
+    url = String(url).trim();
+    if (url.indexOf('intent:') === 0) {
+      log('blocked intent url');
+      return;
+    }
+    if (!/^https?:\/\//i.test(url)) {
+      url = 'https://' + url.replace(/^\/\//, '');
+    }
     log('open download:', url);
 
-    // Cordova
+    // 1) Cordova / PhoneGap
     try {
       if (window.cordova && cordova.InAppBrowser) {
         cordova.InAppBrowser.open(url, '_system');
@@ -116,7 +125,7 @@
       }
     } catch (e) {}
 
-    // Capacitor
+    // 2) Capacitor
     try {
       if (window.Capacitor && Capacitor.Plugins && Capacitor.Plugins.Browser) {
         Capacitor.Plugins.Browser.open({ url: url });
@@ -124,23 +133,30 @@
       }
     } catch (e) {}
 
-    // Android Intent → external browser
+    // 3) <a target="_blank"> — many HTML-to-APK tools open this in external browser
     try {
-      var stripped = String(url).replace(/^https?:\/\//i, '');
-      var intentUrl =
-        'intent://' + stripped +
-        '#Intent;scheme=https;action=android.intent.action.VIEW;' +
-        'category=android.intent.category.BROWSABLE;end';
-      window.location.href = intentUrl;
+      var a = document.createElement('a');
+      a.href = url;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      a.style.display = 'none';
+      document.body.appendChild(a);
+      a.click();
       setTimeout(function () {
-        try { window.open(url, '_blank'); } catch (e2) {}
-      }, 500);
-      return;
+        try { a.remove(); } catch (e) {}
+      }, 100);
     } catch (e) {}
 
+    // 4) window.open fallback
     try {
-      window.open(url, '_blank');
-    } catch (e2) {
+      var w = window.open(url, '_blank');
+      if (w) return;
+    } catch (e) {}
+
+    // 5) Same-window navigation (last resort — stays in WebView but at least loads MediaFire)
+    try {
+      window.top.location.href = url;
+    } catch (e) {
       window.location.href = url;
     }
   }
