@@ -1,57 +1,28 @@
 /**
  * Prime Blog — APK Update Checker (Android only)
  * Runs ONLY inside Android WebView / APK.
- * Does NOT show on desktop browsers or mobile Chrome/Safari.
  *
  * WHEN YOU RELEASE A NEW APK:
  * 1. Increase versionCode in version.json (on GitHub Pages)
  * 2. Change CURRENT_VERSION_CODE below to the SAME number
  * 3. Rebuild APK with this updated file
- * 4. Upload new APK to MediaFire and put link in version.json
+ * 4. Upload new APK + update version.json apkUrl
  */
 (function () {
   // ========== EDIT THIS EVERY NEW APK BUILD ==========
-  var CURRENT_VERSION_CODE = 213;
+  var CURRENT_VERSION_CODE = 215; // match the APK you are building NOW
   var VERSION_URL = 'https://nemmartv.github.io/main1/version.json';
   // ==================================================
 
   var STORAGE_KEY = 'pb_last_update_check';
   var COOLDOWN_MS = 30 * 60 * 1000; // 30 min
 
-  function isAndroidApp() {
-    var ua = (navigator.userAgent || '').toLowerCase();
-    // Must be Android
-    if (ua.indexOf('android') === -1) return false;
-    // Exclude normal mobile browsers (Chrome, Firefox, Samsung, Opera, Edge)
-    if (/chrome\/|crios|fxios|firefox\/|edg\/|edga|samsungbrowser|opr\//.test(ua)) {
-      // Many HTML-to-APK tools use a WebView UA that still contains "Chrome"
-      // Extra signals that we are inside a WebView / standalone app:
-      var standalone = window.matchMedia && window.matchMedia('(display-mode: standalone)').matches;
-      var noBrowserUI = !window.chrome || !window.chrome.webstore; // weak signal
-      // Most reliable for packaged APKs: absence of typical browser-only objects
-      // + Android + (often) wv in UA (Android WebView)
-      if (ua.indexOf('; wv') !== -1 || ua.indexOf('webview') !== -1) return true;
-      // Fallback: if opened as file:// or custom scheme (common in offline APK)
-      if (location.protocol === 'file:' || location.protocol === 'content:') return true;
-      // Some packers keep http(s) but remove browser chrome — treat Android + no "Mobile Safari" as app
-      // Safer approach: require "; wv" OR file/content protocol OR a query flag
-      return false;
-    }
-    // Android UA without Chrome/Firefox etc. → very likely WebView
-    return true;
-  }
-
-  // Stronger Android WebView detection
   function isLikelyWebView() {
     var ua = navigator.userAgent || '';
     if (!/Android/i.test(ua)) return false;
-    // Classic WebView marker
     if (/; wv\)/i.test(ua) || /WebView/i.test(ua)) return true;
-    // Offline packaged APK (file://)
     if (location.protocol === 'file:' || location.protocol === 'content:') return true;
-    // Capacitor / Cordova / many HTML-to-APK tools
     if (window.Capacitor || window.cordova || window.PhoneGap) return true;
-    // Custom: allow force via localStorage for testing
     try {
       if (localStorage.getItem('pb_force_apk_check') === '1') return true;
     } catch (e) {}
@@ -76,6 +47,52 @@
     try {
       localStorage.setItem(STORAGE_KEY, String(Date.now()));
     } catch (e) {}
+  }
+
+  /**
+   * Open URL in EXTERNAL browser so Android can download the APK.
+   * WebView cannot install APKs reliably — must leave the app.
+   */
+  function openExternalDownload(url) {
+    if (!url) return;
+
+    // 1) Cordova / PhoneGap
+    try {
+      if (window.cordova && cordova.InAppBrowser) {
+        cordova.InAppBrowser.open(url, '_system');
+        return;
+      }
+    } catch (e) {}
+
+    // 2) Capacitor Browser plugin
+    try {
+      if (window.Capacitor && Capacitor.Plugins && Capacitor.Plugins.Browser) {
+        Capacitor.Plugins.Browser.open({ url: url });
+        return;
+      }
+    } catch (e) {}
+
+    // 3) Android Intent → default browser (Chrome, etc.)
+    try {
+      var stripped = url.replace(/^https?:\/\//i, '');
+      var intentUrl =
+        'intent://' + stripped +
+        '#Intent;scheme=https;action=android.intent.action.VIEW;' +
+        'category=android.intent.category.BROWSABLE;end';
+      window.location.href = intentUrl;
+      // Fallback if intent is blocked
+      setTimeout(function () {
+        window.open(url, '_blank');
+      }, 400);
+      return;
+    } catch (e) {}
+
+    // 4) Last resort
+    try {
+      window.open(url, '_blank');
+    } catch (e2) {
+      window.location.href = url;
+    }
   }
 
   function injectStyles() {
@@ -128,7 +145,7 @@
           '<p class="pb-upd-msg">' + (data.message || 'A new version is available.').replace(/\n/g, '<br>') + '</p>' +
           list +
           '<div class="pb-upd-actions">' +
-            '<a class="pb-upd-btn pb-upd-primary" href="' + (data.apkUrl || '#') + '" target="_blank" rel="noopener">Download Update</a>' +
+            '<button type="button" class="pb-upd-btn pb-upd-primary" id="pb-upd-download">Download Update</button>' +
             later +
           '</div>' +
         '</div>' +
@@ -136,6 +153,14 @@
 
     document.body.appendChild(modal);
     document.body.style.overflow = 'hidden';
+
+    // Download → open external browser (not WebView)
+    var dlBtn = document.getElementById('pb-upd-download');
+    if (dlBtn) {
+      dlBtn.addEventListener('click', function () {
+        openExternalDownload(data.apkUrl);
+      });
+    }
 
     var btn = document.getElementById('pb-upd-later');
     if (btn) {
@@ -179,13 +204,13 @@
     init();
   }
 
-  // Manual test (only works when already detected as APK, or set localStorage)
   window.PrimeBlogUpdate = {
     check: function () { check(true); },
     forceEnable: function () {
       try { localStorage.setItem('pb_force_apk_check', '1'); } catch (e) {}
       check(true);
     },
+    openDownload: openExternalDownload,
     currentVersionCode: CURRENT_VERSION_CODE,
     isApp: shouldRun
   };
