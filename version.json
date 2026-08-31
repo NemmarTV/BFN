@@ -1,9 +1,9 @@
 {
-  "version": "21.6",
-  "versionCode": 216,
-  "apkUrl": "https://www.mediafire.com/file/9jxpqwqsohpnida/PrimeblogV25.apk/file",
+  "version": "21.5",
+  "versionCode": 215,
+  "apkUrl": "https://www.mediafire.com/file/9jxpqwqsohpnida/PrimeblogV25.apk/file?dkey=a9edovf5jde&r=775",
   "title": "New Update Available!",
-  "message": "Prime Blog V21.6 is ready.\n• Better update download (opens browser)\n• Performance improvements\n• Bug fixes",
+  "message": "Prime Blog V21.5 is ready.\n• Better update download (opens browser)\n• Performance improvements\n• Bug fixes",
   "forceUpdate": false,
   "changelog": [
     "Update button opens external browser",
