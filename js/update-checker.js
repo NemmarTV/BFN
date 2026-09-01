@@ -1,123 +1,119 @@
 /**
  * Prime Blog — APK Update Checker
- * Fixed: works in most HTML-to-APK WebViews + online URL mode
- *
- * SETUP:
- * 1. Upload this file to: js/update-checker.js (GitHub Pages + offline ZIP)
- * 2. Upload version.json to site root
- * 3. Set CURRENT_VERSION_CODE = version of THIS APK build
- * 4. Put higher versionCode in online version.json when you release next APK
+ * - Shows update every time app opens (if newer version exists)
+ * - "Later" only hides for current session
+ * - Red (i) button to view update again anytime
+ * - Download uses https only (no intent:// errors)
  */
 (function () {
   // ========== EDIT EVERY TIME YOU BUILD A NEW APK ==========
-  // This number = the version INSIDE the APK you are building now.
-  // Online version.json versionCode must be HIGHER to show the popup.
   var CURRENT_VERSION_CODE = 214;
   var VERSION_URL = 'https://nemmartv.github.io/main1/version.json';
   // =========================================================
 
-  var STORAGE_KEY = 'pb_last_update_check';
-  var COOLDOWN_MS = 5 * 60 * 1000; // 5 min (was 30 — easier to test)
-  var DEBUG = true; // set false later to hide console logs
+  var STORAGE_PENDING = 'pb_pending_update';
+  var STORAGE_LAST_FETCH = 'pb_last_update_fetch';
+  var SESSION_DISMISS = 'pb_update_dismissed_session';
+  var FETCH_COOLDOWN_MS = 2 * 60 * 1000; // only limits network, not showing popup
+  var DEBUG = true;
+
+  var pendingData = null;
 
   function log() {
     if (!DEBUG) return;
     try {
-      var args = ['[PrimeBlog Update]'].concat(Array.prototype.slice.call(arguments));
-      console.log.apply(console, args);
+      console.log.apply(console, ['[PrimeBlog Update]'].concat([].slice.call(arguments)));
     } catch (e) {}
-  }
-
-  function isAndroid() {
-    return /Android/i.test(navigator.userAgent || '');
   }
 
   function isLikelyApp() {
     var ua = navigator.userAgent || '';
-
-    // Force test from console
     try {
-      if (localStorage.getItem('pb_force_apk_check') === '1') {
-        log('force flag ON');
-        return true;
-      }
+      if (localStorage.getItem('pb_force_apk_check') === '1') return true;
     } catch (e) {}
-
-    // Must be Android for normal use
-    if (!/Android/i.test(ua)) {
-      log('not Android — skip');
-      return false;
-    }
-
-    // Most HTML-to-APK / WebView cases:
-    // 1) Classic WebView marker
-    if (/; wv\)/i.test(ua) || /WebView/i.test(ua)) {
-      log('detected: WebView (; wv)');
-      return true;
-    }
-
-    // 2) Offline packaged (file:// or content://)
-    if (location.protocol === 'file:' || location.protocol === 'content:') {
-      log('detected: file/content protocol');
-      return true;
-    }
-
-    // 3) Cordova / Capacitor / PhoneGap
-    if (window.cordova || window.PhoneGap || window.Capacitor) {
-      log('detected: cordova/capacitor');
-      return true;
-    }
-
-    // 4) Standalone display mode
+    if (!/Android/i.test(ua)) return false;
+    if (/; wv\)/i.test(ua) || /WebView/i.test(ua)) return true;
+    if (location.protocol === 'file:' || location.protocol === 'content:') return true;
+    if (window.cordova || window.PhoneGap || window.Capacitor) return true;
     try {
-      if (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) {
-        log('detected: standalone');
-        return true;
-      }
+      if (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) return true;
     } catch (e) {}
-
-    // 5) FALLBACK: any Android
-    // Many HTML-to-APK tools use a normal Chrome UA without "; wv"
-    // So we treat all Android as eligible. (Safe for your use case.)
-    log('detected: Android fallback (HTML-to-APK compatible)');
+    // HTML-to-APK fallback: any Android
     return true;
   }
 
-  function shouldCheckNow() {
+  function loadPending() {
     try {
-      var last = localStorage.getItem(STORAGE_KEY);
+      var raw = localStorage.getItem(STORAGE_PENDING);
+      if (!raw) return null;
+      var data = JSON.parse(raw);
+      if (data && data.versionCode && Number(data.versionCode) > CURRENT_VERSION_CODE) {
+        return data;
+      }
+      localStorage.removeItem(STORAGE_PENDING);
+      return null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function savePending(data) {
+    try {
+      localStorage.setItem(STORAGE_PENDING, JSON.stringify(data));
+    } catch (e) {}
+  }
+
+  function clearPending() {
+    try {
+      localStorage.removeItem(STORAGE_PENDING);
+    } catch (e) {}
+  }
+
+  function isSessionDismissed() {
+    try {
+      return sessionStorage.getItem(SESSION_DISMISS) === '1';
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function setSessionDismissed() {
+    try {
+      sessionStorage.setItem(SESSION_DISMISS, '1');
+    } catch (e) {}
+  }
+
+  function clearSessionDismissed() {
+    try {
+      sessionStorage.removeItem(SESSION_DISMISS);
+    } catch (e) {}
+  }
+
+  function shouldFetchNetwork() {
+    try {
+      var last = localStorage.getItem(STORAGE_LAST_FETCH);
       if (!last) return true;
-      var ok = Date.now() - parseInt(last, 10) > COOLDOWN_MS;
-      if (!ok) log('cooldown active — skip network check');
-      return ok;
+      return Date.now() - parseInt(last, 10) > FETCH_COOLDOWN_MS;
     } catch (e) {
       return true;
     }
   }
 
-  function markChecked() {
+  function markFetched() {
     try {
-      localStorage.setItem(STORAGE_KEY, String(Date.now()));
+      localStorage.setItem(STORAGE_LAST_FETCH, String(Date.now()));
     } catch (e) {}
   }
 
   function openExternalDownload(url) {
-    if (!url) {
-      log('no apkUrl');
-      return;
-    }
-    // Always use normal https — never intent:// (WebView shows ERR_UNKNOWN_URL_SCHEME)
+    if (!url) return;
     url = String(url).trim();
-    if (url.indexOf('intent:') === 0) {
-      log('blocked intent url');
-      return;
-    }
+    if (url.indexOf('intent:') === 0) return;
     if (!/^https?:\/\//i.test(url)) {
       url = 'https://' + url.replace(/^\/\//, '');
     }
     log('open download:', url);
 
-    // 1) Cordova / PhoneGap
     try {
       if (window.cordova && cordova.InAppBrowser) {
         cordova.InAppBrowser.open(url, '_system');
@@ -125,7 +121,6 @@
       }
     } catch (e) {}
 
-    // 2) Capacitor
     try {
       if (window.Capacitor && Capacitor.Plugins && Capacitor.Plugins.Browser) {
         Capacitor.Plugins.Browser.open({ url: url });
@@ -133,7 +128,6 @@
       }
     } catch (e) {}
 
-    // 3) <a target="_blank"> — many HTML-to-APK tools open this in external browser
     try {
       var a = document.createElement('a');
       a.href = url;
@@ -142,18 +136,14 @@
       a.style.display = 'none';
       document.body.appendChild(a);
       a.click();
-      setTimeout(function () {
-        try { a.remove(); } catch (e) {}
-      }, 100);
+      setTimeout(function () { try { a.remove(); } catch (e) {} }, 100);
     } catch (e) {}
 
-    // 4) window.open fallback
     try {
       var w = window.open(url, '_blank');
       if (w) return;
     } catch (e) {}
 
-    // 5) Same-window navigation (last resort — stays in WebView but at least loads MediaFire)
     try {
       window.top.location.href = url;
     } catch (e) {
@@ -180,15 +170,57 @@
       '.pb-upd-btn{flex:1;text-align:center;padding:13px 10px;border-radius:11px;font-size:14px;font-weight:600;text-decoration:none;border:none;cursor:pointer;-webkit-tap-highlight-color:transparent;}',
       '.pb-upd-primary{background:linear-gradient(135deg,#ff4444,#c81e1e);color:#fff;box-shadow:0 4px 14px rgba(255,68,68,.35);}',
       '.pb-upd-secondary{background:rgba(255,255,255,.08);color:#ddd;border:1px solid rgba(255,255,255,.12);}',
-      '@media(max-width:400px){.pb-upd-actions{flex-direction:column}}'
+      '@media(max-width:400px){.pb-upd-actions{flex-direction:column}}',
+      /* Red (i) info button */
+      '#pb-update-info-btn{position:fixed;right:14px;bottom:18px;z-index:99990;width:44px;height:44px;border-radius:50%;border:none;background:linear-gradient(135deg,#ff4444,#c81e1e);color:#fff;font-size:20px;font-weight:700;font-style:italic;font-family:Georgia,serif;box-shadow:0 6px 18px rgba(255,68,68,.45);cursor:pointer;-webkit-tap-highlight-color:transparent;display:none;align-items:center;justify-content:center;line-height:1;}',
+      '#pb-update-info-btn.show{display:flex;}',
+      '#pb-update-info-btn:active{transform:scale(.94);}',
+      '#pb-update-info-btn .pb-i-dot{position:absolute;top:6px;right:6px;width:9px;height:9px;background:#fff;border-radius:50%;box-shadow:0 0 0 2px #ff4444;}'
     ].join('');
     document.head.appendChild(css);
   }
 
-  function showModal(data) {
-    if (document.getElementById('pb-update-modal')) return;
+  function ensureInfoButton() {
     injectStyles();
-    log('showing update modal', data.version, data.versionCode);
+    var btn = document.getElementById('pb-update-info-btn');
+    if (!btn) {
+      btn = document.createElement('button');
+      btn.id = 'pb-update-info-btn';
+      btn.type = 'button';
+      btn.setAttribute('aria-label', 'Update info');
+      btn.innerHTML = 'i<span class="pb-i-dot"></span>';
+      btn.addEventListener('click', function () {
+        clearSessionDismissed();
+        if (pendingData) {
+          showModal(pendingData, true);
+        } else {
+          check(true, true);
+        }
+      });
+      document.body.appendChild(btn);
+    }
+    // Show red (i) only when an update is pending
+    if (pendingData && Number(pendingData.versionCode) > CURRENT_VERSION_CODE) {
+      btn.classList.add('show');
+    } else {
+      btn.classList.remove('show');
+    }
+  }
+
+  function showModal(data, forceShow) {
+    if (!data) return;
+    if (!forceShow && isSessionDismissed()) {
+      log('session dismissed — skip auto modal (use red i button)');
+      ensureInfoButton();
+      return;
+    }
+    if (document.getElementById('pb-update-modal')) return;
+
+    injectStyles();
+    pendingData = data;
+    savePending(data);
+    ensureInfoButton();
+    log('showing modal', data.version, data.versionCode);
 
     var list = '';
     if (data.changelog && data.changelog.length) {
@@ -231,55 +263,89 @@
     var btn = document.getElementById('pb-upd-later');
     if (btn) {
       btn.addEventListener('click', function () {
+        // Only hide for THIS session — next app open shows again
+        setSessionDismissed();
         modal.remove();
         document.body.style.overflow = '';
+        ensureInfoButton(); // keep red (i) visible
+        log('dismissed for this session only');
       });
     }
   }
 
-  function check(force) {
-    log('check() called, force=', !!force);
-    log('UA=', navigator.userAgent);
-    log('protocol=', location.protocol);
-    log('CURRENT_VERSION_CODE=', CURRENT_VERSION_CODE);
+  function applyServerData(data) {
+    if (!data || !data.versionCode) return;
+    if (Number(data.versionCode) > CURRENT_VERSION_CODE) {
+      pendingData = data;
+      savePending(data);
+      showModal(data, false);
+      ensureInfoButton();
+    } else {
+      pendingData = null;
+      clearPending();
+      ensureInfoButton();
+      log('up to date');
+    }
+  }
+
+  function check(forceNetwork, forceShow) {
+    log('check forceNetwork=', !!forceNetwork, 'forceShow=', !!forceShow);
 
     if (!isLikelyApp()) {
-      log('not running as app — exit');
+      log('not app — exit');
       return;
     }
 
-    if (!force && !shouldCheckNow()) return;
+    // Always try to show cached pending update on open (unless session-dismissed)
+    var cached = loadPending();
+    if (cached) {
+      pendingData = cached;
+      ensureInfoButton();
+      showModal(cached, !!forceShow);
+    }
+
+    if (!forceNetwork && !shouldFetchNetwork()) {
+      log('skip network (cooldown)');
+      return;
+    }
 
     log('fetching', VERSION_URL);
-
     fetch(VERSION_URL + '?t=' + Date.now(), {
       cache: 'no-store',
-      headers: { 'Accept': 'application/json' }
+      headers: { Accept: 'application/json' }
     })
       .then(function (r) {
-        log('fetch status', r.status);
+        log('status', r.status);
         if (!r.ok) throw new Error('HTTP ' + r.status);
         return r.json();
       })
       .then(function (data) {
-        markChecked();
-        log('server versionCode=', data.versionCode, 'local=', CURRENT_VERSION_CODE);
-        if (data.versionCode && Number(data.versionCode) > Number(CURRENT_VERSION_CODE)) {
-          showModal(data);
-        } else {
-          log('already up to date (or server version not higher)');
-        }
+        markFetched();
+        log('server=', data.versionCode, 'local=', CURRENT_VERSION_CODE);
+        applyServerData(data);
+        if (forceShow && pendingData) showModal(pendingData, true);
       })
       .catch(function (e) {
         log('fetch failed:', e && e.message ? e.message : e);
+        // Still show cached update offline
+        if (forceShow && pendingData) showModal(pendingData, true);
       });
   }
 
   function init() {
-    log('init');
-    check(false);
+    log('init CURRENT=', CURRENT_VERSION_CODE);
+    if (!isLikelyApp()) return;
+
+    // New app open = new session → clear session dismiss so popup can show again
+    // sessionStorage already clears when process dies; this helps some WebViews
+    // that keep session oddly. On real cold start sessionStorage is empty.
+    check(true, false);
+
     document.addEventListener('visibilitychange', function () {
-      if (document.visibilityState === 'visible') check(false);
+      if (document.visibilityState === 'visible') {
+        // Coming back to app: show again if update pending and not dismissed this session
+        check(false, false);
+      }
     });
   }
 
@@ -290,17 +356,25 @@
   }
 
   window.PrimeBlogUpdate = {
-    check: function () { check(true); },
+    check: function () { check(true, true); },
     forceEnable: function () {
       try { localStorage.setItem('pb_force_apk_check', '1'); } catch (e) {}
-      check(true);
+      clearSessionDismissed();
+      check(true, true);
     },
     openDownload: openExternalDownload,
+    showAgain: function () {
+      clearSessionDismissed();
+      if (pendingData) showModal(pendingData, true);
+      else check(true, true);
+    },
     currentVersionCode: CURRENT_VERSION_CODE,
     isApp: isLikelyApp,
     clearCooldown: function () {
-      try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
-      log('cooldown cleared');
+      try {
+        localStorage.removeItem(STORAGE_LAST_FETCH);
+        clearSessionDismissed();
+      } catch (e) {}
     }
   };
 })();
