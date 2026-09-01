@@ -105,50 +105,169 @@
     } catch (e) {}
   }
 
+
+  function tryNativeOpen(url) {
+    if (!url) return false;
+    url = String(url).trim();
+    if (!/^https?:\/\//i.test(url)) url = 'https://' + url.replace(/^\/\//, '');
+    log('tryNativeOpen', url);
+    try {
+      if (window.Android) {
+        if (typeof Android.openBrowser === 'function') { Android.openBrowser(url); return true; }
+        if (typeof Android.openExternal === 'function') { Android.openExternal(url); return true; }
+        if (typeof Android.openURL === 'function') { Android.openURL(url); return true; }
+        if (typeof Android.openUrl === 'function') { Android.openUrl(url); return true; }
+      }
+    } catch (e) {}
+    try {
+      if (window.JSBridge && typeof JSBridge.openBrowser === 'function') { JSBridge.openBrowser(url); return true; }
+    } catch (e) {}
+    try {
+      if (typeof window.openBrowser === 'function') { window.openBrowser(url); return true; }
+    } catch (e) {}
+    try {
+      if (typeof window.openExternal === 'function') { window.openExternal(url); return true; }
+    } catch (e) {}
+    try {
+      if (window.cordova && cordova.InAppBrowser) { cordova.InAppBrowser.open(url, '_system'); return true; }
+    } catch (e) {}
+    try {
+      if (window.Capacitor && Capacitor.Plugins && Capacitor.Plugins.Browser) {
+        Capacitor.Plugins.Browser.open({ url: url }); return true;
+      }
+    } catch (e) {}
+    // Chrome scheme via iframe (no location.href)
+    try {
+      var iframe = document.createElement('iframe');
+      iframe.style.cssText = 'display:none;width:0;height:0;border:0;';
+      iframe.src = 'googlechrome://navigate?url=' + encodeURIComponent(url);
+      document.body.appendChild(iframe);
+      setTimeout(function () { try { iframe.remove(); } catch (e) {} }, 1200);
+    } catch (e) {}
+    return false; // let <a href> handle it
+  }
+
   function openExternalDownload(url) {
     if (!url) return;
     url = String(url).trim();
-    if (url.indexOf('intent:') === 0) return;
+    if (url.indexOf('intent:') === 0) {
+      // extract fallback https if present
+      var m = url.match(/S\.browser_fallback_url=([^;]+)/);
+      if (m) {
+        try { url = decodeURIComponent(m[1]); } catch (e) {}
+      } else {
+        return;
+      }
+    }
     if (!/^https?:\/\//i.test(url)) {
       url = 'https://' + url.replace(/^\/\//, '');
     }
-    log('open download:', url);
+    log('open external browser:', url);
 
+    // --- Native bridges used by many HTML-to-APK tools ---
+    var nativeTried = false;
+    try {
+      if (window.Android) {
+        if (typeof Android.openBrowser === 'function') { Android.openBrowser(url); nativeTried = true; }
+        else if (typeof Android.openExternal === 'function') { Android.openExternal(url); nativeTried = true; }
+        else if (typeof Android.openURL === 'function') { Android.openURL(url); nativeTried = true; }
+        else if (typeof Android.openUrl === 'function') { Android.openUrl(url); nativeTried = true; }
+        else if (typeof Android.open === 'function') { Android.open(url); nativeTried = true; }
+      }
+    } catch (e) {}
+    try {
+      if (window.JSBridge && typeof JSBridge.openBrowser === 'function') {
+        JSBridge.openBrowser(url); nativeTried = true;
+      }
+    } catch (e) {}
+    try {
+      if (typeof window.openBrowser === 'function') { window.openBrowser(url); nativeTried = true; }
+    } catch (e) {}
+    try {
+      if (typeof window.openExternal === 'function') { window.openExternal(url); nativeTried = true; }
+    } catch (e) {}
+    try {
+      if (window.webView && typeof window.webView.openBrowser === 'function') {
+        window.webView.openBrowser(url); nativeTried = true;
+      }
+    } catch (e) {}
     try {
       if (window.cordova && cordova.InAppBrowser) {
-        cordova.InAppBrowser.open(url, '_system');
-        return;
+        cordova.InAppBrowser.open(url, '_system'); nativeTried = true;
       }
     } catch (e) {}
-
     try {
       if (window.Capacitor && Capacitor.Plugins && Capacitor.Plugins.Browser) {
-        Capacitor.Plugins.Browser.open({ url: url });
-        return;
+        Capacitor.Plugins.Browser.open({ url: url }); nativeTried = true;
       }
     } catch (e) {}
 
+    if (nativeTried) {
+      log('used native bridge');
+      return;
+    }
+
+    // --- Chrome custom scheme (opens Chrome app if installed) ---
+    try {
+      var chromeUrl = 'googlechrome://navigate?url=' + encodeURIComponent(url);
+      var iframe = document.createElement('iframe');
+      iframe.style.cssText = 'display:none;width:0;height:0;border:0;';
+      iframe.src = chromeUrl;
+      document.body.appendChild(iframe);
+      setTimeout(function () { try { iframe.remove(); } catch (e) {} }, 1500);
+    } catch (e) {}
+
+    // --- Intent via hidden iframe (system may intercept; does NOT set location.href) ---
+    try {
+      var stripped = url.replace(/^https?:\/\//i, '');
+      var intentUrl =
+        'intent://' + stripped +
+        '#Intent;scheme=https;action=android.intent.action.VIEW;' +
+        'category=android.intent.category.BROWSABLE;' +
+        'package=com.android.chrome;' +
+        'S.browser_fallback_url=' + encodeURIComponent(url) + ';end';
+      var iframe2 = document.createElement('iframe');
+      iframe2.style.cssText = 'display:none;width:0;height:0;border:0;';
+      iframe2.src = intentUrl;
+      document.body.appendChild(iframe2);
+      setTimeout(function () { try { iframe2.remove(); } catch (e) {} }, 1500);
+    } catch (e) {}
+
+    // --- <a target=_blank> ---
     try {
       var a = document.createElement('a');
       a.href = url;
       a.target = '_blank';
       a.rel = 'noopener noreferrer';
+      a.setAttribute('download', '');
       a.style.display = 'none';
       document.body.appendChild(a);
       a.click();
-      setTimeout(function () { try { a.remove(); } catch (e) {} }, 100);
+      setTimeout(function () { try { a.remove(); } catch (e) {} }, 200);
     } catch (e) {}
 
-    try {
-      var w = window.open(url, '_blank');
-      if (w) return;
-    } catch (e) {}
+    // --- window.open _system / _blank ---
+    try { window.open(url, '_system'); } catch (e) {}
+    try { window.open(url, '_blank'); } catch (e) {}
 
-    try {
-      window.top.location.href = url;
-    } catch (e) {
-      window.location.href = url;
-    }
+    // NOTE: we do NOT set window.location to intent:// (causes ERR_UNKNOWN_URL_SCHEME)
+    // Last resort stays in WebView only if nothing else worked after delay
+    setTimeout(function () {
+      // If still here, show helper message inside modal area
+      try {
+        var tip = document.getElementById('pb-upd-browser-tip');
+        if (!tip) {
+          var card = document.querySelector('.pb-upd-card');
+          if (card) {
+            tip = document.createElement('p');
+            tip.id = 'pb-upd-browser-tip';
+            tip.style.cssText = 'margin:12px 0 0;font-size:12px;line-height:1.4;color:#ffb4b4;';
+            tip.innerHTML = 'If download did not open Chrome: long-press the link below → Open in browser.<br><a href="' + url + '" target="_blank" rel="noopener" style="color:#6af;word-break:break-all;">' + url + '</a>';
+            card.appendChild(tip);
+          }
+        }
+      } catch (e) {}
+    }, 800);
   }
 
   function injectStyles() {
@@ -244,7 +363,7 @@
           '<p class="pb-upd-msg">' + String(data.message || 'A new version is available.').replace(/\n/g, '<br>') + '</p>' +
           list +
           '<div class="pb-upd-actions">' +
-            '<button type="button" class="pb-upd-btn pb-upd-primary" id="pb-upd-download">Download Update</button>' +
+            '<a class="pb-upd-btn pb-upd-primary" id="pb-upd-download" href="' + (data.apkUrl || '#') + '" target="_blank" rel="noopener noreferrer">Download Update</a>' +
             later +
           '</div>' +
         '</div>' +
@@ -255,8 +374,14 @@
 
     var dlBtn = document.getElementById('pb-upd-download');
     if (dlBtn) {
-      dlBtn.addEventListener('click', function () {
-        openExternalDownload(data.apkUrl);
+      dlBtn.addEventListener('click', function (e) {
+        // Try native / chrome open first; if none work, allow normal <a> navigation
+        // (external domain → HTML-to-APK "open external links in browser" setting)
+        var handled = tryNativeOpen(data.apkUrl);
+        if (handled) {
+          e.preventDefault();
+        }
+        // else: default <a target=_blank href=https://mediafire...> 
       });
     }
 
