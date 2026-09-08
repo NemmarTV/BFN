@@ -8,39 +8,13 @@
 (function () {
   const root = document.documentElement;
 
-  // ---------- Theme ----------
-  const THEME_KEY = "lu_theme";
-  const themeToggle = document.querySelector("[data-theme-toggle]");
-
-  function setTheme(theme) {
-    root.setAttribute("data-theme", theme);
-    localStorage.setItem(THEME_KEY, theme);
-
-    // Update icon (simple)
-    if (themeToggle) {
-      const icon = themeToggle.querySelector(".theme-icon");
-      if (icon) icon.textContent = theme === "light" ? "☀" : "☾";
-    }
-  }
-
+    // ---------- Theme — always dark (no toggle) ----------
   function initTheme() {
-    const saved = localStorage.getItem(THEME_KEY);
-    if (saved === "light" || saved === "dark") {
-      setTheme(saved);
-      return;
-    }
-    // Default dark
-    setTheme("dark");
+    root.setAttribute("data-theme", "dark");
+    try { localStorage.setItem("lu_theme", "dark"); } catch (e) {}
   }
-
-  if (themeToggle) {
-    themeToggle.addEventListener("click", () => {
-      const current = root.getAttribute("data-theme") || "dark";
-      setTheme(current === "dark" ? "light" : "dark");
-    });
-  }
-
   initTheme();
+
 
   // ---------- Mobile Menu ----------
   const navToggle = document.querySelector(".nav-toggle");

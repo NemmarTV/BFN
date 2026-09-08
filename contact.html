@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
-  <meta name="theme-color" content="#0B1020" />
+  <meta name="theme-color" content="#2c2c54" />
  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Support — Prime Blog</title>
   <link rel="icon" href="images/pt-logo.png" />
@@ -34,7 +34,6 @@
           <a href="contact.html" data-nav="contact">Support</a>
         </div>
         <a href="https://discord.gg/FweAccztUr" class="btn-discord" target="_blank" rel="noopener">Discord</a>
-        <button class="theme-toggle" data-theme-toggle aria-label="Toggle theme"><span class="theme-icon">☾</span></button>
         <button class="nav-toggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
       </div>
     </nav>
@@ -185,6 +184,11 @@
       var done = document.getElementById("supDone");
       var btn = document.getElementById("btnSupport");
 
+      // 1-minute cooldown + one-time contact limit (survives page refresh)
+      var COOLDOWN_MS = 60 * 1000;
+      var KEY_LAST = "pb_support_last_submit";
+      var KEY_USED = "pb_support_used_once";
+
       function v(id) {
         var el = document.getElementById(id);
         return el ? el.value.trim() : "";
@@ -198,8 +202,90 @@
           "var(--text-muted)";
       }
 
+      function getRemainingCooldown() {
+        var last = parseInt(localStorage.getItem(KEY_LAST) || "0", 10);
+        if (!last) return 0;
+        var left = COOLDOWN_MS - (Date.now() - last);
+        return left > 0 ? left : 0;
+      }
+
+      function hasUsedOnce() {
+        return localStorage.getItem(KEY_USED) === "1";
+      }
+
+      function formatMs(ms) {
+        return Math.ceil(ms / 1000) + "s";
+      }
+
+      function lockForm(msg) {
+        btn.disabled = true;
+        btn.textContent = "Unavailable";
+        form.querySelectorAll("input, select, textarea, button[type=reset]").forEach(function (el) {
+          el.disabled = true;
+        });
+        setStatus(msg, "err");
+      }
+
+      function applyCooldownUI() {
+        if (hasUsedOnce()) {
+          lockForm("You can only send 1 message. Contact already used.");
+          done.style.display = "block";
+          return true;
+        }
+        var left = getRemainingCooldown();
+        if (left > 0) {
+          btn.disabled = true;
+          btn.textContent = "Wait " + formatMs(left);
+          setStatus("Please wait " + formatMs(left) + " before sending again. Timer continues if you refresh.", "wait");
+          return true;
+        }
+        return false;
+      }
+
+      var cooldownTimer = null;
+      function startCooldownTicker() {
+        if (cooldownTimer) clearInterval(cooldownTimer);
+        cooldownTimer = setInterval(function () {
+          if (hasUsedOnce()) {
+            clearInterval(cooldownTimer);
+            lockForm("You can only send 1 message. Contact already used.");
+            return;
+          }
+          var left = getRemainingCooldown();
+          if (left <= 0) {
+            clearInterval(cooldownTimer);
+            btn.disabled = false;
+            btn.textContent = "Send to Discord";
+            setStatus("");
+            return;
+          }
+          btn.disabled = true;
+          btn.textContent = "Wait " + formatMs(left);
+          setStatus("Please wait " + formatMs(left) + " before sending again. Timer continues if you refresh.", "wait");
+        }, 500);
+      }
+
+      if (applyCooldownUI()) {
+        startCooldownTicker();
+      }
+
       form.addEventListener("submit", function (e) {
         e.preventDefault();
+
+        if (hasUsedOnce()) {
+          lockForm("You can only send 1 message. Contact already used.");
+          return;
+        }
+
+        var left = getRemainingCooldown();
+        if (left > 0) {
+          setStatus("Please wait " + formatMs(left) + " before sending again.", "wait");
+          btn.disabled = true;
+          btn.textContent = "Wait " + formatMs(left);
+          startCooldownTicker();
+          return;
+        }
+
         if (!form.checkValidity()) {
           form.reportValidity();
           return;
@@ -216,7 +302,7 @@
           embeds: [{
             title: "Support / Contact Form",
             description: "From **Prime Blog** · contact.html",
-            color: 0x0EA5E9,
+            color: 0x40407a,
             fields: [
               { name: "Name", value: v("supName") || "—", inline: true },
               { name: "Discord", value: "```" + v("supDiscord") + "```", inline: true },
@@ -246,15 +332,16 @@
             throw new Error("Discord " + res.status);
           })
           .then(function () {
+            localStorage.setItem(KEY_USED, "1");
+            localStorage.setItem(KEY_LAST, String(Date.now()));
             setStatus("");
             done.style.display = "block";
             form.reset();
+            lockForm("You can only send 1 message. Contact already used.");
             done.scrollIntoView({ behavior: "smooth", block: "nearest" });
           })
           .catch(function (err) {
             setStatus("Failed: " + (err.message || "network error"), "err");
-          })
-          .finally(function () {
             btn.disabled = false;
             btn.textContent = "Send to Discord";
           });
@@ -270,6 +357,11 @@
       var done = document.getElementById("subDone");
       var btn = document.getElementById("btnSubscribe");
 
+      // 1-minute cooldown + one-time subscribe limit (survives page refresh)
+      var COOLDOWN_MS = 60 * 1000;
+      var KEY_LAST = "pb_subscribe_last_submit";
+      var KEY_USED = "pb_subscribe_used_once";
+
       function setStatus(msg, kind) {
         status.textContent = msg || "";
         status.style.color =
@@ -279,8 +371,90 @@
           "var(--text-muted)";
       }
 
+      function getRemainingCooldown() {
+        var last = parseInt(localStorage.getItem(KEY_LAST) || "0", 10);
+        if (!last) return 0;
+        var left = COOLDOWN_MS - (Date.now() - last);
+        return left > 0 ? left : 0;
+      }
+
+      function hasUsedOnce() {
+        return localStorage.getItem(KEY_USED) === "1";
+      }
+
+      function formatMs(ms) {
+        return Math.ceil(ms / 1000) + "s";
+      }
+
+      function lockForm(msg) {
+        btn.disabled = true;
+        btn.textContent = "Unavailable";
+        form.querySelectorAll("input, button").forEach(function (el) {
+          el.disabled = true;
+        });
+        setStatus(msg, "err");
+      }
+
+      function applyCooldownUI() {
+        if (hasUsedOnce()) {
+          lockForm("You can only subscribe 1 time. Already subscribed.");
+          done.style.display = "block";
+          return true;
+        }
+        var left = getRemainingCooldown();
+        if (left > 0) {
+          btn.disabled = true;
+          btn.textContent = "Wait " + formatMs(left);
+          setStatus("Please wait " + formatMs(left) + " before trying again. Timer continues if you refresh.", "wait");
+          return true;
+        }
+        return false;
+      }
+
+      var cooldownTimer = null;
+      function startCooldownTicker() {
+        if (cooldownTimer) clearInterval(cooldownTimer);
+        cooldownTimer = setInterval(function () {
+          if (hasUsedOnce()) {
+            clearInterval(cooldownTimer);
+            lockForm("You can only subscribe 1 time. Already subscribed.");
+            return;
+          }
+          var left = getRemainingCooldown();
+          if (left <= 0) {
+            clearInterval(cooldownTimer);
+            btn.disabled = false;
+            btn.textContent = "Subscribe";
+            setStatus("");
+            return;
+          }
+          btn.disabled = true;
+          btn.textContent = "Wait " + formatMs(left);
+          setStatus("Please wait " + formatMs(left) + " before trying again. Timer continues if you refresh.", "wait");
+        }, 500);
+      }
+
+      if (applyCooldownUI()) {
+        startCooldownTicker();
+      }
+
       form.addEventListener("submit", function (e) {
         e.preventDefault();
+
+        if (hasUsedOnce()) {
+          lockForm("You can only subscribe 1 time. Already subscribed.");
+          return;
+        }
+
+        var left = getRemainingCooldown();
+        if (left > 0) {
+          setStatus("Please wait " + formatMs(left) + " before trying again.", "wait");
+          btn.disabled = true;
+          btn.textContent = "Wait " + formatMs(left);
+          startCooldownTicker();
+          return;
+        }
+
         var name = (document.getElementById("subName").value || "").trim();
         var email = (document.getElementById("subEmail").value || "").trim();
         if (!name || !email) {
@@ -305,7 +479,7 @@
           embeds: [{
             title: "Newsletter Subscribe",
             description: "From **Prime Blog** · contact.html",
-            color: 0x3B82F6,
+            color: 0x40407a,
             fields: [
               { name: "Name", value: name, inline: true },
               { name: "Email", value: "```" + email + "```", inline: true }
@@ -332,14 +506,15 @@
             throw new Error("Discord " + res.status);
           })
           .then(function () {
+            localStorage.setItem(KEY_USED, "1");
+            localStorage.setItem(KEY_LAST, String(Date.now()));
             setStatus("");
             done.style.display = "block";
             form.reset();
+            lockForm("You can only subscribe 1 time. Already subscribed.");
           })
           .catch(function (err) {
             setStatus("Failed: " + (err.message || "network error"), "err");
-          })
-          .finally(function () {
             btn.disabled = false;
             btn.textContent = "Subscribe";
           });

@@ -11,26 +11,27 @@
   --pb-blue: #5B8CFF;
   --pb-cyan: #00E5FF;
   --pb-gold: #F0B429;
-  --pb-purple: #A855F7;
+  --pb-purple: #40407a;
   --pb-electric: #3B82F6;
 
-  --bg: #0B1020;
-  --bg2: #111827;
-  --bg3: #0F1629;
-  --surface: rgba(255, 255, 255, 0.04);
-  --surface2: rgba(255, 255, 255, 0.07);
-  --surface3: rgba(255, 255, 255, 0.1);
-  --border: rgba(255, 255, 255, 0.08);
-  --border-strong: rgba(255, 255, 255, 0.14);
+  /* Jacksons Purple #40407a · Lucky Point #2c2c54 */
+  --bg: #2c2c54;
+  --bg2: #40407a;
+  --bg3: #252547;
+  --surface: rgba(255, 255, 255, 0.05);
+  --surface2: rgba(255, 255, 255, 0.08);
+  --surface3: rgba(255, 255, 255, 0.12);
+  --border: rgba(255, 255, 255, 0.1);
+  --border-strong: rgba(255, 255, 255, 0.16);
 
   --text: #F8FAFC;
-  --text-secondary: #94A3B8;
-  --text-muted: #64748B;
+  --text-secondary: #C4C4D4;
+  --text-muted: #8B8BA8;
 
   --glow-crimson: 0 0 30px rgba(255, 45, 85, 0.45);
   --glow-blue: 0 0 30px rgba(91, 140, 255, 0.4);
   --glow-cyan: 0 0 30px rgba(0, 229, 255, 0.35);
-  --glow-dual: 0 0 40px rgba(255, 45, 85, 0.25), 0 0 80px rgba(91, 140, 255, 0.2);
+  --glow-dual: 0 0 40px rgba(64, 64, 122, 0.35), 0 0 80px rgba(44, 44, 84, 0.3);
 
   --radius: 20px;
   --radius-sm: 12px;
@@ -94,10 +95,10 @@ body {
   inset: 0;
   z-index: -2;
   background:
-    radial-gradient(ellipse 80% 50% at 20% -10%, rgba(255, 45, 85, 0.18), transparent 50%),
-    radial-gradient(ellipse 70% 40% at 85% 10%, rgba(91, 140, 255, 0.14), transparent 50%),
-    radial-gradient(ellipse 60% 50% at 50% 100%, rgba(0, 229, 255, 0.08), transparent 55%),
-    linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
+    radial-gradient(ellipse 80% 50% at 20% -10%, rgba(64, 64, 122, 0.45), transparent 50%),
+    radial-gradient(ellipse 70% 40% at 85% 10%, rgba(44, 44, 84, 0.5), transparent 50%),
+    radial-gradient(ellipse 60% 50% at 50% 100%, rgba(64, 64, 122, 0.25), transparent 55%),
+    linear-gradient(180deg, #2c2c54 0%, #40407a 50%, #2c2c54 100%);
   /* background-attachment: fixed; disabled for FPS */
 }
 .pb-bg::after {
@@ -397,7 +398,7 @@ html[data-theme="light"] .site-header.scrolled {
     max-height: min(70vh, calc(100dvh - var(--nav-h) - 24px));
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    background: rgba(11, 16, 32, 0.98);
+    background: rgba(44, 44, 84, 0.98);
     border: 1px solid var(--border-strong);
     border-radius: var(--radius);
     padding: 12px;

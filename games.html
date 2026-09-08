@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
-  <meta name="theme-color" content="#0B1020" />
+  <meta name="theme-color" content="#2c2c54" />
  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="description" content="Discover our games — Talisman Online, iDatePH Boriwak, AQW Private by Prime Blog." />
   <title>Games — Prime Blog</title>
@@ -139,7 +139,7 @@
       border-radius: 99px;
       overflow: hidden;
     }
-    html[data-theme="light"] .game-progress-bar { background: rgba(0,0,0,0.08); }
+    html[data-theme="dark"] .game-progress-bar { background: rgba(0,0,0,0.08); }
     .game-progress-fill {
       height: 100%;
       border-radius: 99px;
@@ -148,6 +148,7 @@
     .game-progress-fill.p1 { width: 1%; background: linear-gradient(90deg, #ef4444, #f97316); }
     .game-progress-fill.p10 { width: 10%; background: linear-gradient(90deg, #f59e0b, #eab308); }
     .game-progress-fill.p50 { width: 50%; background: linear-gradient(90deg, #f59e0b, #22c55e); }
+    .game-progress-fill.p80 { width: 80%; background: linear-gradient(90deg, #22c55e, #16a34a); }
     .game-note {
       font-size: 0.78rem;
       color: var(--text-muted);
@@ -206,7 +207,6 @@
           <a href="contact.html" data-nav="contact">Support</a>
         </div>
         <a href="contact.html" class="btn-discord" title="Discord server locked — DM owner">Discord 🔒</a>
-        <button class="theme-toggle" data-theme-toggle aria-label="Toggle theme"><span class="theme-icon">☾</span></button>
         <button class="nav-toggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
       </div>
     </nav>
@@ -291,10 +291,11 @@
           </div>
         </article>
 
-        <!-- AQW Private — Offline / 10% -->
+        <!-- AQW Private — Offline / 80% -->
         <article class="game-card hover-rise reveal reveal-delay-2">
-          <div class="game-thumb">
-            <div class="placeholder">AQW PRIVATE</div>
+          <div class="game-thumb" style="background:#000;">
+            <img src="images/aqwprime.png" alt="AQW Private" style="object-fit:contain;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+            <div class="placeholder" style="display:none;">AQW PRIVATE</div>
           </div>
           <div class="game-body">
             <div class="game-title-row">
@@ -306,10 +307,10 @@
               Adventure · Offline
             </div>
             <div class="game-progress">
-              <div class="game-progress-label"><span>Development</span><span>10%</span></div>
-              <div class="game-progress-bar"><div class="game-progress-fill p10"></div></div>
+              <div class="game-progress-label"><span>Development</span><span>80%</span></div>
+              <div class="game-progress-bar"><div class="game-progress-fill p80"></div></div>
             </div>
-            <p class="game-note">Early development only. Not available for play yet.</p>
+            <p class="game-note">Nearly complete — still offline. Not available for play yet.</p>
             <div class="game-tags">
               <span class="chip">Adventure</span>
               <span class="chip">Multiplayer</span>

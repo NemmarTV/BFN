@@ -11,33 +11,10 @@
   });
 
 
-  // Theme
-  const THEME_KEY = "pb_theme";
-  const themeToggle = document.querySelector("[data-theme-toggle]");
-
-  function setTheme(theme) {
-    root.setAttribute("data-theme", theme);
-    localStorage.setItem(THEME_KEY, theme);
-    if (themeToggle) {
-      const icon = themeToggle.querySelector(".theme-icon");
-      if (icon) icon.textContent = theme === "light" ? "☀" : "☾";
-    }
-  }
-
+  // Theme — always dark (no toggle)
   function initTheme() {
-    const saved = localStorage.getItem(THEME_KEY);
-    if (saved === "light" || saved === "dark") {
-      setTheme(saved);
-      return;
-    }
-    setTheme("light");
-  }
-
-  if (themeToggle) {
-    themeToggle.addEventListener("click", () => {
-      const current = root.getAttribute("data-theme") || "light";
-      setTheme(current === "dark" ? "light" : "dark");
-    });
+    root.setAttribute("data-theme", "dark");
+    try { localStorage.setItem("pb_theme", "dark"); } catch (e) {}
   }
   initTheme();
 
